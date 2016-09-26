@@ -19,7 +19,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        stopRecordingButton.isEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +55,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         print("stop recording pressed")
         recordButton.isEnabled = true
         audioRecorder.stop()
+        stopRecordingButton.isEnabled = false
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
