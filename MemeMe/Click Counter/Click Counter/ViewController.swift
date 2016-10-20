@@ -57,6 +57,7 @@ class ViewController: UIViewController {
         self.count += 1
         self.label.text = "\(self.count)"
         self.label2.text = "\(self.count)"
+        //change background to green when inc
         self.view.backgroundColor = UIColor.green
     }
     
@@ -65,6 +66,7 @@ class ViewController: UIViewController {
         self.count -= 1
         self.label.text = "\(self.count)"
         self.label2.text = "\(self.count)"
+        //change background to purple when dec
         self.view.backgroundColor = UIColor.purple
     }
 
