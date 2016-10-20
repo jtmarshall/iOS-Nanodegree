@@ -1,0 +1,520 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		095222A61DB96EF9000DA6E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095222A51DB96EF9000DA6E4 /* AppDelegate.swift */; };
+		095222A81DB96EF9000DA6E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095222A71DB96EF9000DA6E4 /* ViewController.swift */; };
+		095222AD1DB96EF9000DA6E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095222AC1DB96EF9000DA6E4 /* Assets.xcassets */; };
+		095222B01DB96EF9000DA6E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 095222AE1DB96EF9000DA6E4 /* LaunchScreen.storyboard */; };
+		095222BB1DB96EF9000DA6E4 /* JordansColorMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095222BA1DB96EF9000DA6E4 /* JordansColorMakerTests.swift */; };
+		095222C61DB96EF9000DA6E4 /* JordansColorMakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095222C51DB96EF9000DA6E4 /* JordansColorMakerUITests.swift */; };
+		095222D41DB96F4A000DA6E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 095222D31DB96F4A000DA6E4 /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		095222B71DB96EF9000DA6E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0952229A1DB96EF9000DA6E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 095222A11DB96EF9000DA6E4;
+			remoteInfo = JordansColorMaker;
+		};
+		095222C21DB96EF9000DA6E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0952229A1DB96EF9000DA6E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 095222A11DB96EF9000DA6E4;
+			remoteInfo = JordansColorMaker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		095222A21DB96EF9000DA6E4 /* JordansColorMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JordansColorMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		095222A51DB96EF9000DA6E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		095222A71DB96EF9000DA6E4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		095222AC1DB96EF9000DA6E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		095222AF1DB96EF9000DA6E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		095222B11DB96EF9000DA6E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		095222B61DB96EF9000DA6E4 /* JordansColorMakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JordansColorMakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		095222BA1DB96EF9000DA6E4 /* JordansColorMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JordansColorMakerTests.swift; sourceTree = "<group>"; };
+		095222BC1DB96EF9000DA6E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		095222C11DB96EF9000DA6E4 /* JordansColorMakerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JordansColorMakerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		095222C51DB96EF9000DA6E4 /* JordansColorMakerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JordansColorMakerUITests.swift; sourceTree = "<group>"; };
+		095222C71DB96EF9000DA6E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		095222D31DB96F4A000DA6E4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0952229F1DB96EF9000DA6E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		095222B31DB96EF9000DA6E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		095222BE1DB96EF9000DA6E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		095222991DB96EF9000DA6E4 = {
+			isa = PBXGroup;
+			children = (
+				095222A41DB96EF9000DA6E4 /* JordansColorMaker */,
+				095222B91DB96EF9000DA6E4 /* JordansColorMakerTests */,
+				095222C41DB96EF9000DA6E4 /* JordansColorMakerUITests */,
+				095222A31DB96EF9000DA6E4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		095222A31DB96EF9000DA6E4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				095222A21DB96EF9000DA6E4 /* JordansColorMaker.app */,
+				095222B61DB96EF9000DA6E4 /* JordansColorMakerTests.xctest */,
+				095222C11DB96EF9000DA6E4 /* JordansColorMakerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		095222A41DB96EF9000DA6E4 /* JordansColorMaker */ = {
+			isa = PBXGroup;
+			children = (
+				095222A51DB96EF9000DA6E4 /* AppDelegate.swift */,
+				095222A71DB96EF9000DA6E4 /* ViewController.swift */,
+				095222D31DB96F4A000DA6E4 /* Main.storyboard */,
+				095222AC1DB96EF9000DA6E4 /* Assets.xcassets */,
+				095222AE1DB96EF9000DA6E4 /* LaunchScreen.storyboard */,
+				095222B11DB96EF9000DA6E4 /* Info.plist */,
+			);
+			path = JordansColorMaker;
+			sourceTree = "<group>";
+		};
+		095222B91DB96EF9000DA6E4 /* JordansColorMakerTests */ = {
+			isa = PBXGroup;
+			children = (
+				095222BA1DB96EF9000DA6E4 /* JordansColorMakerTests.swift */,
+				095222BC1DB96EF9000DA6E4 /* Info.plist */,
+			);
+			path = JordansColorMakerTests;
+			sourceTree = "<group>";
+		};
+		095222C41DB96EF9000DA6E4 /* JordansColorMakerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				095222C51DB96EF9000DA6E4 /* JordansColorMakerUITests.swift */,
+				095222C71DB96EF9000DA6E4 /* Info.plist */,
+			);
+			path = JordansColorMakerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		095222A11DB96EF9000DA6E4 /* JordansColorMaker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 095222CA1DB96EF9000DA6E4 /* Build configuration list for PBXNativeTarget "JordansColorMaker" */;
+			buildPhases = (
+				0952229E1DB96EF9000DA6E4 /* Sources */,
+				0952229F1DB96EF9000DA6E4 /* Frameworks */,
+				095222A01DB96EF9000DA6E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JordansColorMaker;
+			productName = JordansColorMaker;
+			productReference = 095222A21DB96EF9000DA6E4 /* JordansColorMaker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		095222B51DB96EF9000DA6E4 /* JordansColorMakerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 095222CD1DB96EF9000DA6E4 /* Build configuration list for PBXNativeTarget "JordansColorMakerTests" */;
+			buildPhases = (
+				095222B21DB96EF9000DA6E4 /* Sources */,
+				095222B31DB96EF9000DA6E4 /* Frameworks */,
+				095222B41DB96EF9000DA6E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				095222B81DB96EF9000DA6E4 /* PBXTargetDependency */,
+			);
+			name = JordansColorMakerTests;
+			productName = JordansColorMakerTests;
+			productReference = 095222B61DB96EF9000DA6E4 /* JordansColorMakerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		095222C01DB96EF9000DA6E4 /* JordansColorMakerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 095222D01DB96EF9000DA6E4 /* Build configuration list for PBXNativeTarget "JordansColorMakerUITests" */;
+			buildPhases = (
+				095222BD1DB96EF9000DA6E4 /* Sources */,
+				095222BE1DB96EF9000DA6E4 /* Frameworks */,
+				095222BF1DB96EF9000DA6E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				095222C31DB96EF9000DA6E4 /* PBXTargetDependency */,
+			);
+			name = JordansColorMakerUITests;
+			productName = JordansColorMakerUITests;
+			productReference = 095222C11DB96EF9000DA6E4 /* JordansColorMakerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0952229A1DB96EF9000DA6E4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Jordan ";
+				TargetAttributes = {
+					095222A11DB96EF9000DA6E4 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					095222B51DB96EF9000DA6E4 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 095222A11DB96EF9000DA6E4;
+					};
+					095222C01DB96EF9000DA6E4 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 095222A11DB96EF9000DA6E4;
+					};
+				};
+			};
+			buildConfigurationList = 0952229D1DB96EF9000DA6E4 /* Build configuration list for PBXProject "JordansColorMaker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 095222991DB96EF9000DA6E4;
+			productRefGroup = 095222A31DB96EF9000DA6E4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				095222A11DB96EF9000DA6E4 /* JordansColorMaker */,
+				095222B51DB96EF9000DA6E4 /* JordansColorMakerTests */,
+				095222C01DB96EF9000DA6E4 /* JordansColorMakerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		095222A01DB96EF9000DA6E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				095222B01DB96EF9000DA6E4 /* LaunchScreen.storyboard in Resources */,
+				095222AD1DB96EF9000DA6E4 /* Assets.xcassets in Resources */,
+				095222D41DB96F4A000DA6E4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		095222B41DB96EF9000DA6E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		095222BF1DB96EF9000DA6E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0952229E1DB96EF9000DA6E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				095222A81DB96EF9000DA6E4 /* ViewController.swift in Sources */,
+				095222A61DB96EF9000DA6E4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		095222B21DB96EF9000DA6E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				095222BB1DB96EF9000DA6E4 /* JordansColorMakerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		095222BD1DB96EF9000DA6E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				095222C61DB96EF9000DA6E4 /* JordansColorMakerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		095222B81DB96EF9000DA6E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 095222A11DB96EF9000DA6E4 /* JordansColorMaker */;
+			targetProxy = 095222B71DB96EF9000DA6E4 /* PBXContainerItemProxy */;
+		};
+		095222C31DB96EF9000DA6E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 095222A11DB96EF9000DA6E4 /* JordansColorMaker */;
+			targetProxy = 095222C21DB96EF9000DA6E4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		095222AE1DB96EF9000DA6E4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				095222AF1DB96EF9000DA6E4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		095222C81DB96EF9000DA6E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		095222C91DB96EF9000DA6E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		095222CB1DB96EF9000DA6E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JordansColorMaker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.JordansColorMaker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		095222CC1DB96EF9000DA6E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JordansColorMaker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.JordansColorMaker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		095222CE1DB96EF9000DA6E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = JordansColorMakerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.JordansColorMakerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JordansColorMaker.app/JordansColorMaker";
+			};
+			name = Debug;
+		};
+		095222CF1DB96EF9000DA6E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = JordansColorMakerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.JordansColorMakerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JordansColorMaker.app/JordansColorMaker";
+			};
+			name = Release;
+		};
+		095222D11DB96EF9000DA6E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = JordansColorMakerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.JordansColorMakerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = JordansColorMaker;
+			};
+			name = Debug;
+		};
+		095222D21DB96EF9000DA6E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = JordansColorMakerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.JordansColorMakerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = JordansColorMaker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0952229D1DB96EF9000DA6E4 /* Build configuration list for PBXProject "JordansColorMaker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				095222C81DB96EF9000DA6E4 /* Debug */,
+				095222C91DB96EF9000DA6E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		095222CA1DB96EF9000DA6E4 /* Build configuration list for PBXNativeTarget "JordansColorMaker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				095222CB1DB96EF9000DA6E4 /* Debug */,
+				095222CC1DB96EF9000DA6E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		095222CD1DB96EF9000DA6E4 /* Build configuration list for PBXNativeTarget "JordansColorMakerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				095222CE1DB96EF9000DA6E4 /* Debug */,
+				095222CF1DB96EF9000DA6E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		095222D01DB96EF9000DA6E4 /* Build configuration list for PBXNativeTarget "JordansColorMakerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				095222D11DB96EF9000DA6E4 /* Debug */,
+				095222D21DB96EF9000DA6E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0952229A1DB96EF9000DA6E4 /* Project object */;
+}
