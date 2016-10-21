@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Roll View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="RollViewController" customModule="Dice_Incomplete" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CI-ro-g3x">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8Fp-fd-Z9X"/>
+                                    <constraint firstAttribute="width" constant="186" id="rfV-ro-5cd"/>
+                                </constraints>
+                                <state key="normal" title="Roll The Dice!">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="qUR-90-axl" kind="modal" identifier="rollDice" id="aGp-IY-qQ2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="0CI-ro-g3x" secondAttribute="centerX" id="E9c-st-9Hg"/>
+                            <constraint firstAttribute="centerY" secondItem="0CI-ro-g3x" secondAttribute="centerY" id="icH-2t-PDN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="248.53333333333333" y="879.45333333333338"/>
+        </scene>
+        <!--Dice View Controller-->
+        <scene sceneID="Kym-1j-YxR">
+            <objects>
+                <viewController storyboardIdentifier="DiceViewController" id="qUR-90-axl" customClass="DiceViewController" customModule="Dice_Incomplete" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eMi-Yn-wj3"/>
+                        <viewControllerLayoutGuide type="bottom" id="SdN-wF-iDE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rXr-oK-49d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="d1" translatesAutoresizingMaskIntoConstraints="NO" id="r8F-NY-C0r">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="oHf-sk-rOW"/>
+                                    <constraint firstAttribute="width" constant="100" id="tFr-I0-E3T"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuk-Od-dyq">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="42p-k4-l3U"/>
+                                    <constraint firstAttribute="width" constant="65" id="cWC-Lx-iXP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" red="0.0" green="1" blue="0.50196081399917603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss" destination="qUR-90-axl" eventType="touchUpInside" id="eNv-iK-9rE"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="d5" translatesAutoresizingMaskIntoConstraints="NO" id="auL-3f-b4I">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="9I0-9d-XYF"/>
+                                    <constraint firstAttribute="height" constant="100" id="rvP-os-ciZ"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="wuk-Od-dyq" secondAttribute="centerX" id="CBn-Gl-nZH"/>
+                            <constraint firstAttribute="centerX" secondItem="r8F-NY-C0r" secondAttribute="centerX" id="cWz-Qd-eDh"/>
+                            <constraint firstItem="wuk-Od-dyq" firstAttribute="top" secondItem="auL-3f-b4I" secondAttribute="bottom" constant="154" id="dYJ-9S-C1v"/>
+                            <constraint firstItem="auL-3f-b4I" firstAttribute="top" secondItem="r8F-NY-C0r" secondAttribute="bottom" constant="22" id="njM-YW-Qfd"/>
+                            <constraint firstItem="r8F-NY-C0r" firstAttribute="top" secondItem="eMi-Yn-wj3" secondAttribute="bottom" constant="108" id="vMZ-gn-iAT"/>
+                            <constraint firstAttribute="centerX" secondItem="auL-3f-b4I" secondAttribute="centerX" id="xkQ-We-rSX"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="o8S-Co-8tn" appends="YES" id="qTe-qd-igR"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="2Pg-Ln-8Ev"/>
+                    <connections>
+                        <outlet property="firstDie" destination="r8F-NY-C0r" id="3Xg-2o-Wy0"/>
+                        <outlet property="secondDie" destination="auL-3f-b4I" id="OxT-Sm-otJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ckr-Co-O4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="o8S-Co-8tn"/>
+            </objects>
+            <point key="canvasLocation" x="733" y="879"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="d1" width="100" height="100"/>
+        <image name="d5" width="100" height="100"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>
