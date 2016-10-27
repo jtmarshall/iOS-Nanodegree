@@ -24,6 +24,7 @@
                                 <state key="normal" image="rock"/>
                                 <connections>
                                     <action selector="pickRock" destination="BYZ-38-t0r" eventType="touchUpInside" id="aOy-yN-bu5"/>
+                                    <segue destination="Vet-ab-Keu" kind="presentation" id="oBu-WU-mfn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Raq-GC-YyJ" userLabel="Scissors">
@@ -32,6 +33,7 @@
                                 <state key="normal" image="scissors"/>
                                 <connections>
                                     <action selector="pickScissors" destination="BYZ-38-t0r" eventType="touchUpInside" id="aYU-li-WS4"/>
+                                    <segue destination="Vet-ab-Keu" kind="presentation" id="4HX-5u-nKu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WDy-9W-gSA" userLabel="Paper">
@@ -40,14 +42,12 @@
                                 <state key="normal" image="paper"/>
                                 <connections>
                                     <action selector="pickPaper" destination="BYZ-38-t0r" eventType="touchUpInside" id="5d4-KY-av4"/>
+                                    <segue destination="Vet-ab-Keu" kind="presentation" id="n7o-P1-NnT"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="Vet-ab-Keu" kind="presentation" id="qHD-NZ-q1W"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -116,4 +116,7 @@
         <image name="rock" width="75" height="65"/>
         <image name="scissors" width="75" height="65"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="oBu-WU-mfn"/>
+    </inferredMetricsTieBreakers>
 </document>
