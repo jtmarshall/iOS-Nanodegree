@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="landscape">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,11 +18,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G67-Uf-ZBS">
-                                <rect key="frame" x="0.0" y="370" width="736" height="44"/>
+                                <rect key="frame" x="0.0" y="692" width="414" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="4n9-wI-aCS"/>
                                     <barButtonItem title="Pick" id="bKd-mq-jkA" userLabel="Pick">
@@ -40,16 +40,20 @@
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3PF-jZ-Yf8" userLabel="TopBar">
-                                <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="xjO-BN-sYd"/>
+                                    <barButtonItem enabled="NO" systemItem="action" id="xjO-BN-sYd">
+                                        <connections>
+                                            <action selector="shareAction:" destination="BYZ-38-t0r" id="Sm9-X7-CAP"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jRv-fz-IUD">
-                                <rect key="frame" x="0.0" y="44" width="736" height="326"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="648"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="BOTTOM" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-iW-jXw" userLabel="bottomTextField">
-                                <rect key="frame" x="0.0" y="278" width="736" height="60"/>
+                                <rect key="frame" x="0.0" y="600" width="414" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="EQd-WK-Neo"/>
@@ -59,7 +63,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="TOP" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Tnf-e2-NS5" userLabel="topTextField">
-                                <rect key="frame" x="0.0" y="69" width="736" height="60"/>
+                                <rect key="frame" x="0.0" y="69" width="414" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="kes-7u-q15"/>
@@ -94,10 +98,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionButton" destination="xjO-BN-sYd" id="dtL-WK-6f6"/>
                         <outlet property="bottomTextField" destination="GVI-iW-jXw" id="Z42-Oa-NgW"/>
+                        <outlet property="bottomToolBar" destination="G67-Uf-ZBS" id="Rhp-vw-chc"/>
                         <outlet property="cameraButton" destination="Ajx-om-SrP" id="Iah-ll-Tfc"/>
                         <outlet property="imagePickerView" destination="jRv-fz-IUD" id="8Yu-ZH-rCY"/>
                         <outlet property="topTextField" destination="Tnf-e2-NS5" id="voV-xp-mxQ"/>
+                        <outlet property="topToolBar" destination="3PF-jZ-Yf8" id="2YD-o2-YYJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -15,6 +15,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
+    @IBOutlet weak var bottomToolBar: UIToolbar!
+    @IBOutlet weak var topToolBar: UIToolbar!
+    @IBOutlet weak var actionButton: UIBarButtonItem!
+    
+    struct Meme {
+        var topTextField: String?
+        var bottomTextField: String?
+        var originalImage: UIImage?
+        let memedImage: UIImage!
+    }
     
     //Store attributes for text fields
     let memeTextAttributes = [
@@ -57,19 +67,66 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.unsubscribeFromKeyboardNotifications()
     }
     
+    @IBAction func shareAction(_ sender: Any) {
+        let newMeme = generateMemedImage()
+        
+        let activityViewController = UIActivityViewController(activityItems: [newMeme], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+        
+        activityViewController.completionWithItemsHandler = { activity, success, items, error in
+            if success {
+                self.save(inputMeme: newMeme)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func save(inputMeme: UIImage) {
+        //Create the meme
+        let meme = Meme( topTextField: topTextField.text!, bottomTextField: bottomTextField.text, originalImage: imagePickerView.image, memedImage: inputMeme)
+    }
+    
+    func generateMemedImage() -> UIImage {
+        
+        // TODO: Hide toolbar and navbar
+        topToolBar.isHidden = true
+        bottomToolBar.isHidden = true
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame,
+                                     afterScreenUpdates: true)
+        let memedImage : UIImage =
+            UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        // TODO:  Show toolbar and navbar       
+        topToolBar.isHidden = false
+        bottomToolBar.isHidden = false
+        
+        return memedImage
+    }
+    
 
+    //Get the image when the Album button is clicked
     @IBAction func pickAnImageFromAlbum(_ sender: AnyObject) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         self.present(imagePicker, animated: true, completion: nil)
+        //Also enable the action button
+        self.actionButton.isEnabled = true
     }
    
+    //Take a new image with the camera
     @IBAction func pickAnImageFromCamera (sender: AnyObject) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         present(imagePicker, animated: true, completion: nil)
+        //Also enable the action button
+        self.actionButton.isEnabled = true
+
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -77,11 +134,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imagePickerView.image = image
             
             //Show the top and bottom text now that the image will show
-            topTextField.isHidden = false
-            bottomTextField.isHidden = false
-        }
+            self.topTextField.isHidden = false
+            self.bottomTextField.isHidden = false
+            }
         self.dismiss(animated: true, completion: nil)
-    }
+        }
     
     func subscribeToKeyboardNotifications() {
         //For the view going up
