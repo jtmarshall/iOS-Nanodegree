@@ -10,11 +10,8 @@ import Foundation
 import  UIKit
 
 class CellMemeListViewController: UITableViewCell {
-    
-    
-    @IBOutlet weak var memeListTitle: UILabel!
-    
-    @IBOutlet weak var memeListImage: UIImageView!
-    
-    
+    //Attach label and image
+    @IBOutlet weak var topLabelList: UILabel!
+    @IBOutlet weak var bottomLabelList: UILabel!
+    @IBOutlet weak var listImageView: UIImageView!
 }

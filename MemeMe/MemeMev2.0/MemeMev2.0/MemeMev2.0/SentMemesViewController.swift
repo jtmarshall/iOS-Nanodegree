@@ -9,59 +9,81 @@
 import Foundation
 import UIKit
 
-class SentMemesViewController: UIViewController , UITableViewDelegate,UITableViewDataSource{
+class SentMemesViewController: UITableViewController {
     
-    @IBOutlet weak var memeTableView: UITableView!
+    //app delegate object for accessing meme array in AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    
-    var memes: [Meme] {
-        return (UIApplication.shared.delegate as! AppDelegate).memes
-    }
-    
-    
+    // adding edit button programmatically
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.leftBarButtonItem = editButtonItem
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        memeTableView.reloadData()
+        super.viewWillAppear(true)
+        tableView.reloadData()
     }
     
     
+    // MARK: - Table view data source
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.memes.count
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        let memes = appDelegate.memes
+        
+        return memes.count
     }
     
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell" , for : indexPath) as! CellMemeListViewController
-        let meme = self.memes[indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // Set the name and image
-        cell.memeListTitle.text = meme.top
-        cell.memeListImage.image = meme.memedImage
+        let memes = appDelegate.memes
+        let reuseIdentifier = "ListCell"
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! CellMemeListViewController
+        cell.listImageView.image = memes[indexPath.item].image
+        cell.topLabelList.text = memes[indexPath.item].top
+        cell.bottomLabelList.text = memes[indexPath.item].bottom
+        
         return cell
     }
     
-    //Recommendation by the Udacity Reviewer.
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        let memes = appDelegate.memes
+        detailVC.meme = memes[indexPath.row]
+        
+        self.navigationController!.pushViewController(detailVC, animated: true)
+    }
+    
+    // allow users to delete the memes
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
-    {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        appDelegate.memes.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
         
     }
     
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
-        detailController.memeDetail = self.memes[indexPath.row]
-        self.navigationController!.pushViewController(detailController, animated: true)
-        
+    // allow users to allow move the memes
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let tempoMeme = appDelegate.memes[sourceIndexPath.row]
+        appDelegate.memes.remove(at: sourceIndexPath.row)
+        appDelegate.memes.insert(tempoMeme, at: destinationIndexPath.row)
+    }
+    
 }

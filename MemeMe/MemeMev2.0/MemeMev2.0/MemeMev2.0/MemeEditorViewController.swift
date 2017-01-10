@@ -78,7 +78,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         let activityViewController = UIActivityViewController(activityItems: [newMeme], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
-        
         //save the meme on succuess
         activityViewController.completionWithItemsHandler = { activity, success, items, error in
             if success {
@@ -89,6 +88,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     //Save func from lesson
     func save() {
+        let newMeme = generateMemedImage()
         // Create the meme
         let meme = Meme(top: topTextField.text!, bottom: bottomTextField.text!, image: imagePickerView.image, memedImage: newMeme)
         
@@ -99,17 +99,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func generateMemedImage() -> UIImage {
-        
         // TODO: Hide toolbar and navbar
         topToolBar.isHidden = true
         bottomToolBar.isHidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
-        view.drawHierarchy(in: self.view.frame,
-                                     afterScreenUpdates: true)
-        let memedImage : UIImage =
-            UIGraphicsGetImageFromCurrentImageContext()!
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         // TODO:  Show toolbar and navbar       
@@ -144,6 +141,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imagePickerView.contentMode = .scaleToFill
             imagePickerView.image = image
             
             //Show the top and bottom text now that the image will show

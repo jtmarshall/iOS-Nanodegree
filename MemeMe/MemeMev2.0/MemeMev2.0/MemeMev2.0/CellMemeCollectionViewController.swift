@@ -10,14 +10,8 @@ import Foundation
 import UIKit
 
 class CellMemeCollectionViewController: UICollectionViewCell {
-    
-    
+    //Attach labels and image so we can access them, (recommended from forumns)
     @IBOutlet weak var topLabelCollection: UILabel!
-    
-    //  @IBOutlet weak var topLabelCollection2: UILabel!
     @IBOutlet weak var bottomLabelCollection: UILabel!
-    
     @IBOutlet weak var collectionImageView: UIImageView!
-    
-    
 }

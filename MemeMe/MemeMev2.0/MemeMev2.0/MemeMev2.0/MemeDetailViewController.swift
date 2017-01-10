@@ -11,32 +11,26 @@ import UIKit
 
 class MemeDetailViewController: UIViewController {
     
-    // MARK: Outlets
-    @IBOutlet weak var memeDetailImageView: UIImageView!
+    @IBOutlet weak var memeImageView: UIImageView!
+    @IBOutlet weak var Edit: UIBarButtonItem!
+    var meme: Meme!
     
-    @IBOutlet weak var memeDetailTitleLabel: UILabel!
-    
-    var memeDetail: Meme!
-    
-    // MARK: Properties
-    var memes: [Meme] {
-        return (UIApplication.shared.delegate as! AppDelegate).memes
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tabBarController?.tabBar.isHidden = true
+        memeImageView.image = meme.memedImage
     }
-    
-    // MARK: Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //Set the Content Mode to Aspect Fit in Code & Storyboard GUI too.
-        memeDetailImageView.contentMode = .scaleAspectFit
-        tabBarController?.tabBar.isHidden = true
-        memeDetailTitleLabel.text = memeDetail.top
-        memeDetailImageView.image = memeDetail.memedImage
+        self.navigationItem.setRightBarButton(Edit, animated: true)
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         tabBarController?.tabBar.isHidden = false
     }
-    
 }
