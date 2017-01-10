@@ -39,7 +39,7 @@ class CollectionViewController: UICollectionViewController {
         
         cell.topLabelCollection.text = meme.top
         cell.bottomLabelCollection.text = meme.bottom
-        cell.collectionImageView.image = meme.memedImage
+        cell.collectionImageView.image = meme.image
         //error with cell return expression convert
         return cell
     }

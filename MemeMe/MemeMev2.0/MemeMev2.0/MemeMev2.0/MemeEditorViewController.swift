@@ -104,8 +104,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         bottomToolBar.isHidden = true
         
         // Render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.drawHierarchy(in: view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
@@ -115,7 +115,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         return memedImage
     }
-    
 
     //Get the image when the Album button is clicked
     @IBAction func pickAnImageFromAlbum(_ sender: AnyObject) {
@@ -133,21 +132,20 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         //set source based on input
+        present(imagePicker, animated: true, completion: nil)
         imagePicker.sourceType = source
-        self.present(imagePicker, animated: true, completion: nil)
         //Also enable the action button
-        self.actionButton.isEnabled = true
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imagePickerView.contentMode = .scaleToFill
             imagePickerView.image = image
-            
+            imagePickerView.contentMode = .scaleAspectFit
             //Show the top and bottom text now that the image will show
             self.topTextField.isHidden = false
             self.bottomTextField.isHidden = false
             }
+        actionButton.isEnabled = true
         self.dismiss(animated: true, completion: nil)
         }
     

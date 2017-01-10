@@ -76,24 +76,21 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jRv-fz-IUD" firstAttribute="top" secondItem="3PF-jZ-Yf8" secondAttribute="bottom" id="5MG-Od-dkr"/>
                             <constraint firstItem="3PF-jZ-Yf8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="6Mz-ZJ-63y"/>
                             <constraint firstItem="Tnf-e2-NS5" firstAttribute="leading" secondItem="GVI-iW-jXw" secondAttribute="leading" id="9VU-po-bFR"/>
                             <constraint firstItem="Tnf-e2-NS5" firstAttribute="trailing" secondItem="GVI-iW-jXw" secondAttribute="trailing" id="Ahq-3q-IiV"/>
                             <constraint firstItem="3PF-jZ-Yf8" firstAttribute="leading" secondItem="Tnf-e2-NS5" secondAttribute="leading" id="B6h-10-CTC"/>
-                            <constraint firstItem="jRv-fz-IUD" firstAttribute="leading" secondItem="Tnf-e2-NS5" secondAttribute="leading" id="JAG-2m-dIC"/>
+                            <constraint firstItem="jRv-fz-IUD" firstAttribute="leading" secondItem="GVI-iW-jXw" secondAttribute="leading" id="Ork-gx-ohw"/>
                             <constraint firstAttribute="bottom" secondItem="GVI-iW-jXw" secondAttribute="bottom" constant="118" id="S8P-mB-4VN"/>
-                            <constraint firstItem="jRv-fz-IUD" firstAttribute="trailing" secondItem="GVI-iW-jXw" secondAttribute="trailing" id="V2k-cT-3an"/>
                             <constraint firstItem="3PF-jZ-Yf8" firstAttribute="trailing" secondItem="Tnf-e2-NS5" secondAttribute="trailing" id="Vyu-YD-UO1"/>
-                            <constraint firstItem="jRv-fz-IUD" firstAttribute="top" secondItem="3PF-jZ-Yf8" secondAttribute="bottom" id="XQZ-xR-QPB"/>
                             <constraint firstAttribute="bottom" secondItem="G67-Uf-ZBS" secondAttribute="bottom" id="YwK-hd-bol"/>
                             <constraint firstItem="3PF-jZ-Yf8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bJX-iL-jH5"/>
                             <constraint firstItem="G67-Uf-ZBS" firstAttribute="leading" secondItem="GVI-iW-jXw" secondAttribute="leading" id="dG6-ng-azZ"/>
                             <constraint firstAttribute="trailing" secondItem="3PF-jZ-Yf8" secondAttribute="trailing" id="ddN-iK-vB2"/>
-                            <constraint firstItem="G67-Uf-ZBS" firstAttribute="top" secondItem="jRv-fz-IUD" secondAttribute="bottom" id="drQ-Qz-3qf"/>
-                            <constraint firstItem="jRv-fz-IUD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="i5Y-Ax-BJf"/>
+                            <constraint firstItem="jRv-fz-IUD" firstAttribute="top" secondItem="3PF-jZ-Yf8" secondAttribute="bottom" id="eTj-3V-VpN"/>
+                            <constraint firstItem="jRv-fz-IUD" firstAttribute="bottom" secondItem="G67-Uf-ZBS" secondAttribute="top" id="fP1-OA-jEz"/>
                             <constraint firstItem="3PF-jZ-Yf8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lxl-gH-mv3"/>
-                            <constraint firstItem="G67-Uf-ZBS" firstAttribute="top" secondItem="jRv-fz-IUD" secondAttribute="bottom" id="vDt-li-kFC"/>
+                            <constraint firstItem="jRv-fz-IUD" firstAttribute="trailing" secondItem="GVI-iW-jXw" secondAttribute="trailing" id="on9-KN-VKd"/>
                             <constraint firstItem="G67-Uf-ZBS" firstAttribute="trailing" secondItem="GVI-iW-jXw" secondAttribute="trailing" id="y24-R7-FHO"/>
                             <constraint firstItem="Tnf-e2-NS5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="118" id="ywO-Oi-iuU"/>
                         </constraints>
@@ -299,7 +296,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bottom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLj-Lj-IY0">
-                                            <rect key="frame" x="223" y="41" width="42" height="21"/>
+                                            <rect key="frame" x="223" y="41" width="107" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -337,6 +334,6 @@
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="t4Q-9X-vf3"/>
+        <segue reference="Qzt-5Z-MPc"/>
     </inferredMetricsTieBreakers>
 </document>
