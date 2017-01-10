@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+//Meme scheme!
 struct Meme
 {
     var top: String = ""
