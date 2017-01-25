@@ -166,7 +166,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func keyboardWillShow(notification: NSNotification) {
         //Account for the space the keyboard will take up
         if bottomTextField.isFirstResponder {
-            view.frame.origin.y =  -getKeyboardHeight(notification: notification)
+            view.frame.origin.y =  10-getKeyboardHeight(notification: notification)
+        } else if topTextField.isFirstResponder {
+            //Just a little offset for the top text field, so you can fully see it in iphone SE landscape
+            view.frame.origin.y =  -5
         }
     }
     
