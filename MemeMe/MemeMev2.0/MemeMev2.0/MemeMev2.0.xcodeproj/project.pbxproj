@@ -125,9 +125,8 @@
 				0949D2541E24052100BB6517 /* CellMemeCollectionViewController.swift */,
 				0949D2561E24053400BB6517 /* CellMemeListViewController.swift */,
 			);
-			name = MemeMev2.0;
-			path = /Users/J/Udacity/MemeMe/MemeMev2.0/MemeMev2.0/MemeMev2.0;
-			sourceTree = "<absolute>";
+			path = MemeMev2.0;
+			sourceTree = SOURCE_ROOT;
 		};
 		09FCE3761DC269DC00833429 /* MemeMev2.0Tests */ = {
 			isa = PBXGroup;
