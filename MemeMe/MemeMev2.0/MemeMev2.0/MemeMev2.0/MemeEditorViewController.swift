@@ -18,6 +18,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var bottomToolBar: UIToolbar!
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var actionButton: UIBarButtonItem!
+    //Cancel Button action
+    @IBAction func cancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     //Store attributes for text fields
     let memeTextAttributes = [

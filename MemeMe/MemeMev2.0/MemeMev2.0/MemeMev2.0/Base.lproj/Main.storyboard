@@ -51,7 +51,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="hxb-uG-BGm"/>
                                     <barButtonItem style="plain" systemItem="cancel" id="LY4-rc-uIc" userLabel="Cancel Button">
                                         <connections>
-                                            <segue destination="CDj-Mo-VqW" kind="presentation" id="4mA-NA-9bU"/>
+                                            <action selector="cancelButton:" destination="BYZ-38-t0r" id="Ntt-Mm-Vud"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
