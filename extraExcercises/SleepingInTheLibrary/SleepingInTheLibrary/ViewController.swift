@@ -81,7 +81,10 @@ class ViewController: UIViewController {
                         return
                     }
                     
-                    print(parsedResult)
+                    if let photosDictionary = parsedResult[Constants.FlickrResponseKeys.Photos] as? [String:AnyObject],
+                        let photoArray = photosDictionary[Constants.FlickrResponseKeys.Photo] as? [[String:AnyObject]] {
+                        print(photoArray[0])
+                    }
                 }
             }
         }
