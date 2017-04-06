@@ -49,10 +49,56 @@ func parseJSONAsDictionary(_ dictionary: NSDictionary) {
             }
         }
     }
-    
-    
-    
-    //print(dictionary["photos"])
 }
+
+public typealias HTTPHeaders = [String: String]
+
+func tester() {
+    let config = URLSessionConfiguration.default // Session Configuration
+    let session = URLSession(configuration: config) // Load configuration into Session
+    let url = URL(string: "https://omgvamp-hearthstone-v1.p.mashape.com/cards")!
+    
+    var request = URLRequest(url: URL(string: "https://omgvamp-hearthstone-v1.p.mashape.com/cards")!)
+    request.addValue("X-Mashape-Key \(xsaxg89C9QmshN6Iq6AintijTIJBp1ifm7cjsnvuXCfjmFcyAY)", forHTTPHeaderField: "Authorization")
+    
+    let headers: HTTPHeaders = [
+        "X-Mashape-Key": "xsaxg89C9QmshN6Iq6AintijTIJBp1ifm7cjsnvuXCfjmFcyAY",
+        "Accept": "application/json"
+    ]
+    // NSDictionary; *headers = @{@"X-Mashape-Key";: @"xsaxg89C9QmshN6Iq6AintijTIJBp1ifm7cjsnvuXCfjmFcyAY"}
+
+    
+    let task = session.dataTask(with: url, completionHandler: {
+        (data, response, error) in
+        
+        if error != nil {
+            
+            print(error!.localizedDescription)
+            
+        } else {
+            
+            do {
+                
+                if let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+                {
+                    
+                    //Implement your logic
+                    print(json)
+                    
+                }
+                
+            } catch {
+                
+                print("error in JSONSerialization")
+                
+            }
+            
+            
+        }
+        
+    })
+    task.resume()
+}
+
 
 parseJSONAsDictionary(parsedAnimalsJSON)
