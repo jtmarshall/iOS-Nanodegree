@@ -98,10 +98,94 @@ class ViewController: UIViewController {
     // MARK: Flickr API
     
     private func displayImageFromFlickrBySearch(_ methodParameters: [String: AnyObject]) {
+        // create session and request
+        let session = URLSession.shared
+        let request = URLRequest(url: flickrURLFromParameters(methodParameters))
         
-        print(flickrURLFromParameters(methodParameters))
-        
-        // TODO: Make request to Flickr!
+        // the network request
+        let task = session.dataTask(with: request) { (data, response, error) in
+            // if an error
+            func displayError(error: String) {
+                print(error)
+                performUIUpdatesOnMain {
+                    self.setUIEnabled(true)
+                    self.photoTitleLabel.text = "No photo return, try again."
+                    self.photoImageView.image = nil
+                }
+            }
+            // check if error happened
+            guard (error == nil) else {
+                displayError(error: "There was an error with the request: \(String(describing: error))")
+                return
+            }
+            
+            // check for 200 response
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                    displayError(error: "Request returned a status other than 2xx")
+                    return
+            }
+            
+            // was data returned?
+            guard let data = data else {
+                displayError(error: "No data returned.")
+                return
+            }
+            
+            // parse data
+            let parsedResult: [String: AnyObject]!
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: AnyObject]
+            } catch {
+                displayError(error: "Could not parse JSON. \(data)")
+                return
+            }
+            
+            // check if API returned error
+            guard let stat = parsedResult[Constants.FlickrResponseKeys.Status] as? String, stat == Constants.FlickrResponseValues.OKStatus else {
+                    displayError(error: "Flickr API returned an error. \(parsedResult)")
+                    return
+            }
+            
+            // check for 'photos' key
+            guard let photosDictionary = parsedResult[Constants.FlickrResponseKeys.Photos] as? [String: AnyObject] else {
+                displayError(error: "Cannot find key \(Constants.FlickrResponseKeys.Photos)")
+                return
+            }
+            
+            // check for THE 'photo'
+            guard let photosArray = photosDictionary[Constants.FlickrResponseKeys.Photo] as? [[String: AnyObject]] else {
+                displayError(error: "Cannot find key \(Constants.FlickrResponseKeys.Photo)")
+                return
+            }
+            
+            if photosArray.count == 0 {
+                displayError(error: "No photos found")
+                return
+            } else {
+                let randomPhotoIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
+                let photoDictionary = photosArray[randomPhotoIndex] as [String: AnyObject]
+                let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
+                // check for key 'url_m'
+                guard let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String else {
+                    displayError(error: "Cannot find key \(Constants.FlickrResponseKeys.MediumURL)")
+                    return
+                }
+                
+                let imageURL = URL(string: imageUrlString)
+                if let imageData = NSData(contentsOf: imageURL!) {
+                    performUIUpdatesOnMain {
+                        self.setUIEnabled(true)
+                        self.photoImageView.image = UIImage(data: imageData as Data)
+                        self.photoTitleLabel.text = photoTitle ?? "(Untitled)"
+                    }
+                } else {
+                    displayError(error: "Image does not exist at \(String(describing: imageURL))")
+                }
+            }
+            
+        }
+        // starts the task
+        task.resume()
     }
     
     // MARK: Helper for Creating a URL from Parameters
