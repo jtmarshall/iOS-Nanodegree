@@ -4,7 +4,7 @@ import UIKit
 import PlaygroundSupport
 
 // this line tells the Playground to execute indefinitely
-PlaygroundPage.current.needsIndefiniteExecution = true
+//PlaygroundPage.current.needsIndefiniteExecution = true
 
 let urlString = "http://quotes.rest/qod.json?category=inspire"
 let url = URL(string: urlString)
