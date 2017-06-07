@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		094ADE1C1EE8481600717B0C /* on-the-map-assets-new in Resources */ = {isa = PBXBuildFile; fileRef = 094ADE1B1EE8481600717B0C /* on-the-map-assets-new */; };
+		094ADE211EE8486600717B0C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094ADE201EE8486600717B0C /* Constants.swift */; };
+		094ADE231EE84B4900717B0C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094ADE221EE84B4900717B0C /* MapViewController.swift */; };
 		09C0F2871EDF0B0A00C89EE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0F2861EDF0B0A00C89EE0 /* AppDelegate.swift */; };
-		09C0F2891EDF0B0A00C89EE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0F2881EDF0B0A00C89EE0 /* ViewController.swift */; };
+		09C0F2891EDF0B0A00C89EE0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0F2881EDF0B0A00C89EE0 /* LoginViewController.swift */; };
 		09C0F28C1EDF0B0A00C89EE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09C0F28A1EDF0B0A00C89EE0 /* Main.storyboard */; };
 		09C0F28F1EDF0B0A00C89EE0 /* OnTheMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09C0F28D1EDF0B0A00C89EE0 /* OnTheMap.xcdatamodeld */; };
 		09C0F2911EDF0B0A00C89EE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C0F2901EDF0B0A00C89EE0 /* Assets.xcassets */; };
@@ -35,9 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		094ADE1B1EE8481600717B0C /* on-the-map-assets-new */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "on-the-map-assets-new"; path = "../../../../Downloads/on-the-map-assets-new"; sourceTree = "<group>"; };
+		094ADE201EE8486600717B0C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		094ADE221EE84B4900717B0C /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		09C0F2831EDF0B0A00C89EE0 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C0F2861EDF0B0A00C89EE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		09C0F2881EDF0B0A00C89EE0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		09C0F2881EDF0B0A00C89EE0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		09C0F28B1EDF0B0A00C89EE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		09C0F28E1EDF0B0A00C89EE0 /* OnTheMap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnTheMap.xcdatamodel; sourceTree = "<group>"; };
 		09C0F2901EDF0B0A00C89EE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +82,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		094ADE1D1EE8484800717B0C /* M */ = {
+			isa = PBXGroup;
+			children = (
+				094ADE201EE8486600717B0C /* Constants.swift */,
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		094ADE1E1EE8484E00717B0C /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		094ADE1F1EE8485300717B0C /* C */ = {
+			isa = PBXGroup;
+			children = (
+				09C0F2881EDF0B0A00C89EE0 /* LoginViewController.swift */,
+				094ADE221EE84B4900717B0C /* MapViewController.swift */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
 		09C0F27A1EDF0B0900C89EE0 = {
 			isa = PBXGroup;
 			children = (
@@ -99,8 +129,11 @@
 		09C0F2851EDF0B0A00C89EE0 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				094ADE1F1EE8485300717B0C /* C */,
+				094ADE1E1EE8484E00717B0C /* V */,
+				094ADE1D1EE8484800717B0C /* M */,
+				094ADE1B1EE8481600717B0C /* on-the-map-assets-new */,
 				09C0F2861EDF0B0A00C89EE0 /* AppDelegate.swift */,
-				09C0F2881EDF0B0A00C89EE0 /* ViewController.swift */,
 				09C0F28A1EDF0B0A00C89EE0 /* Main.storyboard */,
 				09C0F2901EDF0B0A00C89EE0 /* Assets.xcassets */,
 				09C0F2921EDF0B0A00C89EE0 /* LaunchScreen.storyboard */,
@@ -240,6 +273,7 @@
 			files = (
 				09C0F2941EDF0B0A00C89EE0 /* LaunchScreen.storyboard in Resources */,
 				09C0F2911EDF0B0A00C89EE0 /* Assets.xcassets in Resources */,
+				094ADE1C1EE8481600717B0C /* on-the-map-assets-new in Resources */,
 				09C0F28C1EDF0B0A00C89EE0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,8 +300,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				09C0F28F1EDF0B0A00C89EE0 /* OnTheMap.xcdatamodeld in Sources */,
-				09C0F2891EDF0B0A00C89EE0 /* ViewController.swift in Sources */,
+				09C0F2891EDF0B0A00C89EE0 /* LoginViewController.swift in Sources */,
 				09C0F2871EDF0B0A00C89EE0 /* AppDelegate.swift in Sources */,
+				094ADE231EE84B4900717B0C /* MapViewController.swift in Sources */,
+				094ADE211EE8486600717B0C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +556,7 @@
 				09C0F2B01EDF0B0A00C89EE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09C0F2B11EDF0B0A00C89EE0 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +565,7 @@
 				09C0F2B31EDF0B0A00C89EE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09C0F2B41EDF0B0A00C89EE0 /* Build configuration list for PBXNativeTarget "OnTheMapUITests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +574,7 @@
 				09C0F2B61EDF0B0A00C89EE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
