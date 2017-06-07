@@ -9,7 +9,6 @@
 import Foundation
 
 struct Constants  {
-    
     struct urlUdacity {
         static let baseURL = "https://www.udacity.com/api"
         static let sessionURL = "https://www.udacity.com/api/session"
