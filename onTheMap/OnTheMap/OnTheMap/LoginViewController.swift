@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViewController.swift
 //  OnTheMap
 //
 //  Created by Jordan  on 5/31/17.
@@ -14,12 +14,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
     }
     
     @IBAction func loginButton(_ sender: UIButton) {
@@ -30,9 +28,7 @@ class LoginViewController: UIViewController {
             if success {
                 self.toMapView()
                 self.completeLogin()
-                
             }
-            
         }
         )}
     
