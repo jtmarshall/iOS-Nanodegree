@@ -7,29 +7,31 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants  {
-    struct urlUdacity {
-        static let baseURL = "https://www.udacity.com/api"
-        static let sessionURL = "https://www.udacity.com/api/session"
-        static let userURL = "https://www.udacity.com/api/users"
+    // UdacityClient authenticate
+    struct UdacityClient {
+        static var username = ""
+        static var password = ""
     }
     
-    struct ParameterKeys {
-        static let udacity = "udacity"
-        static let username = "username"
-        static let password = "password"
-        static let sessionID = "session"
+    //StudentInformation
+    struct student {
+        static var studentInformation = [[String:AnyObject]]()
+        static var objectId = ""
     }
     
-    struct JSONResponseKeys {
-        static let userID = "userID"
-        static let firstName = "first_name"
-        static let lastName = "last_name"
-        static let account = "account"
-        static let session = "session"
-        static let accountKey = "key"
-        static let expiration = "expiration"
+    // MARK: UI
+    struct UI {
+        static let LoginColorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).cgColor
+        static let LoginColorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).cgColor
+        static let GreyColor = UIColor(red: 0.702, green: 0.863, blue: 0.929, alpha:1.0)
+        static let BlueColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
     }
     
+    struct newStudent {
+        static var address = ""
+        static var uniqueKey = ""
+    }
 }
