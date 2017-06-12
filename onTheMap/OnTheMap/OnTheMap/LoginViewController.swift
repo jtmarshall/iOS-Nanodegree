@@ -48,8 +48,8 @@ class LoginViewController: UIViewController {
         if Username.text!.isEmpty || Password.text!.isEmpty {
             DebugTextLabel.text = "Username or Password Empty."
         } else {
-            Constants.UdacityClient.username = Username.text!
-            Constants.UdacityClient.password = Password.text!
+            StudentInformation.UdacityClient.username = Username.text!
+            StudentInformation.UdacityClient.password = Password.text!
             setUIEnabled(false)
             UdacityClient.sharedInstance().authenticateWithViewController(self) { (success, errorString) in
                 if success {
@@ -155,7 +155,7 @@ private extension LoginViewController {
         
         // configure background gradient
         let backgroundGradient = CAGradientLayer()
-        backgroundGradient.colors = [Constants.UI.LoginColorTop, Constants.UI.LoginColorBottom]
+        backgroundGradient.colors = [StudentInformation.UI.LoginColorTop, StudentInformation.UI.LoginColorBottom]
         backgroundGradient.locations = [0.0, 1.0]
         backgroundGradient.frame = view.frame
         view.layer.insertSublayer(backgroundGradient, at: 0)
@@ -169,10 +169,10 @@ private extension LoginViewController {
         let textFieldPaddingView = UIView(frame: textFieldPaddingViewFrame)
         textField.leftView = textFieldPaddingView
         textField.leftViewMode = .always
-        textField.backgroundColor = Constants.UI.GreyColor
-        textField.textColor = Constants.UI.BlueColor
+        textField.backgroundColor = StudentInformation.UI.GreyColor
+        textField.textColor = StudentInformation.UI.BlueColor
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.white])
-        textField.tintColor = Constants.UI.BlueColor
+        textField.tintColor = StudentInformation.UI.BlueColor
         textField.delegate = self
     }
 }

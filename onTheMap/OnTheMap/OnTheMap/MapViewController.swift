@@ -11,7 +11,7 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-        var address = Constants.newStudent.address
+        var address = StudentInformation.newStudent.address
         
         @IBOutlet weak var mapView: MKMapView!
         
@@ -42,7 +42,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 let newLat = String(placeMarks[0].coordinate.latitude)
                 let newLon = String(placeMarks[0].coordinate.longitude)
                 let newAddress = placeMarks[0].description
-                let newUniqueKey = Constants.newStudent.uniqueKey
+                let newUniqueKey = StudentInformation.newStudent.uniqueKey
                 print ("newUniqueKey is \(newUniqueKey)")
                 
                 self.postAStudentLocation(newUniqueKey: newUniqueKey, newAddress: newAddress, newLat: newLat, newLon: newLon)

@@ -25,7 +25,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        studentInformation = Constants.student.studentInformation
+        studentInformation = StudentInformation.student.studentInformation
         return studentInformation.count
     }
     

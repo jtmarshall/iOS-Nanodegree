@@ -25,7 +25,7 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
     
     @IBAction func findOnTheMap(_ sender: AnyObject) {
         
-        Constants.newStudent.address = LocationText.text!
+        StudentInformation.newStudent.address = LocationText.text!
     }
     
     @IBAction func dismissViewController(_ sender: AnyObject) {
