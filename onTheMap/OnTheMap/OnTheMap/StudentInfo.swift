@@ -9,20 +9,21 @@
 import Foundation
 import UIKit
 
-struct Constants  {
-    // UdacityClient authenticate
+struct StudentInformation {
+    
+    // UdacityClient
     struct UdacityClient {
         static var username = ""
         static var password = ""
     }
     
-    //StudentInformation
+    // Student Info
     struct student {
         static var studentInformation = [[String:AnyObject]]()
         static var objectId = ""
     }
     
-    // MARK: UI
+    // UI
     struct UI {
         static let LoginColorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).cgColor
         static let LoginColorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).cgColor
@@ -30,6 +31,7 @@ struct Constants  {
         static let BlueColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
     }
     
+    // New
     struct newStudent {
         static var address = ""
         static var uniqueKey = ""

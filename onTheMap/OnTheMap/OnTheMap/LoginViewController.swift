@@ -13,7 +13,6 @@ class LoginViewController: UIViewController {
     var keyboardOnScreen = false
     
     // MARK: Outlets
-    
     @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var LoginButton: UIButton!
@@ -26,9 +25,7 @@ class LoginViewController: UIViewController {
         
         // get the app delegate
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        configureUI()
-        
+
         subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
         subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
@@ -48,8 +45,8 @@ class LoginViewController: UIViewController {
         if Username.text!.isEmpty || Password.text!.isEmpty {
             DebugTextLabel.text = "Username or Password Empty."
         } else {
-            Constants.UdacityClient.username = Username.text!
-            Constants.UdacityClient.password = Password.text!
+            StudentInformation.UdacityClient.username = Username.text!
+            StudentInformation.UdacityClient.password = Password.text!
             setUIEnabled(false)
             UdacityClient.sharedInstance().authenticateWithViewController(self) { (success, errorString) in
                 if success {
@@ -140,8 +137,6 @@ private extension LoginViewController {
         Username.isEnabled = enabled
         Password.isEnabled = enabled
         LoginButton.isEnabled = enabled
-        DebugTextLabel.text = ""
-        DebugTextLabel.isEnabled = enabled
         
         // adjust login button alpha
         if enabled {
@@ -149,31 +144,6 @@ private extension LoginViewController {
         } else {
             LoginButton.alpha = 0.5
         }
-    }
-    
-    func configureUI() {
-        
-        // configure background gradient
-        let backgroundGradient = CAGradientLayer()
-        backgroundGradient.colors = [Constants.UI.LoginColorTop, Constants.UI.LoginColorBottom]
-        backgroundGradient.locations = [0.0, 1.0]
-        backgroundGradient.frame = view.frame
-        view.layer.insertSublayer(backgroundGradient, at: 0)
-        
-        configureTextField(Username)
-        configureTextField(Password)
-    }
-    
-    func configureTextField(_ textField: UITextField) {
-        let textFieldPaddingViewFrame = CGRect(x: 0.0, y: 0.0, width: 13.0, height: 0.0)
-        let textFieldPaddingView = UIView(frame: textFieldPaddingViewFrame)
-        textField.leftView = textFieldPaddingView
-        textField.leftViewMode = .always
-        textField.backgroundColor = Constants.UI.GreyColor
-        textField.textColor = Constants.UI.BlueColor
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.white])
-        textField.tintColor = Constants.UI.BlueColor
-        textField.delegate = self
     }
 }
 

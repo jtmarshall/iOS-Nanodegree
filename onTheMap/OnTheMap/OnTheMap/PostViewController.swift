@@ -23,9 +23,8 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
     @IBOutlet weak var LocationText: UITextField!
     
     
-    @IBAction func findOnTheMap(_ sender: AnyObject) {
-        
-        Constants.newStudent.address = LocationText.text!
+    @IBAction func findLocation(_ sender: AnyObject) {
+        StudentInformation.newStudent.address = LocationText.text!
     }
     
     @IBAction func dismissViewController(_ sender: AnyObject) {
