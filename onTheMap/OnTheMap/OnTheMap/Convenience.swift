@@ -7,77 +7,104 @@
 //
 
 import Foundation
+import UIKit
 
 extension UdacityClient {
     
-    func loginToUdacity(username: String, password: String, completionHandlerForLogin: @escaping (_ success: Bool, _ result: AnyObject?, _ error: NSError?) -> Void) {
+    func authenticateWithViewController(_ hostViewController: UIViewController, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
-        let request = NSMutableURLRequest(url: URL(string: Constants.urlUdacity.sessionURL)!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            guard (error == nil) else {
-                print("Error with POST request")
-                return
-                
+        getUserId() {(success, userId, errorString) in
+            if success {
+                if let userId = userId {
+                    self.getUserData(userId: userId) { (success, userData, errorString) in
+                        completionHandlerForAuth(success, errorString)
+                    }
+                } else {
+                    completionHandlerForAuth(success, errorString)
+                }
+            } else {
+                completionHandlerForAuth(success, errorString)
             }
-            
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Request returned a status code other than 2xx")
-                return
-            }
-            
-            guard let data = data else {
-                print("No data returned from request")
-                return
-            }
-            
-            let range = Range(5..<data.count)
-            let newData = data.subdata(in: range)
-            print(NSString(data: newData, encoding: String.Encoding.utf8.rawValue)!)
-            
-            self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandlerForLogin)
         }
-        
-        task.resume()
         
     }
     
-    private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ success: Bool, _ result: AnyObject?, _ error: NSError?) -> Void) {
+    func deleteViewController(completionHandlerForDelete: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
-        var parsedResult: AnyObject! = nil
-        do {
-            parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
-        } catch {
-            let userInfo = [NSLocalizedDescriptionKey: "Could not parse as JSON: \(data)"]
-            completionHandlerForConvertData(false, nil, NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
+        getDeleteSessionID() { (success, userId, errorString) in
+            
+            completionHandlerForDelete(success, errorString)
+            
         }
         
-        guard let account = parsedResult["account"] as? [String:AnyObject] else {
-            print("Error with account information.")
-            return
-        }
+    }
+    
+    private func getUserId(_ completionHandlerForUserID: @escaping (_ success: Bool, _ userID: String?, _ errorString: String?) -> Void) {
         
-        guard (account["key"] as? String) != nil else {
-            print("Error with user ID.")
-            return
+        let _ = postSessionWithUdAPI() { (result, error) in
+            
+            if let error = error {
+                print(error)
+                completionHandlerForUserID(false, nil, "Login Failed (User ID).")
+            } else {
+                if let account = result?["account"] as? [String:AnyObject] {
+                    if let userId = account["key"] as? String {
+                        print ("uniqueKey is \(userId)")
+                        Constants.newStudent.uniqueKey = userId
+                        completionHandlerForUserID(true, userId, nil)
+                    } else {
+                        print ("Could not find userId.")
+                        completionHandlerForUserID(false, nil, "Login Failed (User ID).")
+                    }
+                } else {
+                    print("Could not find account.")
+                    completionHandlerForUserID(false, nil, "Login Failed (User ID).")
+                }
+            }
         }
+    }
+    
+    private func getUserData(userId: String?, _ completionHandlerForUserData: @escaping (_ success: Bool, _ userData: [String:AnyObject]?, _ errorString: String?) -> Void) {
         
-        guard let sessionDictionary = parsedResult["session"] as? [String:AnyObject] else {
-            print("Error with session dictionary.")
-            return
+        let userId = userId!
+        let _ = getPublicUserData(userId: userId) { (result, error) in
+            if let error = error {
+                print (error)
+                completionHandlerForUserData(false, nil, "Fail to get userData")
+            } else {
+                let userResult = result!
+                if let userData = userResult["user"] as? [String:AnyObject] {
+                    completionHandlerForUserData(true, userData, nil)
+                } else {
+                    print ("Could not find userData")
+                }
+            }
         }
+    }
+    
+    private func getDeleteSessionID(_ completionHandlerForDeleteSessionID: @escaping (_ success: Bool, _ DeleteSessionID: String?, _ errorString: String?) -> Void) {
         
-        guard (sessionDictionary["userID"] as? String) != nil else {
-            print("Error with session ID.")
-            return
+        let _ = deleteASession(){ (result, error) in
+            if let error = error {
+                print ("error is \(error)")
+                completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteSessionID")
+            } else {
+                if let deleteResult = result {
+                    if let deleteSession = deleteResult["session"] as? [String:AnyObject] {
+                        if let deleteSessionID = deleteSession["id"] as? String {
+                            print ("deleteSessionID is \(deleteSessionID)")
+                            completionHandlerForDeleteSessionID(true, deleteSessionID, nil)
+                        } else {
+                            completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteSessionID")
+                        }
+                    } else {
+                        completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteSession")
+                    }
+                } else {
+                    completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteResult")
+                }
+            }
         }
-        
-        completionHandlerForConvertData(true, parsedResult, nil)
         
     }
     
