@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -55,6 +55,9 @@
                                     <constraint firstAttribute="width" constant="180" id="wvH-5k-NKM"/>
                                 </constraints>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cvY-E9-rV0"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On The Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzb-hY-qEF">
                                 <rect key="frame" x="138" y="174" width="100" height="21"/>
@@ -88,12 +91,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="124"/>
+            <point key="canvasLocation" x="849" y="124"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="SJr-93-Ywv">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="yRM-PM-zpX" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="yRM-PM-zpX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="xe5-lX-6LW">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -101,8 +104,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="xZa-Xk-zPv" kind="relationship" relationship="viewControllers" id="c7E-gB-5AN"/>
                         <segue destination="hE9-wl-6tO" kind="relationship" relationship="viewControllers" id="43J-6f-rTH"/>
+                        <segue destination="xZa-Xk-zPv" kind="relationship" relationship="viewControllers" id="c7E-gB-5AN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="duQ-w2-rRz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,15 +143,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Zhx-4l-NgB">
-                                <rect key="frame" x="32" y="64" width="311" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Zhx-4l-NgB" secondAttribute="trailing" constant="16" id="GpC-x5-W63"/>
-                            <constraint firstItem="Zhx-4l-NgB" firstAttribute="top" secondItem="pxo-G6-VUt" secondAttribute="bottom" id="hrl-Sf-DPk"/>
-                            <constraint firstItem="Zhx-4l-NgB" firstAttribute="leading" secondItem="mA5-6f-jiF" secondAttribute="leadingMargin" constant="16" id="nFF-9n-pZ6"/>
-                            <constraint firstItem="t8C-aE-Eap" firstAttribute="top" secondItem="Zhx-4l-NgB" secondAttribute="bottom" id="y0h-KN-Qf2"/>
+                            <constraint firstAttribute="trailing" secondItem="Zhx-4l-NgB" secondAttribute="trailing" id="NuR-zx-d3e"/>
+                            <constraint firstItem="Zhx-4l-NgB" firstAttribute="top" secondItem="pxo-G6-VUt" secondAttribute="bottom" id="ZSX-oj-LW4"/>
+                            <constraint firstItem="t8C-aE-Eap" firstAttribute="top" secondItem="Zhx-4l-NgB" secondAttribute="bottom" id="l48-dE-sLs"/>
+                            <constraint firstItem="Zhx-4l-NgB" firstAttribute="leading" secondItem="mA5-6f-jiF" secondAttribute="leading" id="tUl-Rf-h1A"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On the Map" id="dWd-LT-4pF" userLabel="On the Map">
@@ -202,19 +205,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j1f-lu-lUx">
-                                <rect key="frame" x="32" y="64" width="311" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Students" id="6on-If-dxR" userLabel="Students">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6on-If-dxR" id="fcd-Ea-stJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="1Um-wW-lvB" id="KaT-nO-ByA"/>
+                                </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="j1f-lu-lUx" firstAttribute="leading" secondItem="35V-Rj-JHc" secondAttribute="leadingMargin" constant="16" id="Nw2-id-P9T"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="j1f-lu-lUx" secondAttribute="trailing" constant="16" id="exb-hJ-LaN"/>
-                            <constraint firstItem="j1f-lu-lUx" firstAttribute="top" secondItem="7YP-7X-96A" secondAttribute="bottom" id="iHu-hg-KqE"/>
-                            <constraint firstItem="Hwl-ht-HRm" firstAttribute="top" secondItem="j1f-lu-lUx" secondAttribute="bottom" id="ol0-AU-oUs"/>
+                            <constraint firstItem="j1f-lu-lUx" firstAttribute="top" secondItem="7YP-7X-96A" secondAttribute="bottom" id="7tc-AJ-95U"/>
+                            <constraint firstAttribute="trailing" secondItem="j1f-lu-lUx" secondAttribute="trailing" id="S8m-gj-1HL"/>
+                            <constraint firstItem="Hwl-ht-HRm" firstAttribute="top" secondItem="j1f-lu-lUx" secondAttribute="bottom" id="aZA-ww-rLw"/>
+                            <constraint firstItem="j1f-lu-lUx" firstAttribute="leading" secondItem="35V-Rj-JHc" secondAttribute="leading" id="eOO-hf-hOV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cfZ-dQ-6Uq"/>
+                    <connections>
+                        <outlet property="tableView" destination="j1f-lu-lUx" id="Gfg-Fl-y9D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ds8-h4-dO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -223,7 +242,7 @@
         <!--Post View Controller-->
         <scene sceneID="JYD-lq-KPD">
             <objects>
-                <viewController id="MdT-ur-S4F" customClass="PostViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostViewController" id="MdT-ur-S4F" customClass="PostViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uHo-53-FRu"/>
                         <viewControllerLayoutGuide type="bottom" id="CUg-rG-msb"/>
@@ -232,36 +251,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AHe-rl-FcL">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Add New" id="t0Q-Rf-ljC" userLabel="Cancel">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="taf-yV-wQf"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYy-Ml-H3r">
-                                <rect key="frame" x="141" y="385" width="92" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="ZER-dF-dtH"/>
-                                    <constraint firstAttribute="width" constant="92" id="maQ-E3-wmj"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYy-Ml-H3r">
+                                <rect key="frame" x="141" y="418.5" width="92" height="30"/>
                                 <state key="normal" title="Find Location"/>
                                 <connections>
+                                    <action selector="findLocation:" destination="MdT-ur-S4F" eventType="touchUpInside" id="1BW-D7-4Nc"/>
                                     <segue destination="xrc-Ao-qe3" kind="presentation" id="YSR-Cf-WKU"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xzp-qY-61g" userLabel="Address">
+                                <rect key="frame" x="97.5" y="273.5" width="180" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="Elr-tD-7Fw"/>
+                                    <constraint firstAttribute="height" constant="120" id="qyj-BG-Swh"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHe-rl-FcL">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.96470588239999999" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem title="Add New" id="t0Q-Rf-ljC" userLabel="Cancel">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="taf-yV-wQf">
+                                            <connections>
+                                                <action selector="dismissViewController:" destination="MdT-ur-S4F" id="edD-gw-8Aa"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="aYy-Ml-H3r" firstAttribute="centerX" secondItem="XyD-aa-Guu" secondAttribute="centerX" id="jyf-qd-0cO"/>
+                            <constraint firstItem="aYy-Ml-H3r" firstAttribute="top" secondItem="Xzp-qY-61g" secondAttribute="bottom" constant="25" id="Lqt-7Z-mrx"/>
+                            <constraint firstItem="Xzp-qY-61g" firstAttribute="centerX" secondItem="XyD-aa-Guu" secondAttribute="centerX" id="Nzh-BO-xjX"/>
+                            <constraint firstItem="Xzp-qY-61g" firstAttribute="centerY" secondItem="XyD-aa-Guu" secondAttribute="centerY" id="dgS-W8-LJQ"/>
+                            <constraint firstItem="aYy-Ml-H3r" firstAttribute="centerX" secondItem="XyD-aa-Guu" secondAttribute="centerX" id="f75-7q-inW"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="LocationText" destination="Xzp-qY-61g" id="bZd-dG-O3a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSs-5G-oVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4282" y="249"/>
+            <point key="canvasLocation" x="4280.8000000000002" y="248.72563718140933"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="4xB-IV-WdV">

@@ -30,7 +30,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StudentCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Students", for: indexPath)
         let match = self.studentInformation[(indexPath as IndexPath).row]
         let firstName = match["firstName"] as! String
         let lastName = match["lastName"] as! String

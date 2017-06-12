@@ -27,7 +27,7 @@ class StudentLocationViewController: UIViewController, MKMapViewDelegate {
                     self.present(controller, animated: true, completion: nil)
                 }
             } else {
-                print (errorString ?? <#default value#>)
+                print (errorString)
             }
         }
     }
@@ -36,7 +36,7 @@ class StudentLocationViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.taskGetStudentLocations(){(success, locationJSON, errorString) in
+        self.taskGetAllStudentLocations(){(success, locationJSON, errorString) in
             
             // The "locations" array is an array of dictionary objects that are similar to the JSON data that you can download from parse.
             let locations = StudentInformation.student.studentInformation
@@ -138,14 +138,14 @@ class StudentLocationViewController: UIViewController, MKMapViewDelegate {
     // JSON data that you will download from Parse.
     
     
-    // GET Student Locations
-    func taskGetStudentLocations(_ completionHandlerForStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
+    // GET All Student Locations
+    func taskGetAllStudentLocations(_ completionHandlerForStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
         let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=10&skip=400&order=-updatedAt")!)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            if error != nil { // Handle error...
+            if error != nil {
                 return
             }
             
@@ -159,19 +159,18 @@ class StudentLocationViewController: UIViewController, MKMapViewDelegate {
             }
             
             guard let results = parsedResult["results"] as? [[String:AnyObject]] else {
-                print ("There is no reslut")
+                print ("No result")
                 return
             }
             
             StudentInformation.student.studentInformation = results
             completionHandlerForStudentLocations(true, StudentInformation.student.studentInformation, nil)
-            //print("data: \(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)")
         }
         task.resume()
     }
     
-    //GET a Student Location
-    func taskGetAStudentLocation() -> URLSessionDataTask {
+    //GET Single Student Location
+    func taskGetSingleStudentLocation() -> URLSessionDataTask {
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221234%22%7D"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -189,9 +188,9 @@ class StudentLocationViewController: UIViewController, MKMapViewDelegate {
     }
     
     func postPinAlert() {
-        let alertController = UIAlertController(title: nil, message: "You Have Already Posted a Student Location. Would You Like to Overwrite Your Current Location?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: nil, message: "You Currently Have a Posted Location. Overwrite Location?", preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.cancel){(action) in
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostingViewController")
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "PostViewController")
             self.present(controller, animated: true, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil)

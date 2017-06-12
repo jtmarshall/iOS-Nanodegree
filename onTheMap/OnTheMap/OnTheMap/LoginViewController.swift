@@ -13,7 +13,6 @@ class LoginViewController: UIViewController {
     var keyboardOnScreen = false
     
     // MARK: Outlets
-    
     @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var LoginButton: UIButton!
@@ -26,9 +25,7 @@ class LoginViewController: UIViewController {
         
         // get the app delegate
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        configureUI()
-        
+
         subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
         subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
@@ -140,8 +137,6 @@ private extension LoginViewController {
         Username.isEnabled = enabled
         Password.isEnabled = enabled
         LoginButton.isEnabled = enabled
-        DebugTextLabel.text = ""
-        DebugTextLabel.isEnabled = enabled
         
         // adjust login button alpha
         if enabled {
@@ -149,31 +144,6 @@ private extension LoginViewController {
         } else {
             LoginButton.alpha = 0.5
         }
-    }
-    
-    func configureUI() {
-        
-        // configure background gradient
-        let backgroundGradient = CAGradientLayer()
-        backgroundGradient.colors = [StudentInformation.UI.LoginColorTop, StudentInformation.UI.LoginColorBottom]
-        backgroundGradient.locations = [0.0, 1.0]
-        backgroundGradient.frame = view.frame
-        view.layer.insertSublayer(backgroundGradient, at: 0)
-        
-        configureTextField(Username)
-        configureTextField(Password)
-    }
-    
-    func configureTextField(_ textField: UITextField) {
-        let textFieldPaddingViewFrame = CGRect(x: 0.0, y: 0.0, width: 13.0, height: 0.0)
-        let textFieldPaddingView = UIView(frame: textFieldPaddingViewFrame)
-        textField.leftView = textFieldPaddingView
-        textField.leftViewMode = .always
-        textField.backgroundColor = StudentInformation.UI.GreyColor
-        textField.textColor = StudentInformation.UI.BlueColor
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.white])
-        textField.tintColor = StudentInformation.UI.BlueColor
-        textField.delegate = self
     }
 }
 
