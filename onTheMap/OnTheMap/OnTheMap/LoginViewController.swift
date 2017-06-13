@@ -127,9 +127,14 @@ extension LoginViewController: UITextFieldDelegate {
 
 private extension LoginViewController {
     
+    // Popup if Login error
     func displayError(_ errorString: String?) {
         if let errorString = errorString {
-            DebugTextLabel.text = errorString
+            let popAlert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertControllerStyle.alert)
+            popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                popAlert.dismiss(animated: true, completion: nil)
+            })
+            self.present(popAlert, animated: true)
         }
     }
     
