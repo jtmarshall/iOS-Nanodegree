@@ -126,7 +126,7 @@ class StudentLocationViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.openURL(URL(string: toOpen)!)
+                app.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
             }
         }
     }

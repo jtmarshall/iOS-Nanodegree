@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="width" constant="75" id="jaE-fQ-zCp"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kEF-Zd-Wyq" userLabel="Username">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kEF-Zd-Wyq" userLabel="Username">
                                 <rect key="frame" x="27" y="203" width="320" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="hNY-zI-IhO"/>
@@ -38,7 +38,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s9W-Wt-GlP">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s9W-Wt-GlP">
                                 <rect key="frame" x="27" y="251" width="320" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="kYF-rY-h1k"/>
@@ -192,7 +192,7 @@
             </objects>
             <point key="canvasLocation" x="2326" y="486"/>
         </scene>
-        <!--Table View Controller-->
+        <!--On the Map-->
         <scene sceneID="G19-Mg-w7A">
             <objects>
                 <viewController id="1Um-wW-lvB" customClass="TableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -230,8 +230,21 @@
                             <constraint firstItem="j1f-lu-lUx" firstAttribute="leading" secondItem="35V-Rj-JHc" secondAttribute="leading" id="eOO-hf-hOV"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="cfZ-dQ-6Uq"/>
+                    <navigationItem key="navigationItem" title="On the Map" id="fjX-uc-mfK" userLabel="On the Map">
+                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="lqa-ev-NW6">
+                            <connections>
+                                <action selector="pinButtonPressed:" destination="1Um-wW-lvB" id="xAt-zU-jgV"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="Uu0-2C-hY9">
+                            <connections>
+                                <action selector="refreshPressed:" destination="1Um-wW-lvB" id="NCw-AR-gMc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="pinButton" destination="lqa-ev-NW6" id="lcI-AL-qbY"/>
+                        <outlet property="refreshButton" destination="Uu0-2C-hY9" id="iQ8-4A-e4z"/>
                         <outlet property="tableView" destination="j1f-lu-lUx" id="Gfg-Fl-y9D"/>
                     </connections>
                 </viewController>
@@ -337,6 +350,7 @@
     <resources>
         <image name="icon_listview-selected" width="75" height="50"/>
         <image name="icon_mapview-selected" width="75" height="50"/>
+        <image name="icon_pin" width="24" height="24"/>
         <image name="icon_pin.png" width="24" height="24"/>
         <image name="icon_refresh" width="24" height="24"/>
         <image name="logo-u.png" width="62" height="62"/>

@@ -11,6 +11,28 @@ import UIKit
 
 struct StudentInformation {
     
+    var firstName = ""
+    var lastName = ""
+    var location = ""
+    var website = ""
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+    
+    init(dictionary: [String:AnyObject]) {
+        if let fName = dictionary[StudentLocation.firstName] as? String {
+            firstName = fName
+        }
+        if let lName = dictionary[StudentLocation.lastName] as? String {
+            lastName = lName
+        }
+        if let mapString = dictionary[StudentLocation.mapString] as? String {
+            location = mapString
+        }
+        if let mediaURL = dictionary[StudentLocation.mediaURL] as? String {
+            website = mediaURL
+        }
+    }
+    
     // UdacityClient
     struct UdacityClient {
         static var username = ""
@@ -23,17 +45,28 @@ struct StudentInformation {
         static var objectId = ""
     }
     
-    // UI
-    struct UI {
-        static let LoginColorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).cgColor
-        static let LoginColorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).cgColor
-        static let GreyColor = UIColor(red: 0.702, green: 0.863, blue: 0.929, alpha:1.0)
-        static let BlueColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
-    }
-    
     // New
-    struct newStudent {
+    struct NewStudent {
         static var address = ""
         static var uniqueKey = ""
+        static var firstName = "firstName"
+        static var lastName = "lastName"
+        static var mediaURL = "mediaURL"
+        static var objectID = "objectID"
     }
+    
+    struct StudentLocation {
+        static let parseApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+        static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let studentLocationURL = "https://parse.udacity.com/parse/classes/StudentLocation"
+        static var objectID = "objectID"
+        static var uniqueKey = "uniqueKey"
+        static var firstName = "firstName"
+        static var lastName = "lastName"
+        static var mapString = "mapString"
+        static var mediaURL = "mediaURL"
+        static var latitude: Double = 37.386052
+        static var longitute: Double = -122.083851
+    }
+
 }

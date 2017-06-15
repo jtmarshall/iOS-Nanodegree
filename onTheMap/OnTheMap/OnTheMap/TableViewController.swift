@@ -11,6 +11,8 @@ import UIKit
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIApplicationDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var pinButton: UIBarButtonItem!
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
     
     var studentInformation = [[String: AnyObject]]()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -22,6 +24,16 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    @IBAction func pinButtonPressed(_ sender: Any) {
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
+        present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func refreshPressed(_ sender: Any) {
+        self.view.setNeedsDisplay()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,6 +46,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let match = self.studentInformation[(indexPath as IndexPath).row]
         let firstName = match["firstName"] as! String
         let lastName = match["lastName"] as! String
+        cell.imageView?.image = UIImage(named: "icon_pin")
         cell.textLabel!.text = "\(firstName) \(lastName)"
         return cell
     }
@@ -43,7 +56,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let app = UIApplication.shared
         let studentInformation = self.studentInformation[(indexPath as IndexPath).row]
         if let toOpen = studentInformation["mediaURL"] as? String {
-            app.openURL(URL(string: toOpen)!)
+            app.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
         }
     }
 }
