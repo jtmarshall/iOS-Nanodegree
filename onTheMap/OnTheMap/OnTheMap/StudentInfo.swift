@@ -40,19 +40,14 @@ struct StudentInformation {
     }
     
     // Student Info
-    struct student {
+    struct StudentData {
         static var studentInformation = [[String:AnyObject]]()
         static var objectId = ""
     }
     
-    // New
-    struct NewStudent {
-        static var address = ""
-        static var uniqueKey = ""
-        static var firstName = "firstName"
-        static var lastName = "lastName"
-        static var mediaURL = "mediaURL"
-        static var objectID = "objectID"
+    struct student {
+        static var studentInformation = [[String:AnyObject]]()
+        static var objectId = ""
     }
     
     struct StudentLocation {
@@ -65,8 +60,18 @@ struct StudentInformation {
         static var lastName = "lastName"
         static var mapString = "mapString"
         static var mediaURL = "mediaURL"
-        static var latitude: Double = 37.386052
-        static var longitute: Double = -122.083851
+        static var latitude: Double = 0
+        static var longitute: Double = 0
+    }
+    
+    // New
+    struct NewStudent {
+        static var address = ""
+        static var uniqueKey = ""
+        static var firstName = "firstName"
+        static var lastName = "lastName"
+        static var mediaURL = "mediaURL"
+        static var objectID = "objectID"
     }
 
 }
