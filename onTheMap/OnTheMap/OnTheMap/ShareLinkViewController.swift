@@ -19,14 +19,14 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var submitButton: UIButton!
     
-    var mapString = StudentInformation.NewStudent.address
+    var mapString = StudentInfo.NewStudent.address
     let geoCoder = CLGeocoder()
     
-    let initialLocation = CLLocation(latitude: StudentInformation.StudentLocation.latitude, longitude: StudentInformation.StudentLocation.longitute)
+    let initialLocation = CLLocation(latitude: StudentInfo.StudentLocation.latitude, longitude: StudentInfo.StudentLocation.longitute)
     
     override func viewDidLoad() {
         mapView.delegate = self
-        StudentInformation.NewStudent.mediaURL = linkTextField.text!
+        StudentInfo.NewStudent.mediaURL = linkTextField.text!
         
         //center map on student's location
         geoCoder.geocodeAddressString(mapString) { (placemarks, error) in
@@ -48,18 +48,17 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func submitButtonPressed(_ sender: Any) {
-        //        self.addressOnMap(address: mapString)
         self.locate(mapString: mapString)
     }
     
     func taskForPOSTMethodParse(newUniqueKey: String, newMapString: String, newMediaURL: String, newLatitude: String, newLongitude: String) {
         
-        let request = NSMutableURLRequest(url: URL(string: StudentInformation.StudentLocation.studentLocationURL)!)
+        let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
         request.httpMethod = "POST"
-        request.addValue(StudentInformation.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInformation.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"\(newUniqueKey)\", \"firstName\": \"\(StudentInformation.StudentLocation.firstName)\", \"lastName\": \"\(StudentInformation.StudentLocation.lastName)\",\"mapString\": \"\(newMapString)\", \"mediaURL\": \"\(newMediaURL)\",\"latitude\": \(newLatitude), \"longitude\": \(newLongitude)}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"uniqueKey\": \"\(newUniqueKey)\", \"firstName\": \"\(StudentInfo.NewStudent.firstName)\", \"lastName\": \"\(StudentInfo.NewStudent.lastName)\",\"mapString\": \"\(newMapString)\", \"mediaURL\": \"\(newMediaURL)\",\"latitude\": \(newLatitude), \"longitude\": \(newLongitude)}".data(using: String.Encoding.utf8)
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
@@ -80,7 +79,7 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
             }
             
             print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
-            //            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForPOST)
+
             
             var parsedResult: [String:AnyObject]!
             
@@ -96,7 +95,7 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
                 return
             }
             
-            StudentInformation.NewStudent.objectID = objectID
+            StudentInfo.NewStudent.objectID = objectID
             print("Your objectID: \(objectID)")
         }
         
@@ -126,7 +125,7 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
             let newLatitude = String(placeMarks[0].coordinate.latitude)
             let newLongitude = String(placeMarks[0].coordinate.longitude)
             let newMapString = placeMarks[0].description
-            let newUniqueKey = StudentInformation.NewStudent.uniqueKey
+            let newUniqueKey = StudentInfo.NewStudent.uniqueKey
             let newMediaURL = self.linkTextField.text!
             
             self.taskForPOSTMethodParse(newUniqueKey: newUniqueKey, newMapString: newMapString, newMediaURL: newMediaURL, newLatitude: newLatitude, newLongitude: newLongitude)

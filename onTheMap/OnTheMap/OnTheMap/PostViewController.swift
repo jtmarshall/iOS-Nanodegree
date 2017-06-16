@@ -17,7 +17,7 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
     @IBOutlet weak var locationText: UITextField!
     
     @IBAction func findLocation(_ sender: AnyObject) {
-        StudentInformation.NewStudent.address = locationText.text!
+        StudentInfo.NewStudent.address = locationText.text!
     }
     
     @IBAction func dismissViewController(_ sender: AnyObject) {
@@ -29,10 +29,6 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //test code
-        print("first: \(StudentInformation.StudentLocation.longitute)")
-        print("first: \(StudentInformation.StudentLocation.latitude)")
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,21 +45,21 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
         
         if locationText.text != nil {
             
-            StudentInformation.NewStudent.address = locationText.text!
+            StudentInfo.NewStudent.address = locationText.text!
             
             //            geocoder.geocodeAddressString(Constants.StudentLocation.mapString) { (placemarks, error) in
-            geocoder.geocodeAddressString(StudentInformation.NewStudent.address) { (placemarks, error) in
+            geocoder.geocodeAddressString(StudentInfo.NewStudent.address) { (placemarks, error) in
                 
                 self.processResponse(withPlacemarks: placemarks, error: error)
             }
             
             
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: "SetLinkToShareViewController") as! ShareLinkViewController
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "ShareLinkViewController") as! ShareLinkViewController
             self.present(controller, animated: true, completion: nil)
             
             //test code
-            print("second: \(StudentInformation.StudentLocation.longitute)")
-            print("second: \(StudentInformation.StudentLocation.latitude)")
+            print("second: \(StudentInfo.StudentLocation.longitute)")
+            print("second: \(StudentInfo.StudentLocation.latitude)")
         } else {
             print("No location entered")
             //TODO: AlertController
@@ -89,8 +85,8 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
                 locationText.text = "Location not found"
             }
             
-            StudentInformation.StudentLocation.latitude = (location?.coordinate.latitude)!
-            StudentInformation.StudentLocation.longitute = (location?.coordinate.longitude)!
+            StudentInfo.StudentLocation.latitude = (location?.coordinate.latitude)!
+            StudentInfo.StudentLocation.longitute = (location?.coordinate.longitude)!
         }
     }
     

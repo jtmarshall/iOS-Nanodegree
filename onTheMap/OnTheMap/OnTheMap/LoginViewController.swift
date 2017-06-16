@@ -16,20 +16,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var LoginButton: UIButton!
-    @IBOutlet weak var DebugTextLabel: UILabel!
     
     // MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // get the app delegate
+        // App Delegate
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-
-        subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
-        subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
-        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
-        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -43,10 +37,10 @@ class LoginViewController: UIViewController {
         
         userDidTapView(self)
         if Username.text!.isEmpty || Password.text!.isEmpty {
-            DebugTextLabel.text = "Username or Password Empty."
+            print("Username or Password Empty.")
         } else {
-            StudentInformation.UdacityClient.username = Username.text!
-            StudentInformation.UdacityClient.password = Password.text!
+            StudentInfo.LoginData.username = Username.text!
+            StudentInfo.LoginData.password = Password.text!
             setUIEnabled(false)
             UdacityClient.sharedInstance().authenticateWithViewController(self) { (success, errorString) in
                 if success {
@@ -83,33 +77,31 @@ extension LoginViewController: UITextFieldDelegate {
     
     // MARK: Show/Hide Keyboard
     
-    func keyboardWillShow(_ notification: Notification) {
-        if !keyboardOnScreen {
-            view.frame.origin.y -= keyboardHeight(notification)
-            //UdacityLogo.isHidden = true
-        }
-    }
-    
-    func keyboardWillHide(_ notification: Notification) {
-        if keyboardOnScreen {
-            view.frame.origin.y += keyboardHeight(notification)
-            //UdacityLogo.isHidden = false
-        }
-    }
-    
-    func keyboardDidShow(_ notification: Notification) {
-        keyboardOnScreen = true
-    }
-    
-    func keyboardDidHide(_ notification: Notification) {
-        keyboardOnScreen = false
-    }
-    
-    private func keyboardHeight(_ notification: Notification) -> CGFloat {
-        let userInfo = (notification as NSNotification).userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
-    }
+//    func keyboardWillShow(_ notification: Notification) {
+//        if !keyboardOnScreen {
+//            //view.frame.origin.y -= keyboardHeight(notification)
+//        }
+//    }
+//    
+//    func keyboardWillHide(_ notification: Notification) {
+//        if keyboardOnScreen {
+//            //view.frame.origin.y += keyboardHeight(notification)
+//        }
+//    }
+//    
+//    func keyboardDidShow(_ notification: Notification) {
+//        keyboardOnScreen = true
+//    }
+//    
+//    func keyboardDidHide(_ notification: Notification) {
+//        keyboardOnScreen = false
+//    }
+//    
+//    private func keyboardHeight(_ notification: Notification) -> CGFloat {
+//        let userInfo = (notification as NSNotification).userInfo
+//        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+//        return keyboardSize.cgRectValue.height
+//    }
     
     private func resignIfFirstResponder(_ textField: UITextField) {
         if textField.isFirstResponder {

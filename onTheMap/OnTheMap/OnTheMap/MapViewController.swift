@@ -11,22 +11,18 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
+
+    @IBOutlet weak var mapview: MKMapView!
     
-    @IBOutlet weak var mapView: MKMapView!
-        
     var locationJSON = [[String:AnyObject]]()
-    var address = StudentInformation.NewStudent.address
+    var address = StudentInfo.NewStudent.address
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
-        
-        taskForGETMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
-            
-            let locations = StudentInformation.StudentData.studentInformation
+        self.getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
+            let locations = StudentInfo.StudentData.studentInformation
             print("Locations: \(locations)")
-            var annotations = [MKPointAnnotation]()
             
             for dictionary in locations {
                 if let latitude = dictionary["latitude"] as? Double, let longitude = dictionary["longitude"] as? Double {
@@ -42,15 +38,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     annotation.title = "\(firstName) \(lastName)"
                     annotation.subtitle = mediaURL
                     
-                    annotations.append(annotation)
+                    // Add the annotation (student)
+                    self.mapview.addAnnotation(annotation)
+                    // For some reason we have to select and deselect each annotation for it to appear without dragging the map around...
+                    self.mapview.selectAnnotation(annotation, animated: false)
+                    self.mapview.deselectAnnotation(annotation, animated: false)
                 }
             }
-            
-            self.mapView.addAnnotations(annotations)
         }
     }
     
-    //Pin button pressed
+    // Pin button takes you to new post
     @IBAction func pinButtonPressed(_ sender: Any) {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
         present(controller, animated: true, completion: nil)
@@ -83,12 +81,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //MARK: Get location of multiple students
-    func taskForGETMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
+    //MARK: Get location of all students
+    func getMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
         
-        let request = NSMutableURLRequest(url: URL(string: StudentInformation.StudentLocation.studentLocationURL)!)
-        request.addValue(StudentInformation.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInformation.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
+        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
@@ -119,8 +117,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 return
             }
             
-            StudentInformation.StudentData.studentInformation = results
-            completionHandlerForMultipleStudentLocations(true, StudentInformation.StudentData.studentInformation, nil)
+            StudentInfo.StudentData.studentInformation = results
+            completionHandlerForMultipleStudentLocations(true, StudentInfo.StudentData.studentInformation, nil)
             
             print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
         }
@@ -129,13 +127,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     //MARK: Get location of single student
-    func taskForGETSingleStudentLocation() -> URLSessionDataTask {
-        
-        let urlString = StudentInformation.StudentLocation.studentLocationURL
+    func getSingleStudentLocation() -> URLSessionDataTask {
+        let urlString = StudentInfo.StudentLocation.studentLocationURL
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
-        request.addValue(StudentInformation.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInformation.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
@@ -152,7 +149,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 print("The request returned no data.")
                 return
             }
-            
             print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
         }
         
