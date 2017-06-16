@@ -50,7 +50,7 @@ extension UdacityClient {
                 if let account = result?["account"] as? [String:AnyObject] {
                     if let userId = account["key"] as? String {
                         print ("uniqueKey is \(userId)")
-                        StudentInformation.newStudent.uniqueKey = userId
+                        StudentInformation.NewStudent.uniqueKey = userId
                         completionHandlerForUserID(true, userId, nil)
                     } else {
                         print ("Could not find userId.")
@@ -70,7 +70,7 @@ extension UdacityClient {
         let _ = getPublicUserData(userId: userId) { (result, error) in
             if let error = error {
                 print (error)
-                completionHandlerForUserData(false, nil, "Fail to get userData")
+                completionHandlerForUserData(false, nil, "Failed to get userData")
             } else {
                 let userResult = result!
                 if let userData = userResult["user"] as? [String:AnyObject] {
@@ -87,7 +87,7 @@ extension UdacityClient {
         let _ = deleteASession(){ (result, error) in
             if let error = error {
                 print ("error is \(error)")
-                completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteSessionID")
+                completionHandlerForDeleteSessionID(false, nil, "Failed to get deleteSessionID")
             } else {
                 if let deleteResult = result {
                     if let deleteSession = deleteResult["session"] as? [String:AnyObject] {
@@ -95,13 +95,13 @@ extension UdacityClient {
                             print ("deleteSessionID is \(deleteSessionID)")
                             completionHandlerForDeleteSessionID(true, deleteSessionID, nil)
                         } else {
-                            completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteSessionID")
+                            completionHandlerForDeleteSessionID(false, nil, "Failed to get deleteSessionID")
                         }
                     } else {
-                        completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteSession")
+                        completionHandlerForDeleteSessionID(false, nil, "Failed to get deleteSession")
                     }
                 } else {
-                    completionHandlerForDeleteSessionID(false, nil, "Fail to get deleteResult")
+                    completionHandlerForDeleteSessionID(false, nil, "Failed to get deleteResult")
                 }
             }
         }
