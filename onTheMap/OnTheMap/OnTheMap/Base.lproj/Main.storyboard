@@ -283,7 +283,7 @@
                                     <navigationItem title="Add New" id="t0Q-Rf-ljC" userLabel="Cancel">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="taf-yV-wQf">
                                             <connections>
-                                                <action selector="dismissViewController:" destination="MdT-ur-S4F" id="edD-gw-8Aa"/>
+                                                <action selector="cancelButtonPressed:" destination="MdT-ur-S4F" id="K5W-x2-Gde"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>

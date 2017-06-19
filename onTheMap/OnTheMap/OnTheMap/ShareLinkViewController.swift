@@ -13,7 +13,7 @@ import CoreLocation
 
 class ShareLinkViewController: UIViewController, MKMapViewDelegate {
     
-    //MARK: Outlets
+    // Buttons
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
@@ -21,14 +21,13 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
     
     var mapString = StudentInfo.NewStudent.address
     let geoCoder = CLGeocoder()
-    
     let initialLocation = CLLocation(latitude: StudentInfo.StudentLocation.latitude, longitude: StudentInfo.StudentLocation.longitute)
     
     override func viewDidLoad() {
         mapView.delegate = self
         StudentInfo.NewStudent.mediaURL = linkTextField.text!
         
-        //center map on student's location
+        // Center map to student's preview locale
         geoCoder.geocodeAddressString(mapString) { (placemarks, error) in
             guard
                 let placemarks = placemarks,
@@ -40,17 +39,19 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //define zoom radius of location
+    // Zoom of location
     let regionRadius: CLLocationDistance = 5000
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    // Submit Button
     @IBAction func submitButtonPressed(_ sender: Any) {
         self.locate(mapString: mapString)
     }
     
+    // POST
     func taskForPOSTMethodParse(newUniqueKey: String, newMapString: String, newMediaURL: String, newLatitude: String, newLongitude: String) {
         
         let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
@@ -64,17 +65,17 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                print("Something went wrong with POST request: \(String(describing: error))")
+                print("Error with POST request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Your status code does not conform to 2xx.")
+                print("Status code doesn't conform to 2xx.")
                 return
             }
             
             guard let data = data else {
-                print("The request returned no data.")
+                print("Request returned no data.")
                 return
             }
             
@@ -86,22 +87,22 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
             } catch {
-                print ("Could not parse the data as JSON: '\(data)'")
+                print ("Couldn't parse data as JSON: '\(data)'")
                 return
             }
             
             guard let objectID = parsedResult["objectID"] as? String else {
-                print ("There is no objectId")
+                print ("No objectId")
                 return
             }
             
             StudentInfo.NewStudent.objectID = objectID
             print("Your objectID: \(objectID)")
         }
-        
         task.resume()
     }
     
+    // Locate
     func locate(mapString: String) {
         
         let localSearchRequest = MKLocalSearchRequest()

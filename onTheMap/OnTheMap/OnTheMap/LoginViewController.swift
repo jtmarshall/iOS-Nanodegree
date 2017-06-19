@@ -12,29 +12,23 @@ class LoginViewController: UIViewController {
     var appDelegate: AppDelegate!
     var keyboardOnScreen = false
     
-    // MARK: Outlets
+    // Outlets
     @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var LoginButton: UIButton!
     
-    // MARK: Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // App Delegate
         appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        unsubscribeFromAllNotifications()
+        //unsubscribeFromAllNotifications()
     }
     
-    // MARK: Login
-    
+    // Login
     @IBAction func loginPress(_ sender: AnyObject) {
-        
         userDidTapView(self)
         if Username.text!.isEmpty || Password.text!.isEmpty {
             print("Username or Password Empty.")
@@ -64,44 +58,14 @@ class LoginViewController: UIViewController {
     }
 }
 
-// MARK: - LoginViewController: UITextFieldDelegate
-
+// UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
     
-    // MARK: UITextFieldDelegate
-    
+    // UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-    // MARK: Show/Hide Keyboard
-    
-//    func keyboardWillShow(_ notification: Notification) {
-//        if !keyboardOnScreen {
-//            //view.frame.origin.y -= keyboardHeight(notification)
-//        }
-//    }
-//    
-//    func keyboardWillHide(_ notification: Notification) {
-//        if keyboardOnScreen {
-//            //view.frame.origin.y += keyboardHeight(notification)
-//        }
-//    }
-//    
-//    func keyboardDidShow(_ notification: Notification) {
-//        keyboardOnScreen = true
-//    }
-//    
-//    func keyboardDidHide(_ notification: Notification) {
-//        keyboardOnScreen = false
-//    }
-//    
-//    private func keyboardHeight(_ notification: Notification) -> CGFloat {
-//        let userInfo = (notification as NSNotification).userInfo
-//        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-//        return keyboardSize.cgRectValue.height
-//    }
     
     private func resignIfFirstResponder(_ textField: UITextField) {
         if textField.isFirstResponder {
@@ -115,9 +79,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - LoginViewController (Configure UI)
-
-private extension LoginViewController {
+extension LoginViewController {
     
     // Popup if Login error
     func displayError(_ errorString: String?) {
@@ -141,18 +103,5 @@ private extension LoginViewController {
         } else {
             LoginButton.alpha = 0.5
         }
-    }
-}
-
-// MARK: - LoginViewController (Notifications)
-
-private extension LoginViewController {
-    
-    func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
-        NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
-    }
-    
-    func unsubscribeFromAllNotifications() {
-        NotificationCenter.default.removeObserver(self)
     }
 }

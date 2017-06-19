@@ -10,17 +10,16 @@ import Foundation
 import UIKit
 
 class UdacityClient: NSObject {
-    // session
+    // Session
     var session = URLSession.shared
     
-    // authentication state
+    // Auth state
     var accountId: String? = nil
     var accountRegistered: Bool? = nil
     var sessionId: String? = nil
     var sessionExpiration: String? = nil
     
     // MARK: Initializers
-    
     override init() {
         super.init()
     }
@@ -118,7 +117,6 @@ class UdacityClient: NSObject {
                 completionHandlerForPostAStudentLocation(false, "There is no objectId.")
                 return
             }
-            
             StudentInfo.NewStudent.objectID = objectId
             completionHandlerForPostAStudentLocation(true, nil)
             

@@ -64,7 +64,7 @@ class ListTableViewController: UITableViewController {
         cell.textLabel?.text = "\(firstName) \(lastName)"
         return cell
     }
-    // Open up url in browser
+    // Open up url in default browser
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let studentInformation = self.studentInformation[(indexPath as IndexPath).row]
         if let toOpen = studentInformation["mediaURL"] as? String {

@@ -21,14 +21,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Saw in forumns that this was suggested to be wrapped inside 'performUIUpdatesOnMain' but it works the same without that...
         self.getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
             let locations = StudentInfo.StudentData.studentInformation
             print("Locations: \(locations)")
             
+            // Iterate through dictionary
             for dictionary in locations {
                 if let latitude = dictionary["latitude"] as? Double, let longitude = dictionary["longitude"] as? Double {
                     print("Longitude: \(longitude), Latitude: \(latitude)")
-                    
                     let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     let firstName = dictionary["firstName"] as! String
                     let lastName = dictionary["lastName"] as! String
@@ -39,7 +40,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     annotation.title = "\(firstName) \(lastName)"
                     annotation.subtitle = mediaURL
                     
-                    // Add the annotation (student)
+                    // Add the annotation per student
                     self.mapview.addAnnotation(annotation)
                     // For some reason we have to select and deselect each annotation for it to appear without dragging the map around...
                     self.mapview.selectAnnotation(annotation, animated: false)
@@ -67,10 +68,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 print (errorString)
             }
         }
-        
     }
     
-    //MARK: Map view delegate
+    // Map view delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseID = "pin"
@@ -85,7 +85,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         } else {
             pinView!.annotation = annotation
         }
-        
         return pinView
     }
     
@@ -97,7 +96,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //MARK: Get location of all students
+    // Get locations for students
     func getMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
         
         let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
@@ -108,15 +107,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                print("Something went wrong with your POST request: \(String(describing: error))")
+                print("Error with POST request: \(String(describing: error))")
                 return
             }
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Your status code does not conform to 2xx.")
+                print("Status code doesn't conform to 2xx.")
                 return
             }
             guard let data = data else {
-                print("The request returned no data.")
+                print("Request returned no data.")
                 return
             }
             
@@ -124,12 +123,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
             } catch {
-                print("Could not parse data as JSON: \(data)")
+                print("Couldn't parse data as JSON: \(data)")
                 return
             }
             
             guard let results = parsedResult["results"] as? [[String:AnyObject]] else {
-                print("No result found")
+                print("No results found.")
                 return
             }
             
@@ -138,37 +137,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
         }
-        
         task.resume()
-    }
-    
-    //MARK: Get location of single student
-    func getSingleStudentLocation() -> URLSessionDataTask {
-        let urlString = StudentInfo.StudentLocation.studentLocationURL
-        let url = URL(string: urlString)
-        let request = NSMutableURLRequest(url: url!)
-        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            
-            guard (error == nil) else {
-                print("Something went wrong with your POST request: \(String(describing: error))")
-                return
-            }
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Your status code does not conform to 2xx.")
-                return
-            }
-            guard let data = data else {
-                print("The request returned no data.")
-                return
-            }
-            print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
-        }
-        
-        task.resume()
-        return task
     }
 }

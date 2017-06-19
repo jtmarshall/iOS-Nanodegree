@@ -54,6 +54,7 @@ struct StudentInfo {
         static var objectId = ""
     }
     
+    // Student Location
     struct StudentLocation {
         static let parseApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"

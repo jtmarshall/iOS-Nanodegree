@@ -26,7 +26,7 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
     
     lazy var geocoder = CLGeocoder()
     
-    //MARK: View life cycle
+    // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -44,25 +44,21 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
     @IBAction func findOnMapPressed(_ sender: Any) {
         
         if locationText.text != nil {
-            
             StudentInfo.NewStudent.address = locationText.text!
             
-            //            geocoder.geocodeAddressString(Constants.StudentLocation.mapString) { (placemarks, error) in
             geocoder.geocodeAddressString(StudentInfo.NewStudent.address) { (placemarks, error) in
-                
                 self.processResponse(withPlacemarks: placemarks, error: error)
             }
-            
-            
+            // Add new link
             let controller = self.storyboard!.instantiateViewController(withIdentifier: "ShareLinkViewController") as! ShareLinkViewController
             self.present(controller, animated: true, completion: nil)
-            
-            //test code
-            print("second: \(StudentInfo.StudentLocation.longitute)")
-            print("second: \(StudentInfo.StudentLocation.latitude)")
-        } else {
-            print("No location entered")
-            //TODO: AlertController
+            } else {
+            // Show alert if no location
+            let popAlert = UIAlertController(title: "Error!", message: "No location entered", preferredStyle: UIAlertControllerStyle.alert)
+            popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                popAlert.dismiss(animated: true, completion: nil)
+            })
+            self.present(popAlert, animated: true)
         }
     }
     
@@ -90,21 +86,22 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
         }
     }
     
-    //Dismiss viewController
+    // Cancel Button Press
     @IBAction func cancelButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 }
 
+// Keyboard move functionality
 extension PostViewController {
     
-    //Make keyboard disappear upon pressing return
+    // Keyboard disappear after enter
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    //Move textFields up to not be covered by keyboard
+    // Move text field up for keyboard
     func keyboardWillShow(_ notification:Notification) {
         if locationText.isFirstResponder{
             view.frame.origin.y = -getKeyboardHeight(notification)
@@ -116,22 +113,18 @@ extension PostViewController {
     }
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
     func subscribeToKeyboardNotifications() {
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
-        
     }
     
     func unsubscribeFromKeyboardNotifications() {
-        
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
