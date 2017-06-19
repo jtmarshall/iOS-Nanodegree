@@ -11,8 +11,8 @@ import UIKit
 class ListTableViewController: UITableViewController {
     
     @IBOutlet weak var pinButton: UIBarButtonItem!
-    @IBOutlet weak var refreshButton: UIBarButtonItem!
     @IBOutlet var studentsTable: UITableView!
+    @IBOutlet weak var logout: UIBarButtonItem!
     
     var studentInformation = [[String:AnyObject]]()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -30,6 +30,20 @@ class ListTableViewController: UITableViewController {
     @IBAction func pinButtonPressed(_ sender: Any) {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
         present(controller, animated: true, completion: nil)
+    }
+    
+    // Logout button
+    @IBAction func logout(_ sender: AnyObject) {
+        
+        UdacityClient.sharedInstance().deleteViewController() {(success, errorString) in
+            if success {
+                performUIUpdatesOnMain {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                print (errorString)
+            }
+        }
     }
  
     override func numberOfSections(in tableView: UITableView) -> Int {

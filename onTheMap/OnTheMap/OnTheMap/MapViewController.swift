@@ -13,6 +13,7 @@ import UIKit
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapview: MKMapView!
+    @IBOutlet weak var logout: UIBarButtonItem!
     
     var locationJSON = [[String:AnyObject]]()
     var address = StudentInfo.NewStudent.address
@@ -52,6 +53,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func pinButtonPressed(_ sender: Any) {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
         present(controller, animated: true, completion: nil)
+    }
+    
+    // Logout Button
+    @IBAction func logout(_ sender: AnyObject) {
+        
+        UdacityClient.sharedInstance().deleteViewController() {(success, errorString) in
+            if success {
+                performUIUpdatesOnMain {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                print (errorString)
+            }
+        }
+        
     }
     
     //MARK: Map view delegate
