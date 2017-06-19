@@ -11,27 +11,25 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
+
+    @IBOutlet weak var mapview: MKMapView!
+    @IBOutlet weak var logout: UIBarButtonItem!
     
-    @IBOutlet weak var mapView: MKMapView!
-        
     var locationJSON = [[String:AnyObject]]()
-    var address = StudentInformation.NewStudent.address
+    var address = StudentInfo.NewStudent.address
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
-        
-        taskForGETMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
-            
-            let locations = StudentInformation.StudentData.studentInformation
+        // Saw in forumns that this was suggested to be wrapped inside 'performUIUpdatesOnMain' but it works the same without that...
+        self.getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
+            let locations = StudentInfo.StudentData.studentInformation
             print("Locations: \(locations)")
-            var annotations = [MKPointAnnotation]()
             
+            // Iterate through dictionary
             for dictionary in locations {
                 if let latitude = dictionary["latitude"] as? Double, let longitude = dictionary["longitude"] as? Double {
                     print("Longitude: \(longitude), Latitude: \(latitude)")
-                    
                     let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     let firstName = dictionary["firstName"] as! String
                     let lastName = dictionary["lastName"] as! String
@@ -42,21 +40,37 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     annotation.title = "\(firstName) \(lastName)"
                     annotation.subtitle = mediaURL
                     
-                    annotations.append(annotation)
+                    // Add the annotation per student
+                    self.mapview.addAnnotation(annotation)
+                    // For some reason we have to select and deselect each annotation for it to appear without dragging the map around...
+                    self.mapview.selectAnnotation(annotation, animated: false)
+                    self.mapview.deselectAnnotation(annotation, animated: false)
                 }
             }
-            
-            self.mapView.addAnnotations(annotations)
         }
     }
     
-    //Pin button pressed
+    // Pin button takes you to new post
     @IBAction func pinButtonPressed(_ sender: Any) {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
         present(controller, animated: true, completion: nil)
     }
     
-    //MARK: Map view delegate
+    // Logout Button
+    @IBAction func logout(_ sender: AnyObject) {
+        
+        UdacityClient.sharedInstance().deleteViewController() {(success, errorString) in
+            if success {
+                performUIUpdatesOnMain {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                print (errorString)
+            }
+        }
+    }
+    
+    // Map view delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseID = "pin"
@@ -71,7 +85,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         } else {
             pinView!.annotation = annotation
         }
-        
         return pinView
     }
     
@@ -83,26 +96,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //MARK: Get location of multiple students
-    func taskForGETMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
+    // Get locations for students
+    func getMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
         
-        let request = NSMutableURLRequest(url: URL(string: StudentInformation.StudentLocation.studentLocationURL)!)
-        request.addValue(StudentInformation.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInformation.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
+        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                print("Something went wrong with your POST request: \(String(describing: error))")
+                print("Error with POST request: \(String(describing: error))")
                 return
             }
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Your status code does not conform to 2xx.")
+                print("Status code doesn't conform to 2xx.")
                 return
             }
             guard let data = data else {
-                print("The request returned no data.")
+                print("Request returned no data.")
                 return
             }
             
@@ -110,53 +123,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
             } catch {
-                print("Could not parse data as JSON: \(data)")
+                print("Couldn't parse data as JSON: \(data)")
                 return
             }
             
             guard let results = parsedResult["results"] as? [[String:AnyObject]] else {
-                print("No result found")
+                print("No results found.")
                 return
             }
             
-            StudentInformation.StudentData.studentInformation = results
-            completionHandlerForMultipleStudentLocations(true, StudentInformation.StudentData.studentInformation, nil)
-            
-            print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
-        }
-        
-        task.resume()
-    }
-    
-    //MARK: Get location of single student
-    func taskForGETSingleStudentLocation() -> URLSessionDataTask {
-        
-        let urlString = StudentInformation.StudentLocation.studentLocationURL
-        let url = URL(string: urlString)
-        let request = NSMutableURLRequest(url: url!)
-        request.addValue(StudentInformation.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInformation.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            
-            guard (error == nil) else {
-                print("Something went wrong with your POST request: \(String(describing: error))")
-                return
-            }
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Your status code does not conform to 2xx.")
-                return
-            }
-            guard let data = data else {
-                print("The request returned no data.")
-                return
-            }
+            StudentInfo.StudentData.studentInformation = results
+            completionHandlerForMultipleStudentLocations(true, StudentInfo.StudentData.studentInformation, nil)
             
             print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
         }
-        
         task.resume()
-        return task
     }
 }

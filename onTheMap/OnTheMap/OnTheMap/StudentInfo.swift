@@ -9,32 +9,41 @@
 import Foundation
 import UIKit
 
-struct StudentInformation {
+struct StudentInfo {
     
-    var firstName = ""
-    var lastName = ""
-    var location = ""
-    var website = ""
+    static var firstName = ""
+    static var lastName = ""
+    static var location = ""
+    static var website = ""
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     
     init(dictionary: [String:AnyObject]) {
         if let fName = dictionary[StudentLocation.firstName] as? String {
-            firstName = fName
+            StudentInfo.firstName = fName
         }
         if let lName = dictionary[StudentLocation.lastName] as? String {
-            lastName = lName
+            StudentInfo.lastName = lName
         }
         if let mapString = dictionary[StudentLocation.mapString] as? String {
-            location = mapString
+            StudentInfo.location = mapString
         }
         if let mediaURL = dictionary[StudentLocation.mediaURL] as? String {
-            website = mediaURL
+            StudentInfo.website = mediaURL
         }
     }
     
+    static func studentInformation(_ results: [[String:AnyObject]]) -> [StudentInfo] {
+        var studentDictionary = [StudentInfo]()
+        
+        for result in results {
+            studentDictionary.append(StudentInfo(dictionary: result))
+        }
+        return studentDictionary
+    }
+    
     // UdacityClient
-    struct UdacityClient {
+    struct LoginData {
         static var username = ""
         static var password = ""
     }
@@ -45,11 +54,7 @@ struct StudentInformation {
         static var objectId = ""
     }
     
-    struct student {
-        static var studentInformation = [[String:AnyObject]]()
-        static var objectId = ""
-    }
-    
+    // Student Location
     struct StudentLocation {
         static let parseApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
@@ -64,14 +69,14 @@ struct StudentInformation {
         static var longitute: Double = 0
     }
     
-    // New
+    // To Post Data
     struct NewStudent {
         static var address = ""
         static var uniqueKey = ""
-        static var firstName = "firstName"
-        static var lastName = "lastName"
-        static var mediaURL = "mediaURL"
-        static var objectID = "objectID"
+        static var firstName = ""
+        static var lastName = ""
+        static var mediaURL = ""
+        static var objectID = ""
     }
 
 }

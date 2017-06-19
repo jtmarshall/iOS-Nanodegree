@@ -10,17 +10,16 @@ import Foundation
 import UIKit
 
 class UdacityClient: NSObject {
-    // session
+    // Session
     var session = URLSession.shared
     
-    // authentication state
+    // Auth state
     var accountId: String? = nil
     var accountRegistered: Bool? = nil
     var sessionId: String? = nil
     var sessionExpiration: String? = nil
     
     // MARK: Initializers
-    
     override init() {
         super.init()
     }
@@ -31,7 +30,7 @@ class UdacityClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"udacity\": {\"username\": \"\(StudentInformation.UdacityClient.username)\", \"password\": \"\(StudentInformation.UdacityClient.password)\"}}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"udacity\": {\"username\": \"\(StudentInfo.LoginData.username)\", \"password\": \"\(StudentInfo.LoginData.password)\"}}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error…
@@ -90,6 +89,42 @@ class UdacityClient: NSObject {
         task.resume()
         return task
     }
+    
+    func postAStudentLocation(newUniqueKey: String, newFirstName: String, newLastName: String, newAddress: String, newLat: String, newLon: String, mediaURL: String, _ completionHandlerForPostAStudentLocation: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+        request.httpMethod = "POST"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"\(newUniqueKey)\", \"firstName\": \"\(newFirstName)\", \"lastName\": \"\(newLastName)\",\"mapString\": \"\(newAddress)\", \"mediaURL\": \"https://\(mediaURL)\",\"latitude\": \(newLat), \"longitude\": \(newLon)}".data(using: String.Encoding.utf8)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            if error != nil { // Handle error…
+                completionHandlerForPostAStudentLocation(false, "post failed 1.")
+                return
+            }
+            let parsedResult: [String:AnyObject]!
+            
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
+            } catch {
+                completionHandlerForPostAStudentLocation(false, "Could not parse the data as JSON: \(String(describing: data)).")
+                return
+            }
+            
+            guard let objectId = parsedResult["objectId"] as? String else {
+                completionHandlerForPostAStudentLocation(false, "There is no objectId.")
+                return
+            }
+            StudentInfo.NewStudent.objectID = objectId
+            completionHandlerForPostAStudentLocation(true, nil)
+            
+        }
+        task.resume()
+        
+    }
+
     private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         var parsedResult: AnyObject! = nil
         do {
@@ -107,5 +142,4 @@ class UdacityClient: NSObject {
         }
         return Singleton.sharedInstance
     }
-    
 }
