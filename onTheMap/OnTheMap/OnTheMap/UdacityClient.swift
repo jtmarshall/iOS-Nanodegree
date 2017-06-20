@@ -19,7 +19,7 @@ class UdacityClient: NSObject {
     var sessionId: String? = nil
     var sessionExpiration: String? = nil
     
-    // MARK: Initializers
+    // Initializers
     override init() {
         super.init()
     }
