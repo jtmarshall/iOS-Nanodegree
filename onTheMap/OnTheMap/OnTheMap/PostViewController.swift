@@ -9,11 +9,12 @@
 import Foundation
 import MapKit
 import UIKit
+import CoreLocation
 
-class PostViewController: UIViewController, UIApplicationDelegate, UINavigationControllerDelegate,UITextFieldDelegate, MKMapViewDelegate {
+class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
     
     var mapView: MKMapView!
-    
+    var activityIndicator = UIActivityIndicatorView()
     @IBOutlet weak var locationText: UITextField!
     
     @IBAction func findLocation(_ sender: AnyObject) {
@@ -24,7 +25,7 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
         dismiss(animated: true, completion: nil)
     }
     
-    lazy var geocoder = CLGeocoder()
+    var geocoder = CLGeocoder()
     
     // Life cycle
     override func viewDidLoad() {
@@ -42,18 +43,16 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
     }
     
     @IBAction func findOnMapPressed(_ sender: Any) {
+        locationText.resignFirstResponder()
         
         if locationText.text != nil {
+            // Start Activity Indicator
+            activityIndicator.startAnimating()
+            
             StudentInfo.NewStudent.address = locationText.text!
             
             geocoder.geocodeAddressString(StudentInfo.NewStudent.address) { (placemarks, error) in
                 self.processResponse(withPlacemarks: placemarks, error: error)
-                // Activity Indicator
-                let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-                self.mapView.addSubview(activityIndicator)
-                activityIndicator.frame = self.mapView.bounds
-                activityIndicator.startAnimating()
-                activityIndicator.removeFromSuperview()
             }
             // Add new link
             let controller = self.storyboard!.instantiateViewController(withIdentifier: "ShareLinkViewController") as! ShareLinkViewController
@@ -66,6 +65,8 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
             })
             self.present(popAlert, animated: true)
         }
+        // Activity Indicator
+        self.activityIndicator.stopAnimating()
     }
     
     private func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
