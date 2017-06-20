@@ -22,7 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // Saw in forumns that this was suggested to be wrapped inside 'performUIUpdatesOnMain' but it works the same without that...
-        self.getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
+        UdacityClient.sharedInstance().getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
             let locations = StudentInfo.StudentData.studentInformation
             print("Locations: \(locations)")
             
@@ -65,7 +65,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
-                print (errorString)
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
             }
         }
     }
@@ -91,52 +96,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             if let toOpen = view.annotation?.subtitle! {
-                UIApplication.shared.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
+                UIApplication.shared.canOpenURL(NSURL(string: toOpen)! as URL)
+            } else {
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
             }
         }
-    }
-    
-    // Get locations for students
-    func getMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
-        
-        let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
-        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            
-            guard (error == nil) else {
-                print("Error with POST request: \(String(describing: error))")
-                return
-            }
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Status code doesn't conform to 2xx.")
-                return
-            }
-            guard let data = data else {
-                print("Request returned no data.")
-                return
-            }
-            
-            let parsedResult: [String:AnyObject]
-            do {
-                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
-            } catch {
-                print("Couldn't parse data as JSON: \(data)")
-                return
-            }
-            
-            guard let results = parsedResult["results"] as? [[String:AnyObject]] else {
-                print("No results found.")
-                return
-            }
-            
-            StudentInfo.StudentData.studentInformation = results
-            completionHandlerForMultipleStudentLocations(true, StudentInfo.StudentData.studentInformation, nil)
-            
-            print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
-        }
-        task.resume()
     }
 }

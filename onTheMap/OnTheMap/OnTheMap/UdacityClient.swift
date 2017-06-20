@@ -124,6 +124,51 @@ class UdacityClient: NSObject {
         task.resume()
         
     }
+    
+    // Get locations for students
+    func getMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
+        
+        let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
+        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            
+            guard (error == nil) else {
+                print("Error with POST request: \(String(describing: error))")
+                return
+            }
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                print("Status code doesn't conform to 2xx.")
+                return
+            }
+            guard let data = data else {
+                print("Request returned no data.")
+                return
+            }
+            
+            let parsedResult: [String:AnyObject]
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
+            } catch {
+                print("Couldn't parse data as JSON: \(data)")
+                return
+            }
+            
+            guard let results = parsedResult["results"] as? [[String:AnyObject]] else {
+                print("No results found.")
+                return
+            }
+            
+            StudentInfo.StudentData.studentInformation = results
+            DispatchQueue.main.async {
+                completionHandlerForMultipleStudentLocations(true, StudentInfo.StudentData.studentInformation, nil)
+            }
+            print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
+        }
+        task.resume()
+    }
 
     private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         var parsedResult: AnyObject! = nil
