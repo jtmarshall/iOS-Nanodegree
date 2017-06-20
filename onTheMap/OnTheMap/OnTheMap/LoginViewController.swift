@@ -17,6 +17,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var LoginButton: UIButton!
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.Password.resignFirstResponder()
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate = UIApplication.shared.delegate as! AppDelegate

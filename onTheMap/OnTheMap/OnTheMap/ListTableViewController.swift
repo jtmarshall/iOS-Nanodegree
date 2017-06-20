@@ -41,14 +41,16 @@ class ListTableViewController: UITableViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
-                print (errorString)
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
             }
         }
     }
- 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         studentInformation = StudentInfo.StudentData.studentInformation
         return studentInformation.count
@@ -67,6 +69,7 @@ class ListTableViewController: UITableViewController {
     // Open up url in default browser
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let studentInformation = self.studentInformation[(indexPath as IndexPath).row]
+        tableView.deselectRow(at: indexPath, animated: true)
         if let toOpen = studentInformation["mediaURL"] as? String {
             UIApplication.shared.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
         }

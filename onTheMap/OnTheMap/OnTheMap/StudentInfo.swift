@@ -33,7 +33,7 @@ struct StudentInfo {
         }
     }
     
-    static func studentInformation(_ results: [[String:AnyObject]]) -> [StudentInfo] {
+    static func StudentInformation(_ results: [[String:AnyObject]]) -> [StudentInfo] {
         var studentDictionary = [StudentInfo]()
         
         for result in results {
@@ -50,7 +50,8 @@ struct StudentInfo {
     
     // Student Info
     struct StudentData {
-        static var studentInformation = [[String:AnyObject]]()
+        //static var studentInformation = [[String:AnyObject]]()
+        let students = [StudentInfo]()
         static var objectId = ""
     }
     
@@ -58,7 +59,7 @@ struct StudentInfo {
     struct StudentLocation {
         static let parseApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
-        static let studentLocationURL = "https://parse.udacity.com/parse/classes/StudentLocation"
+        static let studentLocationURL = "https://parse.udacity.com/parse/classes/StudentLocation?limit=100&order=-updatedAt"
         static var objectID = "objectID"
         static var uniqueKey = "uniqueKey"
         static var firstName = "firstName"

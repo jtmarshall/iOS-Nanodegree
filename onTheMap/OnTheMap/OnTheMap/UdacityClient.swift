@@ -34,7 +34,7 @@ class UdacityClient: NSObject {
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error…
-                return
+                completionHandlerForPostWithUdAPI(request as AnyObject, error! as NSError)
             }
             let range = Range(uncheckedBounds: (5, data!.count))
             let newData = data?.subdata(in: range) /* subset response data! */
@@ -169,6 +169,58 @@ class UdacityClient: NSObject {
         }
         task.resume()
     }
+    
+    // POST
+    func taskForPOSTMethodParse(newUniqueKey: String, newMapString: String, newMediaURL: String, newLatitude: String, newLongitude: String) {
+        
+        let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
+        request.httpMethod = "POST"
+        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"\(newUniqueKey)\", \"firstName\": \"\(StudentInfo.NewStudent.firstName)\", \"lastName\": \"\(StudentInfo.NewStudent.lastName)\",\"mapString\": \"\(newMapString)\", \"mediaURL\": \"\(newMediaURL)\",\"latitude\": \(newLatitude), \"longitude\": \(newLongitude)}".data(using: String.Encoding.utf8)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            
+            guard (error == nil) else {
+                print("Error with POST request: \(String(describing: error))")
+                return
+            }
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                print("Status code doesn't conform to 2xx.")
+                return
+            }
+            
+            guard let data = data else {
+                print("Request returned no data.")
+                return
+            }
+            
+            print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
+            
+            
+            var parsedResult: [String:AnyObject]!
+            
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
+            } catch {
+                print ("Couldn't parse data as JSON: '\(data)'")
+                return
+            }
+            
+            guard let objectID = parsedResult["objectID"] as? String else {
+                print ("No objectId")
+                return
+            }
+            
+            StudentInfo.NewStudent.objectID = objectID
+            print("Your objectID: \(objectID)")
+        }
+        task.resume()
+    }
+
 
     private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         var parsedResult: AnyObject! = nil

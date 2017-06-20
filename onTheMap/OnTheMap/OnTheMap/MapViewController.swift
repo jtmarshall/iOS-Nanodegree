@@ -23,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         // Saw in forumns that this was suggested to be wrapped inside 'performUIUpdatesOnMain' but it works the same without that...
         UdacityClient.sharedInstance().getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
-            let locations = StudentInfo.StudentData.studentInformation
+            let locations = StudentInfo.StudentData.StudentInformation
             print("Locations: \(locations)")
             
             // Iterate through dictionary

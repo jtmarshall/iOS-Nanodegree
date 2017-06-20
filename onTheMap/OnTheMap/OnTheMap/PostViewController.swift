@@ -48,6 +48,12 @@ class PostViewController: UIViewController, UIApplicationDelegate, UINavigationC
             
             geocoder.geocodeAddressString(StudentInfo.NewStudent.address) { (placemarks, error) in
                 self.processResponse(withPlacemarks: placemarks, error: error)
+                // Activity Indicator
+                let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+                self.mapView.addSubview(activityIndicator)
+                activityIndicator.frame = self.mapView.bounds
+                activityIndicator.startAnimating()
+                activityIndicator.removeFromSuperview()
             }
             // Add new link
             let controller = self.storyboard!.instantiateViewController(withIdentifier: "ShareLinkViewController") as! ShareLinkViewController
