@@ -14,7 +14,7 @@ class ListTableViewController: UITableViewController {
     @IBOutlet var studentsTable: UITableView!
     @IBOutlet weak var logout: UIBarButtonItem!
     
-    var studentInformation = [[String:AnyObject]]()
+    var studentInformation = StudentDataSource.sharedInstance.studentData
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,16 +41,18 @@ class ListTableViewController: UITableViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
-                print (errorString)
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
             }
         }
     }
- 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        studentInformation = StudentInfo.StudentData.studentInformation
+        studentInformation = StudentInfo.StudentData.students
         return studentInformation.count
     }
     // Iterate through student cells
@@ -58,8 +60,8 @@ class ListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentLocationCell", for: indexPath)
         let pair = self.studentInformation[(indexPath as IndexPath).row]
         // Show first and last name for each recent student
-        let firstName = pair["firstName"] as! String
-        let lastName = pair["lastName"] as! String
+        let firstName = pair.firstName
+        let lastName = pair.lastName
         cell.imageView?.image = UIImage(named: "pin")
         cell.textLabel?.text = "\(firstName) \(lastName)"
         return cell
@@ -67,8 +69,49 @@ class ListTableViewController: UITableViewController {
     // Open up url in default browser
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let studentInformation = self.studentInformation[(indexPath as IndexPath).row]
-        if let toOpen = studentInformation["mediaURL"] as? String {
-            UIApplication.shared.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let toOpen = studentInformation.mediaURL as? String {
+            //UIApplication.shared.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
+            open(scheme: toOpen)
+        } else {
+            // Popup alert
+            let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+            popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                popAlert.dismiss(animated: true, completion: nil)
+            })
+            self.present(popAlert, animated: true)
+        }
+    }
+    
+    // Make sure we can open the url (covers all bases)
+    func open(scheme: String) {
+        if let url = URL(string: scheme) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {
+                    (success) in print("Open \(scheme): \(success)")
+                    // Alert if no success
+                    if (success == false) {
+                        // Popup alert
+                        let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                        popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                            popAlert.dismiss(animated: true, completion: nil)
+                        })
+                        self.present(popAlert, animated: true)
+                    }
+                    })
+            } else {
+                let success = UIApplication.shared.openURL(url)
+                // Alert if no success
+                if (success == false) {
+                    // Popup alert
+                    let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                    popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        popAlert.dismiss(animated: true, completion: nil)
+                    })
+                    self.present(popAlert, animated: true)
+                }
+                print("Open \(scheme): \(success)")
+            }
         }
     }
 }

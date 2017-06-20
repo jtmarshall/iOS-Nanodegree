@@ -15,25 +15,24 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapview: MKMapView!
     @IBOutlet weak var logout: UIBarButtonItem!
     
-    var locationJSON = [[String:AnyObject]]()
+    var locationJSON = StudentDataSource.sharedInstance.studentData
     var address = StudentInfo.NewStudent.address
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Saw in forumns that this was suggested to be wrapped inside 'performUIUpdatesOnMain' but it works the same without that...
-        self.getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
-            let locations = StudentInfo.StudentData.studentInformation
-            print("Locations: \(locations)")
+        UdacityClient.sharedInstance().getStudentLocations { (success, errorString) in
+            let locations = StudentInfo.StudentData.students
             
             // Iterate through dictionary
-            for dictionary in locations {
-                if let latitude = dictionary["latitude"] as? Double, let longitude = dictionary["longitude"] as? Double {
+            for item in locations {
+                if let latitude = item.latitude, let longitude = item.longitude {
                     print("Longitude: \(longitude), Latitude: \(latitude)")
                     let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    let firstName = dictionary["firstName"] as! String
-                    let lastName = dictionary["lastName"] as! String
-                    let mediaURL = dictionary["mediaURL"] as! String
+                    let firstName = item.firstName
+                    let lastName = item.lastName
+                    let mediaURL = item.mediaURL
                     
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinate
@@ -65,7 +64,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
-                print (errorString)
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
             }
         }
     }
@@ -91,52 +95,48 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             if let toOpen = view.annotation?.subtitle! {
-                UIApplication.shared.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
+                //UIApplication.shared.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
+                open(scheme: toOpen)
+            } else {
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
             }
         }
     }
     
-    // Get locations for students
-    func getMultipleStudentLocationsMethod(completionHandlerForMultipleStudentLocations: @escaping (_ success: Bool, _ locationJSON: [[String:AnyObject]]?, _ errorString: String?) -> Void) {
-        
-        let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
-        request.addValue(StudentInfo.StudentLocation.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(StudentInfo.StudentLocation.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            
-            guard (error == nil) else {
-                print("Error with POST request: \(String(describing: error))")
-                return
+    // Make sure we can open the url
+    func open(scheme: String) {
+        if let url = URL(string: scheme) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {
+                    (success) in print("Open \(scheme): \(success)")
+                    // Alert if no success
+                    if (success == false) {
+                        // Popup alert
+                        let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                        popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                            popAlert.dismiss(animated: true, completion: nil)
+                        })
+                        self.present(popAlert, animated: true)
+                    }
+                })
+            } else {
+                let success = UIApplication.shared.openURL(url)
+                // Alert if no success
+                if (success == false) {
+                    // Popup alert
+                    let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                    popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        popAlert.dismiss(animated: true, completion: nil)
+                    })
+                    self.present(popAlert, animated: true)
+                }
+                print("Open \(scheme): \(success)")
             }
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Status code doesn't conform to 2xx.")
-                return
-            }
-            guard let data = data else {
-                print("Request returned no data.")
-                return
-            }
-            
-            let parsedResult: [String:AnyObject]
-            do {
-                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
-            } catch {
-                print("Couldn't parse data as JSON: \(data)")
-                return
-            }
-            
-            guard let results = parsedResult["results"] as? [[String:AnyObject]] else {
-                print("No results found.")
-                return
-            }
-            
-            StudentInfo.StudentData.studentInformation = results
-            completionHandlerForMultipleStudentLocations(true, StudentInfo.StudentData.studentInformation, nil)
-            
-            print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
         }
-        task.resume()
     }
 }
