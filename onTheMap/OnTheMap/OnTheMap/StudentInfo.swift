@@ -11,35 +11,24 @@ import UIKit
 
 struct StudentInfo {
     
-    static var firstName = ""
-    static var lastName = ""
-    static var location = ""
-    static var website = ""
-    var latitude: Double = 0.0
-    var longitude: Double = 0.0
+    var firstName = ""
+    var lastName = ""
+    var latitude: Double?
+    var longitude: Double?
+    var mapString = ""
+    var mediaURL = ""
+    var objectId = ""
+    var uniqueKey = ""
     
     init(dictionary: [String:AnyObject]) {
-        if let fName = dictionary[StudentLocation.firstName] as? String {
-            StudentInfo.firstName = fName
-        }
-        if let lName = dictionary[StudentLocation.lastName] as? String {
-            StudentInfo.lastName = lName
-        }
-        if let mapString = dictionary[StudentLocation.mapString] as? String {
-            StudentInfo.location = mapString
-        }
-        if let mediaURL = dictionary[StudentLocation.mediaURL] as? String {
-            StudentInfo.website = mediaURL
-        }
-    }
-    
-    static func StudentInformation(_ results: [[String:AnyObject]]) -> [StudentInfo] {
-        var studentDictionary = [StudentInfo]()
-        
-        for result in results {
-            studentDictionary.append(StudentInfo(dictionary: result))
-        }
-        return studentDictionary
+        self.firstName = (dictionary["firstName"] != nil) ? dictionary["firstName"] as! String : ""
+        self.lastName = (dictionary["lastName"] != nil) ? dictionary["lastName"] as! String : ""
+        self.latitude = (dictionary["latitude"] != nil) ? dictionary["latitude"] as? Double : nil
+        self.longitude = (dictionary["longitude"] != nil) ? dictionary["longitude"] as? Double : nil
+        self.mapString = (dictionary["mapString"] != nil) ? dictionary["mapString"] as! String : ""
+        self.mediaURL = (dictionary["mediaURL"] != nil) ? dictionary["mediaURL"] as! String : ""
+        self.objectId = (dictionary["objectId"] != nil) ? dictionary["objectId"] as! String : ""
+        self.uniqueKey = (dictionary["uniqueKey"] != nil) ? dictionary["uniqueKey"] as! String : ""
     }
     
     // UdacityClient
@@ -51,7 +40,7 @@ struct StudentInfo {
     // Student Info
     struct StudentData {
         //static var studentInformation = [[String:AnyObject]]()
-        let students = [StudentInfo]()
+        static var students = [StudentInfo]()
         static var objectId = ""
     }
     
@@ -79,5 +68,10 @@ struct StudentInfo {
         static var mediaURL = ""
         static var objectID = ""
     }
+}
 
+class StudentDataSource {
+    let studentData = [StudentInfo]()
+    static let sharedInstance = StudentDataSource()
+    private init() {} //This prevents others from using the default '()' initializer for this class.
 }

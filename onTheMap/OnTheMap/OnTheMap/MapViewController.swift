@@ -15,25 +15,24 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapview: MKMapView!
     @IBOutlet weak var logout: UIBarButtonItem!
     
-    var locationJSON = [[String:AnyObject]]()
+    var locationJSON = StudentDataSource.sharedInstance.studentData
     var address = StudentInfo.NewStudent.address
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Saw in forumns that this was suggested to be wrapped inside 'performUIUpdatesOnMain' but it works the same without that...
-        UdacityClient.sharedInstance().getMultipleStudentLocationsMethod { (success, locationJSON, errorString) in
-            let locations = StudentInfo.StudentData.StudentInformation
-            print("Locations: \(locations)")
+        UdacityClient.sharedInstance().getStudentLocations { (success, errorString) in
+            let locations = StudentInfo.StudentData.students
             
             // Iterate through dictionary
-            for dictionary in locations {
-                if let latitude = dictionary["latitude"] as? Double, let longitude = dictionary["longitude"] as? Double {
+            for item in locations {
+                if let latitude = item.latitude, let longitude = item.longitude {
                     print("Longitude: \(longitude), Latitude: \(latitude)")
                     let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    let firstName = dictionary["firstName"] as! String
-                    let lastName = dictionary["lastName"] as! String
-                    let mediaURL = dictionary["mediaURL"] as! String
+                    let firstName = item.firstName
+                    let lastName = item.lastName
+                    let mediaURL = item.mediaURL
                     
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinate
@@ -96,7 +95,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             if let toOpen = view.annotation?.subtitle! {
-                UIApplication.shared.canOpenURL(NSURL(string: toOpen)! as URL)
+                //UIApplication.shared.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
+                open(scheme: toOpen)
             } else {
                 // Popup alert
                 let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
@@ -104,6 +104,38 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     popAlert.dismiss(animated: true, completion: nil)
                 })
                 self.present(popAlert, animated: true)
+            }
+        }
+    }
+    
+    // Make sure we can open the url
+    func open(scheme: String) {
+        if let url = URL(string: scheme) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {
+                    (success) in print("Open \(scheme): \(success)")
+                    // Alert if no success
+                    if (success == false) {
+                        // Popup alert
+                        let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                        popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                            popAlert.dismiss(animated: true, completion: nil)
+                        })
+                        self.present(popAlert, animated: true)
+                    }
+                })
+            } else {
+                let success = UIApplication.shared.openURL(url)
+                // Alert if no success
+                if (success == false) {
+                    // Popup alert
+                    let popAlert = UIAlertController(title: "Error!", message: "Can't open URL!", preferredStyle: UIAlertControllerStyle.alert)
+                    popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                        popAlert.dismiss(animated: true, completion: nil)
+                    })
+                    self.present(popAlert, animated: true)
+                }
+                print("Open \(scheme): \(success)")
             }
         }
     }

@@ -66,12 +66,6 @@ class LoginViewController: UIViewController {
 // UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
     
-    // UITextFieldDelegate
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
     private func resignIfFirstResponder(_ textField: UITextField) {
         if textField.isFirstResponder {
             textField.resignFirstResponder()

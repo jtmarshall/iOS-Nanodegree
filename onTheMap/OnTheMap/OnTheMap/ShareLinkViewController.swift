@@ -78,7 +78,7 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
             let newUniqueKey = StudentInfo.NewStudent.uniqueKey
             let newMediaURL = self.linkTextField.text!
             
-            UdacityClient.sharedInstance().taskForPOSTMethodParse(newUniqueKey: newUniqueKey, newMapString: newMapString, newMediaURL: newMediaURL, newLatitude: newLatitude, newLongitude: newLongitude)
+            UdacityClient.sharedInstance().POSTMethodParse(newUniqueKey: newUniqueKey, newMapString: newMapString, newMediaURL: newMediaURL, newLatitude: newLatitude, newLongitude: newLongitude)
             
             self.presentingViewController!.presentingViewController!.dismiss(animated: true, completion: nil)
             //let controller = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
