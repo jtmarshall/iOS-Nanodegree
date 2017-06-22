@@ -86,7 +86,12 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
             let newUniqueKey = StudentInfo.NewStudent.uniqueKey
             let newMediaURL = self.linkTextField.text!
             
-            UdacityClient.sharedInstance().POSTMethodParse(newUniqueKey: newUniqueKey, newMapString: newMapString, newMediaURL: newMediaURL, newLatitude: newLatitude, newLongitude: newLongitude)
+            UdacityClient.sharedInstance().POSTMethodParse(newUniqueKey: newUniqueKey, newMapString: newMapString, newMediaURL: newMediaURL, newLatitude: newLatitude, newLongitude: newLongitude, completion: { (success, error) in
+                guard (error == nil) else {
+                    UdacityClient.sharedInstance().showError(errorString: error!)
+                    return
+                }
+            })
             
             self.presentingViewController!.presentingViewController!.dismiss(animated: true, completion: nil)
             //let controller = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
@@ -96,6 +101,7 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
     
     // Cancel Submission
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        // Dismiss both Share Link and Post View
+        self.presentingViewController!.presentingViewController!.dismiss(animated: true, completion: nil)
     }
 }

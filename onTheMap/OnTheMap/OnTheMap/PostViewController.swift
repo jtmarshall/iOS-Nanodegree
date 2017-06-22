@@ -14,7 +14,8 @@ import CoreLocation
 class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
     
     var mapView: MKMapView!
-    var activityIndicator = UIActivityIndicatorView()
+    // Added from storyboard
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var locationText: UITextField!
     
     @IBAction func findLocation(_ sender: AnyObject) {
@@ -30,6 +31,8 @@ class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelega
     // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        // For keyboard disapper
+        locationText.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,7 +107,7 @@ extension PostViewController {
     
     // Keyboard disappear after enter
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        locationText.resignFirstResponder()
         return true
     }
     
