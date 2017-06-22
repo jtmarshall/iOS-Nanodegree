@@ -39,17 +39,14 @@ extension UdacityClient {
     private func getUserId(_ completionHandlerForUserID: @escaping (_ success: Bool, _ userID: String?, _ errorString: String?) -> Void) {
         let _ = postSessionWithUdAPI() { (result, error) in
             
-            if let error = error {
-                print(error)
+            if error != nil {
                 completionHandlerForUserID(false, nil, "Couldn't connect to the Internet.")
             } else {
                 if let account = result?["account"] as? [String:AnyObject] {
                     if let userId = account["key"] as? String {
-                        print ("uniqueKey is \(userId)")
                         StudentInfo.NewStudent.uniqueKey = userId
                         completionHandlerForUserID(true, userId, nil)
                     } else {
-                        print ("Could not find userId.")
                         completionHandlerForUserID(false, nil, "The credentials were incorrect, please try again")
                     }
                 } else {
