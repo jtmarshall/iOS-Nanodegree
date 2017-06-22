@@ -70,7 +70,7 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
         localSearch.start { (localSearchResponse, error) in
             var placeMarks = [MKPlacemark]()
             if error != nil {
-                let alertController = UIAlertController(title: "Error", message: "Cannot POST", preferredStyle: UIAlertControllerStyle.alert)
+                let alertController = UIAlertController(title: "Error", message: "Cannot POST Data", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
                 
                 let alertWindow = UIWindow(frame: UIScreen.main.bounds)
