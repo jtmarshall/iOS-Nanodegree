@@ -70,12 +70,18 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
         localSearch.start { (localSearchResponse, error) in
             var placeMarks = [MKPlacemark]()
             if error != nil {
-                print("There is an error")
+                let alertController = UIAlertController(title: "Error", message: "Cannot POST", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+                
+                let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                alertWindow.rootViewController = UIViewController()
+                alertWindow.windowLevel = UIWindowLevelAlert + 1;
+                alertWindow.makeKeyAndVisible()
+                alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
                 return
             }
             for response in (localSearchResponse?.mapItems)! {
                 placeMarks.append(response.placemark)
-                print("Response: \(response)")
             }
             
             self.mapView.showAnnotations([placeMarks[0]], animated: false)

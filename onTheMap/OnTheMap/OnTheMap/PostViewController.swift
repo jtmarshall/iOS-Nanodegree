@@ -48,7 +48,8 @@ class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelega
     }
     
     @IBAction func findOnMapPressed(_ sender: Any) {
-        activityIndicator.startAnimating()
+        // Start activity indicator spinning
+        self.activityIndicator.startAnimating()
         locationText.resignFirstResponder()
         
         if locationText.text != nil {
@@ -66,9 +67,10 @@ class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelega
                     alertWindow.windowLevel = UIWindowLevelAlert + 1;
                     alertWindow.makeKeyAndVisible()
                     alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    // Stop the indicator
+                    self.activityIndicator.stopAnimating()
                     return
                 }
-                
                 self.processResponse(withPlacemarks: placemarks, error: error)
             }
             
