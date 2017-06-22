@@ -260,9 +260,7 @@
                                 </constraints>
                                 <state key="normal" title="Find Location"/>
                                 <connections>
-                                    <action selector="findLocation:" destination="MdT-ur-S4F" eventType="touchUpInside" id="1BW-D7-4Nc"/>
-                                    <action selector="findOnMapPressed:" destination="MdT-ur-S4F" eventType="touchUpInside" id="anV-fc-MRt"/>
-                                    <segue destination="xrc-Ao-qe3" kind="presentation" id="YSR-Cf-WKU"/>
+                                    <action selector="findOnMapPressed:" destination="MdT-ur-S4F" eventType="touchUpInside" id="l8f-1i-yf6"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xzp-qY-61g" userLabel="Address">
@@ -297,7 +295,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2Sl-cR-Suy">
+                            <activityIndicatorView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2Sl-cR-Suy">
                                 <rect key="frame" x="178" y="203" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>

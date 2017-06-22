@@ -44,8 +44,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginPress(_ sender: AnyObject) {
         userDidTapView(self)
         if Username.text!.isEmpty || Password.text!.isEmpty {
-            print("Username or Password Empty.")
-        } else {
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: "Username/Password Empty", preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
+                return
+            } else {
             StudentInfo.LoginData.username = Username.text!
             StudentInfo.LoginData.password = Password.text!
             setUIEnabled(false)

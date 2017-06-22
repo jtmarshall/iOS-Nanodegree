@@ -13,14 +13,14 @@ import CoreLocation
 
 class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
     
-    var mapView: MKMapView!
+    var alertView: UIAlertController?
     // Added from storyboard
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var locationText: UITextField!
     
-    @IBAction func findLocation(_ sender: AnyObject) {
-        StudentInfo.NewStudent.address = locationText.text!
-    }
+//    @IBAction func findLocation(_ sender: AnyObject) {
+//        StudentInfo.NewStudent.address = locationText.text!
+//    }
     
     @IBAction func dismissViewController(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
@@ -31,6 +31,8 @@ class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelega
     // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Make sure activity indicator is off
+        activityIndicator.stopAnimating()
         // For keyboard disapper
         locationText.delegate = self
     }
@@ -46,36 +48,51 @@ class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelega
     }
     
     @IBAction func findOnMapPressed(_ sender: Any) {
+        activityIndicator.startAnimating()
         locationText.resignFirstResponder()
         
         if locationText.text != nil {
-            // Start Activity Indicator
-            activityIndicator.startAnimating()
             
             StudentInfo.NewStudent.address = locationText.text!
             
-            geocoder.geocodeAddressString(StudentInfo.NewStudent.address) { (placemarks, error) in
+            geocoder.geocodeAddressString(StudentInfo.NewStudent.address) { placemarks, error in
+                guard (error == nil) else {
+                    // Elegance has failed us, time for brute force!
+                    let alertController = UIAlertController(title: "Error", message: "Invalid Coordinates", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+                    
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                    alertWindow.rootViewController = UIViewController()
+                    alertWindow.windowLevel = UIWindowLevelAlert + 1;
+                    alertWindow.makeKeyAndVisible()
+                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    return
+                }
+                
                 self.processResponse(withPlacemarks: placemarks, error: error)
             }
-            // Add new link
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: "ShareLinkViewController") as! ShareLinkViewController
-            self.present(controller, animated: true, completion: nil)
-            } else {
-            // Show alert if no location
-            let popAlert = UIAlertController(title: "Error!", message: "No location entered", preferredStyle: UIAlertControllerStyle.alert)
-            popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
-                popAlert.dismiss(animated: true, completion: nil)
+            
+        } else {
+            // Error checking alert
+            self.alertView = UIAlertController(title: "Error!", message: "Error Geocoding.", preferredStyle: UIAlertControllerStyle.alert)
+            self.alertView?.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                self.alertView?.dismiss(animated: true, completion: nil)
             })
-            self.present(popAlert, animated: true)
+            self.present(self.alertView!, animated: true)
         }
-        // Activity Indicator
-        self.activityIndicator.stopAnimating()
     }
     
     private func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
         if let error = error {
-            print("Unable to Forward Geocode Address (\(error))")
-            locationText.text = "Unable to Find Location for Address"
+            // Error checking alert
+            self.alertView = UIAlertController(title: "Error!", message: error as? String, preferredStyle: UIAlertControllerStyle.alert)
+            self.alertView?.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                self.alertView?.dismiss(animated: true, completion: nil)
+            })
+            self.present(self.alertView!, animated: true)
+            
+            return
+            //locationText.text = "Unable to Find Location for Address"
             
         } else {
             var location: CLLocation?
@@ -88,9 +105,20 @@ class PostViewController: UIViewController, UITextFieldDelegate, MKMapViewDelega
                 let coordinate = location.coordinate
                 locationText.text = "\(coordinate.latitude), \(coordinate.longitude)"
             } else {
-                locationText.text = "Location not found"
+                // Error checking alert
+                self.alertView = UIAlertController(title: "Error!", message: error as? String, preferredStyle: UIAlertControllerStyle.alert)
+                self.alertView?.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    self.alertView?.dismiss(animated: true, completion: nil)
+                })
+                self.present(self.alertView!, animated: true)
+                
+                return
             }
-            
+            // Show add new link page
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "ShareLinkViewController") as! ShareLinkViewController
+            self.present(controller, animated: true, completion: nil)
+            // Activity Indicator
+            self.activityIndicator.stopAnimating()
             StudentInfo.StudentLocation.latitude = (location?.coordinate.latitude)!
             StudentInfo.StudentLocation.longitute = (location?.coordinate.longitude)!
         }

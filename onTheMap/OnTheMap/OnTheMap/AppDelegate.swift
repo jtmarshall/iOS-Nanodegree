@@ -18,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var sessionID: String? = nil
     var userID: Int? = nil
 
+    // Because PostView will not allow us to locally show alert
+    func showAlertGlobally(_ alert: UIAlertController) {
+        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow.windowLevel = UIWindowLevelAlert
+        alertWindow.rootViewController = UIViewController()
+        alertWindow.makeKeyAndVisible()
+        alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true

@@ -140,17 +140,21 @@ class UdacityClient: NSObject {
             // Added pop alerts for each fail point
             guard (error == nil) else {
                 let er = "Error with POST request"
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
+
                 return
             }
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 let er = "Status code doesn't conform to 2xx."
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
                 return
             }
             guard let data = data else {
                 let er = "Request returned no data."
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
                 return
             }
             
@@ -159,7 +163,8 @@ class UdacityClient: NSObject {
                 parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
             } catch {
                 let er = "Couldn't parse data as JSON"
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
                 return
             }
             
