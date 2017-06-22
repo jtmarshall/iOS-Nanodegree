@@ -22,7 +22,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // Saw in forumns that this was suggested to be wrapped inside 'performUIUpdatesOnMain' but it works the same without that...
-        UdacityClient.sharedInstance().getStudentLocations { (success, errorString) in
+        UdacityClient.sharedInstance().getStudentLocations { success, error in
+            guard (error == nil) else {
+                // Error checking alert
+                let popAlert = UIAlertController(title: "Error!", message: error, preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
+                return
+            }
+
             let locations = StudentInfo.StudentData.students
             
             // Iterate through dictionary

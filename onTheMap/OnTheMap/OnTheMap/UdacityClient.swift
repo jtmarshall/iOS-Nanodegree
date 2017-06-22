@@ -19,7 +19,7 @@ class UdacityClient: NSObject {
     var sessionId: String? = nil
     var sessionExpiration: String? = nil
     
-    // MARK: Initializers
+    // Initializers
     override init() {
         super.init()
     }
@@ -35,6 +35,8 @@ class UdacityClient: NSObject {
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if error != nil { // Handle error…
                 completionHandlerForPostWithUdAPI(request as AnyObject, error! as NSError)
+                // Call return to stop execution
+                return
             }
             let range = Range(uncheckedBounds: (5, data!.count))
             let newData = data?.subdata(in: range) /* subset response data! */
@@ -138,17 +140,21 @@ class UdacityClient: NSObject {
             // Added pop alerts for each fail point
             guard (error == nil) else {
                 let er = "Error with POST request"
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
+
                 return
             }
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 let er = "Status code doesn't conform to 2xx."
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
                 return
             }
             guard let data = data else {
                 let er = "Request returned no data."
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
                 return
             }
             
@@ -157,7 +163,8 @@ class UdacityClient: NSObject {
                 parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
             } catch {
                 let er = "Couldn't parse data as JSON"
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
                 return
             }
             
@@ -193,7 +200,7 @@ class UdacityClient: NSObject {
     }
     
     // POST
-    func POSTMethodParse(newUniqueKey: String, newMapString: String, newMediaURL: String, newLatitude: String, newLongitude: String) {
+    func POSTMethodParse(newUniqueKey: String, newMapString: String, newMediaURL: String, newLatitude: String, newLongitude: String, completion: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         let request = NSMutableURLRequest(url: URL(string: StudentInfo.StudentLocation.studentLocationURL)!)
         request.httpMethod = "POST"
@@ -207,19 +214,22 @@ class UdacityClient: NSObject {
             
             guard (error == nil) else {
                 let er = "Error with POST request"
-                self.showError(errorString: er)
+                // Completion handler added for failures
+                completion(false, er)
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 let er = "Status code doesn't conform to 2xx."
                 self.showError(errorString: er)
+                completion(false, er)
                 return
             }
             
             guard let data = data else {
                 let er = "Request returned no data."
                 self.showError(errorString: er)
+                completion(false, er)
                 return
             }
             
@@ -232,12 +242,14 @@ class UdacityClient: NSObject {
             } catch {
                 let er = "Couldn't parse data as JSON"
                 self.showError(errorString: er)
+                completion(false, er)
                 return
             }
             
             guard let objectID = parsedResult["objectID"] as? String else {
                 let er = "No objectId"
                 self.showError(errorString: er)
+                completion(false, er)
                 return
             }
             

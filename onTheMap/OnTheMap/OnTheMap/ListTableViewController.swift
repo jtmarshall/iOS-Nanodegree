@@ -55,6 +55,7 @@ class ListTableViewController: UITableViewController {
         studentInformation = StudentInfo.StudentData.students
         return studentInformation.count
     }
+    
     // Iterate through student cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentLocationCell", for: indexPath)
@@ -66,6 +67,7 @@ class ListTableViewController: UITableViewController {
         cell.textLabel?.text = "\(firstName) \(lastName)"
         return cell
     }
+    
     // Open up url in default browser
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let studentInformation = self.studentInformation[(indexPath as IndexPath).row]

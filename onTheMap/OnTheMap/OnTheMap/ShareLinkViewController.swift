@@ -44,6 +44,14 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
+        
+        // Add pinpoint on map
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location.coordinate
+        mapView.addAnnotation(annotation)
+        // For some reason we have to select and deselect each annotation for it to appear without dragging the map around...
+        mapView.selectAnnotation(annotation, animated: false)
+        mapView.deselectAnnotation(annotation, animated: false)
     }
     
     // Submit Button
@@ -78,7 +86,12 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
             let newUniqueKey = StudentInfo.NewStudent.uniqueKey
             let newMediaURL = self.linkTextField.text!
             
-            UdacityClient.sharedInstance().POSTMethodParse(newUniqueKey: newUniqueKey, newMapString: newMapString, newMediaURL: newMediaURL, newLatitude: newLatitude, newLongitude: newLongitude)
+            UdacityClient.sharedInstance().POSTMethodParse(newUniqueKey: newUniqueKey, newMapString: newMapString, newMediaURL: newMediaURL, newLatitude: newLatitude, newLongitude: newLongitude, completion: { (success, error) in
+                guard (error == nil) else {
+                    UdacityClient.sharedInstance().showError(errorString: error!)
+                    return
+                }
+            })
             
             self.presentingViewController!.presentingViewController!.dismiss(animated: true, completion: nil)
             //let controller = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
@@ -88,6 +101,7 @@ class ShareLinkViewController: UIViewController, MKMapViewDelegate {
     
     // Cancel Submission
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        // Dismiss both Share Link and Post View
+        self.presentingViewController!.presentingViewController!.dismiss(animated: true, completion: nil)
     }
 }

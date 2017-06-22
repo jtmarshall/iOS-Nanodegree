@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     var appDelegate: AppDelegate!
     var keyboardOnScreen = false
     
@@ -25,6 +25,14 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        Username.delegate = self
+        Password.delegate = self
+        // Keyboard notifications
+        subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
+        subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
+        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
+        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -36,8 +44,14 @@ class LoginViewController: UIViewController {
     @IBAction func loginPress(_ sender: AnyObject) {
         userDidTapView(self)
         if Username.text!.isEmpty || Password.text!.isEmpty {
-            print("Username or Password Empty.")
-        } else {
+                // Popup alert
+                let popAlert = UIAlertController(title: "Error!", message: "Username/Password Empty", preferredStyle: UIAlertControllerStyle.alert)
+                popAlert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                    popAlert.dismiss(animated: true, completion: nil)
+                })
+                self.present(popAlert, animated: true)
+                return
+            } else {
             StudentInfo.LoginData.username = Username.text!
             StudentInfo.LoginData.password = Password.text!
             setUIEnabled(false)
@@ -63,8 +77,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-// UITextFieldDelegate
-extension LoginViewController: UITextFieldDelegate {
+extension LoginViewController {
     
     private func resignIfFirstResponder(_ textField: UITextField) {
         if textField.isFirstResponder {
@@ -76,9 +89,6 @@ extension LoginViewController: UITextFieldDelegate {
         resignIfFirstResponder(Username)
         resignIfFirstResponder(Password)
     }
-}
-
-extension LoginViewController {
     
     // Popup if Login error
     func displayError(_ errorString: String?) {
@@ -103,4 +113,40 @@ extension LoginViewController {
             LoginButton.alpha = 0.5
         }
     }
+    
+    // Keyboard view shifting
+    func keyboardWillShow(_ notification: Notification) {
+        if !keyboardOnScreen {
+            view.frame.origin.y -= (keyboardHeight(notification) - 75)
+        }
+    }
+    
+    func keyboardWillHide(_ notification: Notification) {
+        if keyboardOnScreen {
+            view.frame.origin.y += (keyboardHeight(notification) - 75)
+        }
+    }
+    
+    func keyboardDidShow(_ notification: Notification) {
+        keyboardOnScreen = true
+    }
+    
+    func keyboardDidHide(_ notification: Notification) {
+        keyboardOnScreen = false
+    }
+    
+    func keyboardHeight(_ notification: Notification) -> CGFloat {
+        let userInfo = (notification as NSNotification).userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
+    }
+    
+    func unsubscribeFromAllNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
 }
