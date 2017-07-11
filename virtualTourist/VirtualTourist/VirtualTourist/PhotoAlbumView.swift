@@ -85,11 +85,9 @@ class PhotoAlbumView: UIViewController {
     }
     
     func loadPhotosFromFlickr(pageNumber: Int) {
-        
         FlickrClient.sharedInstance().getLocationPhotos(latitude: latitude!, longitude: longitude!, pageNumber: pageNumber) { (success, urlArray, error) in
             
             if success {
-                
                 for url in urlArray! {
                     
                     // Since we insert the photo to the context, the frc now knows about it and tracks it as one of its objects. The context is like the database, and the frc updates the UI in real time.
@@ -243,7 +241,6 @@ extension PhotoAlbumView: UICollectionViewDelegate {
 extension PhotoAlbumView: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
         insertedIndexPaths = [IndexPath]()
         deletedIndexPaths = [IndexPath]()
         updatedIndexPaths = [IndexPath]()
@@ -295,7 +292,6 @@ extension PhotoAlbumView: NSFetchedResultsControllerDelegate {
             }
             
         }, completion: nil)
-        
     }
     
 }
