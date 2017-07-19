@@ -11,6 +11,7 @@ import UIKit
 
 class PhotoCell: UICollectionViewCell {
 
+    // Outlets shown in photo cells in storyboard
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 }

@@ -9,20 +9,19 @@
 import Foundation
 import CoreData
 
-
 public class Pin: NSManagedObject {
 
     convenience init(latitude: Double, longitude: Double, context: NSManagedObjectContext) {
         
-        // An EntityDescription is an object that has access to all the information you provided in the Entity part of the model. You need it to create an instance of this class.
+        // Object that has access to all info provided in the "entities" of model, need it to create an instance
         if let ent = NSEntityDescription.entity(forEntityName: "Pin", in: context) {
             
-            // Calling designated initializer
+            // initializer
             self.init(entity: ent, insertInto: context)
             self.latitude = latitude
             self.longitude = longitude
         } else {
-            fatalError("Unable to find Entity name!")
+            fatalError("Can't get entity name.")
         }
     }
 
