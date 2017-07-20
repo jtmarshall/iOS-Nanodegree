@@ -91,7 +91,7 @@ class PhotoAlbumView: UIViewController {
                 for url in urlArray! {
                     
                     // Insert photo into the context
-                    let photo = Photo(pin: self.tappedPin!, imageURL: url as String, context: self.stack.context)
+                    _ = Photo(pin: self.tappedPin!, imageURL: url as String, context: self.stack.context)
                 }
                 
                 do {
@@ -132,8 +132,11 @@ class PhotoAlbumView: UIViewController {
     func deleteAllPhotos() {
         
         for object in fetchedResultsController.fetchedObjects! {
-            
+            var p = object as! Photo
+            p.imageURL = ""
+            p.imageData = nil
             stack.context.delete(object as! Photo)
+            
         }
     }
     
@@ -146,7 +149,7 @@ class PhotoAlbumView: UIViewController {
             self.barButton.title = "Get Images"
             
         } else {
-            // If Get Images selected first
+            // If Get Images pressed
             deleteAllPhotos()
             
             FlickrClient.sharedInstance().getNumberOfPages(latitude: self.latitude!, longitude: self.longitude!) { (success, numberOfPages, error) in
@@ -154,7 +157,7 @@ class PhotoAlbumView: UIViewController {
                 if success {
                     
                     let pageNumber = (arc4random_uniform(UInt32(numberOfPages!)))
-                    
+                    print("Page#: ", pageNumber)
                     self.loadPhotosFromFlickr(pageNumber: Int(pageNumber))
                 }
             }
@@ -176,7 +179,7 @@ extension PhotoAlbumView: UICollectionViewDataSource {
         
         cell.activityIndicatorView.startAnimating()
         cell.activityIndicatorView.hidesWhenStopped = true;
-        
+
         // Access to already downloaded photo urls
         let photoToLoad = fetchedResultsController.object(at: indexPath) as! Photo
         
@@ -190,7 +193,7 @@ extension PhotoAlbumView: UICollectionViewDataSource {
                 }
                 
                 // Save the photo's imageData to Core Data.
-                photoToLoad.imageData = imageData
+                photoToLoad.imageData = imageData!
                 
                 do {
                     try self.stack.context.save()
@@ -223,7 +226,7 @@ extension PhotoAlbumView: UICollectionViewDelegate {
         cell?.alpha = 0.5
         
         // Whenever user selects cells, update button to remove pictures
-        self.barButton.title = "Remove selected pictures"
+        self.barButton.title = "Remove Selected Images"
         
         self.tappedIndexPaths.append(indexPath)
     }

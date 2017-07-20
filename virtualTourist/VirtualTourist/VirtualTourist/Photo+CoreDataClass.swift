@@ -18,6 +18,7 @@ public class Photo: NSManagedObject {
             
             // initializer
             self.init(entity: ent, insertInto: context)
+            //self.imageData = imageData
             self.pin = pin
             self.imageURL = imageURL
         } else {

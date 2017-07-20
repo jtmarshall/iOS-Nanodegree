@@ -70,6 +70,8 @@
 		09B6F4B41F0FD31200C337F4 /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B6F4B81F0FD31200C337F4 /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		09B6F4BA1F0FD31200C337F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09EC1B061F20F81300838847 /* VirtualTourist 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "VirtualTourist 2.xcdatamodel"; sourceTree = "<group>"; };
+		09EC1B071F20F8B900838847 /* Model2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model2.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,9 +624,11 @@
 		09B6F49C1F0FD31200C337F4 /* VirtualTourist.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				09EC1B071F20F8B900838847 /* Model2.xcdatamodel */,
+				09EC1B061F20F81300838847 /* VirtualTourist 2.xcdatamodel */,
 				09B6F49D1F0FD31200C337F4 /* VirtualTourist.xcdatamodel */,
 			);
-			currentVersion = 09B6F49D1F0FD31200C337F4 /* VirtualTourist.xcdatamodel */;
+			currentVersion = 09EC1B071F20F8B900838847 /* Model2.xcdatamodel */;
 			path = VirtualTourist.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
