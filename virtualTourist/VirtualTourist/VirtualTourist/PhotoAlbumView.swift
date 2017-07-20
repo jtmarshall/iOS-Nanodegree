@@ -132,7 +132,9 @@ class PhotoAlbumView: UIViewController {
     func deleteAllPhotos() {
         
         for object in fetchedResultsController.fetchedObjects! {
-            
+            var p = object as! Photo
+            p.imageURL = ""
+            p.imageData = nil
             stack.context.delete(object as! Photo)
             
         }
@@ -155,7 +157,7 @@ class PhotoAlbumView: UIViewController {
                 if success {
                     
                     let pageNumber = (arc4random_uniform(UInt32(numberOfPages!)))
-                    
+                    print("Page#: ", pageNumber)
                     self.loadPhotosFromFlickr(pageNumber: Int(pageNumber))
                 }
             }
@@ -177,7 +179,7 @@ extension PhotoAlbumView: UICollectionViewDataSource {
         
         cell.activityIndicatorView.startAnimating()
         cell.activityIndicatorView.hidesWhenStopped = true;
-        
+
         // Access to already downloaded photo urls
         let photoToLoad = fetchedResultsController.object(at: indexPath) as! Photo
         

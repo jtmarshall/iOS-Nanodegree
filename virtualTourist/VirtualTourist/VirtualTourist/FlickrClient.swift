@@ -179,7 +179,7 @@ extension FlickrClient {
                 sendError(error: "Can't find key '\(FlickrResponseKeys.Pages)' in \(deserializedData ?? error as AnyObject)")
                 return
             }
-            
+            print("#ofPages: ", numberOfPagesInt)
             var urlArray = [String]()
             
             for photo in photosArray {
