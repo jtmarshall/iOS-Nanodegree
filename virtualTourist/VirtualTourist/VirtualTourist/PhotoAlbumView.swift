@@ -47,6 +47,7 @@ class PhotoAlbumView: UIViewController {
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         showPin()
         
         fetchedResultsController.delegate = self
@@ -132,11 +133,12 @@ class PhotoAlbumView: UIViewController {
     func deleteAllPhotos() {
         
         for object in fetchedResultsController.fetchedObjects! {
-            var p = object as! Photo
-            p.imageURL = ""
-            p.imageData = nil
             stack.context.delete(object as! Photo)
-            
+            do {
+                try stack.context.save()
+            } catch {
+                print("Error saving delete")
+            }
         }
     }
     
@@ -146,7 +148,7 @@ class PhotoAlbumView: UIViewController {
             
             deleteSelectedPhotos()
             
-            self.barButton.title = "Get Images"
+            barButton.title = "Get Images"
             
         } else {
             // If Get Images pressed
@@ -188,7 +190,7 @@ extension PhotoAlbumView: UICollectionViewDataSource {
             FlickrClient.sharedInstance().downloadPhotoWith(url: photoToLoad.imageURL!) { (success, imageData, error) in
                 
                 DispatchQueue.main.async {
-                    cell.imageView.image = UIImage(data: imageData! as Data)
+                    cell.imageView.image = UIImage(data: imageData as! Data)
                     cell.activityIndicatorView.stopAnimating()
                 }
                 
@@ -206,7 +208,7 @@ extension PhotoAlbumView: UICollectionViewDataSource {
         } else {
             
             DispatchQueue.main.async {
-                cell.imageView.image = UIImage(data: photoToLoad.imageData! as Data)
+                cell.imageView.image = UIImage(data: photoToLoad.imageData as! Data)
                 cell.activityIndicatorView.stopAnimating()
             }
         }
@@ -226,9 +228,9 @@ extension PhotoAlbumView: UICollectionViewDelegate {
         cell?.alpha = 0.5
         
         // Whenever user selects cells, update button to remove pictures
-        self.barButton.title = "Remove Selected Images"
+        barButton.title = "Remove Selected Images"
         
-        self.tappedIndexPaths.append(indexPath)
+        tappedIndexPaths.append(indexPath)
     }
     
 }
