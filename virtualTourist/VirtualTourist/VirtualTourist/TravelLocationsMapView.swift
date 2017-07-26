@@ -38,9 +38,9 @@ class TravelLocationsMapView: UIViewController {
     // Adding a pin
     func addPin(gestureRecognizer: UILongPressGestureRecognizer) {
         
-        // Start using gestures
-        if gestureRecognizer.state == UIGestureRecognizerState.began {
+        switch gestureRecognizer.state {
             
+        case UIGestureRecognizerState.began:
             // Returns a CGPoint
             let pressedLocation = gestureRecognizer.location(in: mapView)
             
@@ -54,11 +54,8 @@ class TravelLocationsMapView: UIViewController {
             // Store lat and long values for Flickr query string
             self.latitude = self.coordinate?.latitude
             self.longitude = self.coordinate?.longitude
-        }
-        
-        // Gestures on changes
-        if gestureRecognizer.state == UIGestureRecognizerState.changed {
             
+        case UIGestureRecognizerState.changed:
             // Returns a CGPoint
             let pressedLocation = gestureRecognizer.location(in: mapView)
             
@@ -73,11 +70,7 @@ class TravelLocationsMapView: UIViewController {
             self.latitude = self.coordinate?.latitude
             self.longitude = self.coordinate?.longitude
             
-        }
-        
-        // Gestures ending
-        if gestureRecognizer.state == UIGestureRecognizerState.ended {
-            
+        case UIGestureRecognizerState.ended:
             // Returns a CGPoint
             let pressedLocation = gestureRecognizer.location(in: mapView)
             
@@ -103,7 +96,81 @@ class TravelLocationsMapView: UIViewController {
             } catch {
                 print("Error saving pin")
             }
+            
+        default:
+            // Save pin
+            do {
+                try stack.context.save()
+            } catch {
+                print("Error saving pin")
+            }
         }
+//        // Start using gestures
+//        if gestureRecognizer.state == UIGestureRecognizerState.began {
+//            
+//            // Returns a CGPoint
+//            let pressedLocation = gestureRecognizer.location(in: mapView)
+//            
+//            // Convert CGPoint to CLLocationCoordinate2D
+//            self.coordinate = mapView.convert(pressedLocation, toCoordinateFrom: mapView)
+//            
+//            // Add annotation to map
+//            self.annotation = MKPointAnnotation()
+//            self.annotation?.coordinate = self.coordinate!
+//            
+//            // Store lat and long values for Flickr query string
+//            self.latitude = self.coordinate?.latitude
+//            self.longitude = self.coordinate?.longitude
+//        }
+//        
+//        // Gestures on changes
+//        if gestureRecognizer.state == UIGestureRecognizerState.changed {
+//            
+//            // Returns a CGPoint
+//            let pressedLocation = gestureRecognizer.location(in: mapView)
+//            
+//            // Convert CGPoint to CLLocationCoordinate2D
+//            self.coordinate = mapView.convert(pressedLocation, toCoordinateFrom: mapView)
+//            
+//            // Add annotation to map
+//            self.annotation = MKPointAnnotation()
+//            self.annotation?.coordinate = self.coordinate!
+//            
+//            // Store lat and long
+//            self.latitude = self.coordinate?.latitude
+//            self.longitude = self.coordinate?.longitude
+//            
+//        }
+//        
+//        // Gestures ending
+//        if gestureRecognizer.state == UIGestureRecognizerState.ended {
+//            
+//            // Returns a CGPoint
+//            let pressedLocation = gestureRecognizer.location(in: mapView)
+//            
+//            // Convert CGPoint to CLLocationCoordinate2D
+//            self.coordinate = mapView.convert(pressedLocation, toCoordinateFrom: mapView)
+//            
+//            // Add annotation to map.
+//            self.annotation = MKPointAnnotation()
+//            self.annotation?.coordinate = self.coordinate!
+//            self.mapView.addAnnotation(annotation!)
+//            
+//            // Store lat and long
+//            self.latitude = self.coordinate?.latitude
+//            self.longitude = self.coordinate?.longitude
+//            
+//            // Pin object
+//            let pin = Pin(latitude: self.latitude!, longitude: self.longitude!, context: stack.context)
+//            pinsArray?.append(pin)
+//            
+//            // Save pin
+//            do {
+//                try stack.context.save()
+//            } catch {
+//                print("Error saving pin")
+//            }
+//        }
     }
     
     // Activate UIGestureRecognizer for addPin to work
