@@ -11,14 +11,14 @@ import CoreData
 
 public class Photo: NSManagedObject {
 
-    convenience init(pin: Pin, imageURL: String, context: NSManagedObjectContext) {
+    convenience init(imageData: NSData?, pin: Pin, imageURL: String, context: NSManagedObjectContext) {
         
         // Object that has access to all info provided in the "entities" of model, need it to create an instance
         if let ent = NSEntityDescription.entity(forEntityName: "Photo", in: context) {
             
             // initializer
             self.init(entity: ent, insertInto: context)
-            //self.imageData = imageData
+            self.imageData = imageData
             self.pin = pin
             self.imageURL = imageURL
         } else {

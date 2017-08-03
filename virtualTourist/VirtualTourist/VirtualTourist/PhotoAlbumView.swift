@@ -92,7 +92,7 @@ class PhotoAlbumView: UIViewController {
                 for url in urlArray! {
                     
                     // Insert photo into the context
-                    _ = Photo(pin: self.tappedPin!, imageURL: url as String, context: self.stack.context)
+                    _ = Photo(imageData: nil, pin: self.tappedPin!, imageURL: url as String, context: self.stack.context)
                 }
                 
                 do {
@@ -181,36 +181,35 @@ extension PhotoAlbumView: UICollectionViewDataSource {
         
         cell.activityIndicatorView.startAnimating()
         cell.activityIndicatorView.hidesWhenStopped = true;
-
-        // Access to already downloaded photo urls
-        let photoToLoad = fetchedResultsController.object(at: indexPath) as! Photo
         
-        // If no photos then get from Flickr.
-        if photoToLoad.imageData == nil {
-            FlickrClient.sharedInstance().downloadPhotoWith(url: photoToLoad.imageURL!) { (success, imageData, error) in
-                
+        let photo = fetchedResultsController.object(at: indexPath) as! Photo
+        
+        // Access to already downloaded photos
+        if let imageData = photo.imageData {
+            let image = UIImage(data: imageData as Data)
+            DispatchQueue.main.async {
+                cell.imageView.image = image
+            }
+        } else {
+            FlickrClient.sharedInstance().downloadPhotoWith(url: photo.imageURL!) { (success, imageData, error) in
                 DispatchQueue.main.async {
-                    cell.imageView.image = UIImage(data: imageData as! Data)
-                    cell.activityIndicatorView.stopAnimating()
+                    cell.activityIndicatorView.startAnimating()
                 }
-                
-                // Save the photo's imageData to Core Data.
-                photoToLoad.imageData = imageData!
-                
+                guard error == nil else {
+                    print("Error loading photo from URL-\(String(describing: error))"); return}
+                // Update image data
+                photo.imageData = imageData as NSData?
+                // Save context
                 do {
                     try self.stack.context.save()
                 } catch {
                     print("Image data already exists")
                 }
             }
-            
-            // Otherwise image already exists, display it in UI
-        } else {
-            
-            DispatchQueue.main.async {
-                cell.imageView.image = UIImage(data: photoToLoad.imageData as! Data)
-                cell.activityIndicatorView.stopAnimating()
-            }
+        }
+        // Stop spinning when done
+        DispatchQueue.main.async {
+            cell.activityIndicatorView.stopAnimating()
         }
         
         return cell
