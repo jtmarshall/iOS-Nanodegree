@@ -8,6 +8,10 @@
 
 import SpriteKit
 
+let ScoreKey = "FLOOP_HIGHSCORE"
+let LastScore = "FLOOP_LASTSCORE"
+let Muted = false
+
 struct CollisionBitMask {
     static let Player:UInt32 = 0x00
     static let Obstacle:UInt32 = 0x01
@@ -36,11 +40,14 @@ extension GameScene {
     // Create players
     func addPlayer() {
         // Player Attributes
-        player = SKSpriteNode(color: UIColor(red: 0.63, green: 0.81, blue: 0.80, alpha: 1), size: CGSize(width: 50, height: 50)) // Teal color player1
+        let yBall = SKTexture(imageNamed: "yellow_ball")
+        // Create player sprite from the ball texture
+        player = SKSpriteNode(texture: yBall)
         player.position = CGPoint(x: self.size.width/2, y: 350)
         player.name = "PLAYER"
         player.physicsBody?.isDynamic = false
-        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+        // Physics body using texture from ball
+        player.physicsBody = SKPhysicsBody(texture: yBall, size: CGSize(width: player.size.width, height: player.size.height))
         player.physicsBody?.categoryBitMask = CollisionBitMask.Player
         player.physicsBody?.collisionBitMask = 0
         player.physicsBody?.contactTestBitMask = CollisionBitMask.Obstacle
@@ -57,7 +64,7 @@ extension GameScene {
         
         // Add the players
         addChild(player)
-        addChild(player2)
+        //addChild(player2)
         
         // Starting position for player
         initialPlayerPosition = player.position
@@ -65,7 +72,7 @@ extension GameScene {
     
     // Create Obstacles
     func addObstacle(type:ObstacleType) -> SKSpriteNode {
-        let obstacle = SKSpriteNode(color: UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 1), size: CGSize(width: 0, height: 30)) // Cloud color for row objects
+        let obstacle = SKSpriteNode(color: UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 1), size: CGSize(width: 0, height: 25)) // Cloud color for row objects
         obstacle.name = "OBSTACLE"
         obstacle.physicsBody?.isDynamic = true
         
@@ -94,7 +101,7 @@ extension GameScene {
         var actionArray = [SKAction]()
         
         // Append(queue) up movement actions to run
-        actionArray.append(SKAction.move(to: CGPoint(x: obstacle.position.x, y: -obstacle.size.height), duration: TimeInterval(3)))
+        actionArray.append(SKAction.move(to: CGPoint(x: obstacle.position.x, y: -obstacle.size.height), duration: TimeInterval(4)))
         // Delete object after running sequence
         actionArray.append(SKAction.removeFromParent())
         

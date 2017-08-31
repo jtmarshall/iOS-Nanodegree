@@ -19,9 +19,10 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
+            view.delegate = self as? SKViewDelegate
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") {
-                
+                scene.delegate = self as? SKSceneDelegate
                 // Reference to the background music file
                 let bgMusicURL = Bundle.main.url(forResource: "Deep_In_Space", withExtension: "wav")
                 do {
@@ -43,10 +44,16 @@ class GameViewController: UIViewController {
             }
             
             view.ignoresSiblingOrder = true
-            
+            //view.showsPhysics = true
             view.showsFPS = true
             view.showsNodeCount = true
         }
+    }
+    
+    func presentEndGame() {
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "EndGameViewController") as! EndGameViewController
+        
+        self.navigationController?.show(controller, sender: navigationController)
     }
 
     override var shouldAutorotate: Bool {

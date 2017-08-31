@@ -17,7 +17,14 @@
 		0949935B1F30EDA30004C045 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 094993591F30EDA30004C045 /* LaunchScreen.storyboard */; };
 		094993631F30EF920004C045 /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094993621F30EF920004C045 /* GameElements.swift */; };
 		0953AE211F33C96000598FCC /* Deep_In_Space.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0953AE201F33C96000598FCC /* Deep_In_Space.wav */; };
-		09AC4CAB1F33C4AE00983DEA /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AC4CAA1F33C4AE00983DEA /* GameOverScene.swift */; };
+		0956B6121F55DCEB0047AC75 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956B6111F55DCEB0047AC75 /* EndGameViewController.swift */; };
+		0956B61A1F58669E0047AC75 /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956B6191F58669E0047AC75 /* Facebook.swift */; };
+		0956B61C1F587E550047AC75 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0956B61B1F587E550047AC75 /* README.md */; };
+		09A5DCF41F55BBA7002B1745 /* pushGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09A5DCF21F55BBA7002B1745 /* pushGame.xcdatamodeld */; };
+		09DBA5C01F34E30300A97CD3 /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBA5BF1F34E30300A97CD3 /* HudNode.swift */; };
+		09DBA5C21F34E78100A97CD3 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBA5C11F34E78100A97CD3 /* MenuScene.swift */; };
+		09DBA5C41F34EC6E00A97CD3 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBA5C31F34EC6E00A97CD3 /* MenuViewController.swift */; };
+		EF17C874EDC5E58764B16EA7 /* Pods_pushGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C6F44AB3C0DE4FF8D0242E /* Pods_pushGame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +40,17 @@
 		0949935C1F30EDA30004C045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		094993621F30EF920004C045 /* GameElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
 		0953AE201F33C96000598FCC /* Deep_In_Space.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Deep_In_Space.wav; sourceTree = "<group>"; };
-		09AC4CAA1F33C4AE00983DEA /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		0956B6111F55DCEB0047AC75 /* EndGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameViewController.swift; sourceTree = "<group>"; };
+		0956B6191F58669E0047AC75 /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facebook.swift; sourceTree = "<group>"; };
+		0956B61B1F587E550047AC75 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		09A5DCF31F55BBA7002B1745 /* pushGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = pushGame.xcdatamodel; sourceTree = "<group>"; };
+		09DBA5BF1F34E30300A97CD3 /* HudNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
+		09DBA5C11F34E78100A97CD3 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuScene.swift; path = ../MenuScene.swift; sourceTree = "<group>"; };
+		09DBA5C31F34EC6E00A97CD3 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		09DBA5C51F38C21300A97CD3 /* pushGame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pushGame.entitlements; sourceTree = "<group>"; };
+		6F98A760B680D12304850E48 /* Pods-pushGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pushGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pushGame/Pods-pushGame.debug.xcconfig"; sourceTree = "<group>"; };
+		C58257A0B16DFE902D0D6900 /* Pods-pushGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pushGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-pushGame/Pods-pushGame.release.xcconfig"; sourceTree = "<group>"; };
+		E5C6F44AB3C0DE4FF8D0242E /* Pods_pushGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pushGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF17C874EDC5E58764B16EA7 /* Pods_pushGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,8 +68,11 @@
 		0949933E1F30EDA20004C045 = {
 			isa = PBXGroup;
 			children = (
+				09A5DCF21F55BBA7002B1745 /* pushGame.xcdatamodeld */,
 				094993491F30EDA20004C045 /* pushGame */,
 				094993481F30EDA20004C045 /* Products */,
+				67743534AF2662D50668204F /* Pods */,
+				0A4B6D92C324592FE9E5F7CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,20 +87,43 @@
 		094993491F30EDA20004C045 /* pushGame */ = {
 			isa = PBXGroup;
 			children = (
+				09DBA5C51F38C21300A97CD3 /* pushGame.entitlements */,
 				0949934A1F30EDA20004C045 /* AppDelegate.swift */,
 				0949934C1F30EDA20004C045 /* GameScene.sks */,
 				0949934E1F30EDA20004C045 /* Actions.sks */,
 				0953AE201F33C96000598FCC /* Deep_In_Space.wav */,
+				0956B6191F58669E0047AC75 /* Facebook.swift */,
+				09DBA5BF1F34E30300A97CD3 /* HudNode.swift */,
+				09DBA5C11F34E78100A97CD3 /* MenuScene.swift */,
 				094993501F30EDA20004C045 /* GameScene.swift */,
-				09AC4CAA1F33C4AE00983DEA /* GameOverScene.swift */,
 				094993621F30EF920004C045 /* GameElements.swift */,
+				09DBA5C31F34EC6E00A97CD3 /* MenuViewController.swift */,
 				094993521F30EDA20004C045 /* GameViewController.swift */,
+				0956B6111F55DCEB0047AC75 /* EndGameViewController.swift */,
 				094993541F30EDA30004C045 /* Main.storyboard */,
 				094993571F30EDA30004C045 /* Assets.xcassets */,
+				0956B61B1F587E550047AC75 /* README.md */,
 				094993591F30EDA30004C045 /* LaunchScreen.storyboard */,
 				0949935C1F30EDA30004C045 /* Info.plist */,
 			);
 			path = pushGame;
+			sourceTree = "<group>";
+		};
+		0A4B6D92C324592FE9E5F7CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E5C6F44AB3C0DE4FF8D0242E /* Pods_pushGame.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		67743534AF2662D50668204F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6F98A760B680D12304850E48 /* Pods-pushGame.debug.xcconfig */,
+				C58257A0B16DFE902D0D6900 /* Pods-pushGame.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,9 +133,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0949935F1F30EDA30004C045 /* Build configuration list for PBXNativeTarget "pushGame" */;
 			buildPhases = (
+				4D4EABDA469ADDF5F796A413 /* [CP] Check Pods Manifest.lock */,
 				094993431F30EDA20004C045 /* Sources */,
 				094993441F30EDA20004C045 /* Frameworks */,
 				094993451F30EDA20004C045 /* Resources */,
+				36C2153A437BF45D0C8F8D9B /* [CP] Embed Pods Frameworks */,
+				D9D14D2286E43F888DB88173 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -116,6 +163,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 2BP9Y86R6B;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -153,16 +205,82 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		36C2153A437BF45D0C8F8D9B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pushGame/Pods-pushGame-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pushGame/Pods-pushGame-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D4EABDA469ADDF5F796A413 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pushGame-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9D14D2286E43F888DB88173 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pushGame/Pods-pushGame-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		094993431F30EDA20004C045 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09AC4CAB1F33C4AE00983DEA /* GameOverScene.swift in Sources */,
+				09DBA5C01F34E30300A97CD3 /* HudNode.swift in Sources */,
 				094993631F30EF920004C045 /* GameElements.swift in Sources */,
+				09DBA5C21F34E78100A97CD3 /* MenuScene.swift in Sources */,
 				094993511F30EDA20004C045 /* GameScene.swift in Sources */,
+				0956B61A1F58669E0047AC75 /* Facebook.swift in Sources */,
+				09A5DCF41F55BBA7002B1745 /* pushGame.xcdatamodeld in Sources */,
+				0956B6121F55DCEB0047AC75 /* EndGameViewController.swift in Sources */,
 				094993531F30EDA20004C045 /* GameViewController.swift in Sources */,
 				0949934B1F30EDA20004C045 /* AppDelegate.swift in Sources */,
+				0956B61C1F587E550047AC75 /* README.md in Sources */,
+				09DBA5C41F34EC6E00A97CD3 /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,11 +401,14 @@
 		};
 		094993601F30EDA30004C045 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F98A760B680D12304850E48 /* Pods-pushGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = pushGame/pushGame.entitlements;
 				DEVELOPMENT_TEAM = 2BP9Y86R6B;
 				INFOPLIST_FILE = pushGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.pushGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -296,11 +417,15 @@
 		};
 		094993611F30EDA30004C045 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C58257A0B16DFE902D0D6900 /* Pods-pushGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = pushGame/pushGame.entitlements;
 				DEVELOPMENT_TEAM = 2BP9Y86R6B;
 				INFOPLIST_FILE = pushGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "~/Documents/FacebookSDK";
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = jordan.marshall.pushGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -329,6 +454,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		09A5DCF21F55BBA7002B1745 /* pushGame.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				09A5DCF31F55BBA7002B1745 /* pushGame.xcdatamodel */,
+			);
+			currentVersion = 09A5DCF31F55BBA7002B1745 /* pushGame.xcdatamodel */;
+			name = pushGame.xcdatamodeld;
+			path = pushGame/pushGame.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0949933F1F30EDA20004C045 /* Project object */;
 }
