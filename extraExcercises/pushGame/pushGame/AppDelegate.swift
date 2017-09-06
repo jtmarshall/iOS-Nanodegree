@@ -17,16 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     // Firebase Integration
-    override init() {
-        FirebaseApp.configure()
-    }
+//    override init() {
+//        FirebaseApp.configure()
+//    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Methods from Facebook SDK "Getting Started", translated to Swift 3
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        //FirebaseApp.configure()
+        FirebaseApp.configure()
         return true
     }
     

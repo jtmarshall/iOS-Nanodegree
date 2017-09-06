@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 import SpriteKit
 import GameplayKit
-import FBSDKLoginKit
+//import FBSDKLoginKit
 import Social
 import CoreData
 import Firebase
+import FirebaseDatabase
 
 class EndGameViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
@@ -22,8 +23,12 @@ class EndGameViewController: UIViewController {
     @IBOutlet weak var gameOverText: UILabel!
     @IBOutlet weak var highScoreNode: UILabel!
     @IBOutlet weak var recentScoreNode: UILabel!
-    
-    let rootRef = Database.reference(Database)
+    // Firebase label
+    @IBOutlet weak var conditionLabel: UILabel!
+    // 2nd UIControl for Highscore Name Input
+    @IBOutlet weak var usernameText: UITextField!
+    // Firebase reference
+    let rootRef = Database.database().reference().child("highscore")
     
     private let scoreKey = "FLOOP_HIGHSCORE"
     private let lastScore = "FLOOP_LASTSCORE"
@@ -59,7 +64,16 @@ class EndGameViewController: UIViewController {
             print("Unable to fetch managed objects for entity")
             highScoreNode.text = "High Score: 0"
         }
+    }
+    
+    // For Firebase
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        // Watches the value in Firebase DB with key "highscore" and updates UILabel accordingly
+        rootRef.observe(.value) { (snap: DataSnapshot) in
+            self.conditionLabel.text = (snap.value as AnyObject).description
+        }
     }
     
     // When Reset Score button hit
@@ -137,11 +151,28 @@ class EndGameViewController: UIViewController {
         return result
     }
     
-    // When Share button is hit
+    // When Share button is hit share to Firebase
     @IBAction func shareAction(_ sender: Any) {
+        // Update score function from firebase swift file passing in score and DB reference
+        if FirebaseShare.sharedInstance().updateScore(score: score, dbRef: rootRef, uname: usernameText.text!) {
+            // Tell user when score updated in Firebase
+            let alertView = UIAlertView()
+            alertView.addButton(withTitle: "Ok")
+            alertView.title = "Firebase Update"
+            alertView.message = "Highscore uploaded to Database."
+            alertView.show()
+        } else {
+            // Alert user if cannot connect to Firebase
+            let alertView = UIAlertView()
+            alertView.addButton(withTitle: "Ok")
+            alertView.title = "Firebase Error."
+            alertView.message = "Cannot connect to Database, try again later."
+            alertView.show()
+        }
+        
         // Call Facebook share function
-        let alert = FacebookShare.sharedInstance().shareScore(score: score)
-        self.present(alert, animated: true, completion: nil)
+        //let alert = FacebookShare.sharedInstance().shareScore(score: score)
+        //self.present(alert, animated: true, completion: nil)
         
 //        // Alert
 //        let alert = UIAlertController(title: "Share", message: "Post Highscore?", preferredStyle: .actionSheet)
@@ -195,20 +226,6 @@ class EndGameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    // Call Facebook Logout
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("Logged out of facebook")
-    }
-    
-    // Call Facebook Login
-    func loginButton(_ loginButtton: FBSDKLoginButton!, didCompleteWithresult: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
-            print(error)
-            return
-        }
-        print("Successfully logged in with facebook!")
     }
     
     override func didReceiveMemoryWarning() {

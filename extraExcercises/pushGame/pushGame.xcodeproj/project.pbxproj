@@ -21,6 +21,7 @@
 		0956B6121F55DCEB0047AC75 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956B6111F55DCEB0047AC75 /* EndGameViewController.swift */; };
 		0956B61A1F58669E0047AC75 /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956B6191F58669E0047AC75 /* Facebook.swift */; };
 		0956B61C1F587E550047AC75 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0956B61B1F587E550047AC75 /* README.md */; };
+		098A2A321F6078300083C625 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098A2A311F6078300083C625 /* Firebase.swift */; };
 		09A5DCF41F55BBA7002B1745 /* pushGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09A5DCF21F55BBA7002B1745 /* pushGame.xcdatamodeld */; };
 		09DBA5C01F34E30300A97CD3 /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBA5BF1F34E30300A97CD3 /* HudNode.swift */; };
 		09DBA5C21F34E78100A97CD3 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBA5C11F34E78100A97CD3 /* MenuScene.swift */; };
@@ -45,6 +46,7 @@
 		0956B6111F55DCEB0047AC75 /* EndGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameViewController.swift; sourceTree = "<group>"; };
 		0956B6191F58669E0047AC75 /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facebook.swift; sourceTree = "<group>"; };
 		0956B61B1F587E550047AC75 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		098A2A311F6078300083C625 /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		09A5DCF31F55BBA7002B1745 /* pushGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = pushGame.xcdatamodel; sourceTree = "<group>"; };
 		09DBA5BF1F34E30300A97CD3 /* HudNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
 		09DBA5C11F34E78100A97CD3 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuScene.swift; path = ../MenuScene.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				0949934E1F30EDA20004C045 /* Actions.sks */,
 				0953AE201F33C96000598FCC /* Deep_In_Space.wav */,
 				0956B6191F58669E0047AC75 /* Facebook.swift */,
+				098A2A311F6078300083C625 /* Firebase.swift */,
 				09DBA5BF1F34E30300A97CD3 /* HudNode.swift */,
 				09DBA5C11F34E78100A97CD3 /* MenuScene.swift */,
 				094993501F30EDA20004C045 /* GameScene.swift */,
@@ -286,6 +289,7 @@
 				094993511F30EDA20004C045 /* GameScene.swift in Sources */,
 				0956B61A1F58669E0047AC75 /* Facebook.swift in Sources */,
 				09A5DCF41F55BBA7002B1745 /* pushGame.xcdatamodeld in Sources */,
+				098A2A321F6078300083C625 /* Firebase.swift in Sources */,
 				0956B6121F55DCEB0047AC75 /* EndGameViewController.swift in Sources */,
 				094993531F30EDA20004C045 /* GameViewController.swift in Sources */,
 				0949934B1F30EDA20004C045 /* AppDelegate.swift in Sources */,
