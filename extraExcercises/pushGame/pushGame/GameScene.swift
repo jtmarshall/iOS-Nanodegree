@@ -89,37 +89,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    // Tapping Function
-    func tappedView() {
-        
-    }
-    
-    // Swipe Rotate
-    func rotatedView(_ sender: UIRotationGestureRecognizer) {
-        if (sender.state == .began) {
-            
-        }
-        if (sender.state == .changed) {
-            // Print out rotation amount in degrees
-            let rotateAmount = Measurement(value: Double(sender.rotation), unit: UnitAngle.radians).converted(to: .degrees).value
-            print(rotateAmount)
-            
-            player.zRotation = -sender.rotation
-        }
-        if (sender.state == .ended) {
-            
-        }
-    }
-    
-    // Swipe Right
-    func swipedRight() {
-        print("swiped Right")
-    }
-    
-    // Swipe Left
-    func swipedLeft() {
-        print("swiped Left")
-    }
+//    // Swipe Rotate
+//    func rotatedView(_ sender: UIRotationGestureRecognizer) {
+//        if (sender.state == .began) {
+//            
+//        }
+//        if (sender.state == .changed) {
+//            // Print out rotation amount in degrees
+//            let rotateAmount = Measurement(value: Double(sender.rotation), unit: UnitAngle.radians).converted(to: .degrees).value
+//            print(rotateAmount)
+//            
+//            player.zRotation = -sender.rotation
+//        }
+//        if (sender.state == .ended) {
+//            
+//        }
+//    }
+//    
+//    // Swipe Right
+//    func swipedRight() {
+//        print("swiped Right")
+//    }
+//    
+//    // Swipe Left
+//    func swipedLeft() {
+//        print("swiped Left")
+//    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {

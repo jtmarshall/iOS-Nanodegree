@@ -17,7 +17,7 @@ The requirements and how this app fulfills them:
 
 - The app contains a README that fully describes the intended user experience. After reading the document, a user can easily use the app.
 ```
-Self-fulfilling...
+You're here!
 ```
 
 - The README provides all necessary information to enable the reviewer to build, run, and access the app.

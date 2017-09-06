@@ -13,6 +13,7 @@ import GameplayKit
 import FBSDKLoginKit
 import Social
 import CoreData
+import Firebase
 
 class EndGameViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
@@ -21,6 +22,8 @@ class EndGameViewController: UIViewController {
     @IBOutlet weak var gameOverText: UILabel!
     @IBOutlet weak var highScoreNode: UILabel!
     @IBOutlet weak var recentScoreNode: UILabel!
+    
+    let rootRef = Database.reference(Database)
     
     private let scoreKey = "FLOOP_HIGHSCORE"
     private let lastScore = "FLOOP_LASTSCORE"
