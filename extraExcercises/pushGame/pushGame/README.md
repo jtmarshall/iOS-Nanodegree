@@ -17,7 +17,7 @@ The requirements and how this app fulfills them:
 
 - The app contains a README that fully describes the intended user experience. After reading the document, a user can easily use the app.
 ```
-Self-fulfilling...
+You're here!
 ```
 
 - The README provides all necessary information to enable the reviewer to build, run, and access the app.
@@ -37,23 +37,24 @@ EndGameViewController - Game Over Screen
 
 - The user interface includes more than one type of control.
 ```
-The app utilizes multiple types of control for user workflow
+The app utilizes UIButtons and UITextField
 ```
 
 3) Networking
 
 - The app includes data from a networked source.
 ```
-Facebook Login and Facebook Share
+Firebase allows for upload high score with name to database.
 ```
 
 - The networking code is encapsulated in its own classes.
 ```
-See Facebook file
+See Firebase file
 ```
 
 - The app clearly indicates network activity, displaying activity indicators and/or progress bars when appropriate.
 ```
+When updated Firebase the user is alerted.
 When logging in/out the facebook button is updated with status.
 If network error is encountered an alert is displayed to the user.
 ```

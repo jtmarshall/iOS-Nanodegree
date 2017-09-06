@@ -81,9 +81,4 @@ class MenuViewController: UIViewController {
         }
         print("Successfully logged in with facebook!")
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }

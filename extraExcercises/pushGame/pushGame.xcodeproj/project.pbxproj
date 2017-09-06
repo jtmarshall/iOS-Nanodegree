@@ -16,10 +16,12 @@
 		094993581F30EDA30004C045 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 094993571F30EDA30004C045 /* Assets.xcassets */; };
 		0949935B1F30EDA30004C045 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 094993591F30EDA30004C045 /* LaunchScreen.storyboard */; };
 		094993631F30EF920004C045 /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094993621F30EF920004C045 /* GameElements.swift */; };
+		094B55D31F605EEA002B4EC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 094B55D21F605EEA002B4EC4 /* GoogleService-Info.plist */; };
 		0953AE211F33C96000598FCC /* Deep_In_Space.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0953AE201F33C96000598FCC /* Deep_In_Space.wav */; };
 		0956B6121F55DCEB0047AC75 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956B6111F55DCEB0047AC75 /* EndGameViewController.swift */; };
 		0956B61A1F58669E0047AC75 /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956B6191F58669E0047AC75 /* Facebook.swift */; };
 		0956B61C1F587E550047AC75 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0956B61B1F587E550047AC75 /* README.md */; };
+		098A2A321F6078300083C625 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098A2A311F6078300083C625 /* Firebase.swift */; };
 		09A5DCF41F55BBA7002B1745 /* pushGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09A5DCF21F55BBA7002B1745 /* pushGame.xcdatamodeld */; };
 		09DBA5C01F34E30300A97CD3 /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBA5BF1F34E30300A97CD3 /* HudNode.swift */; };
 		09DBA5C21F34E78100A97CD3 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBA5C11F34E78100A97CD3 /* MenuScene.swift */; };
@@ -39,10 +41,12 @@
 		0949935A1F30EDA30004C045 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0949935C1F30EDA30004C045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		094993621F30EF920004C045 /* GameElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
+		094B55D21F605EEA002B4EC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0953AE201F33C96000598FCC /* Deep_In_Space.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Deep_In_Space.wav; sourceTree = "<group>"; };
 		0956B6111F55DCEB0047AC75 /* EndGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameViewController.swift; sourceTree = "<group>"; };
 		0956B6191F58669E0047AC75 /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facebook.swift; sourceTree = "<group>"; };
 		0956B61B1F587E550047AC75 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		098A2A311F6078300083C625 /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		09A5DCF31F55BBA7002B1745 /* pushGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = pushGame.xcdatamodel; sourceTree = "<group>"; };
 		09DBA5BF1F34E30300A97CD3 /* HudNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
 		09DBA5C11F34E78100A97CD3 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuScene.swift; path = ../MenuScene.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 				0949934E1F30EDA20004C045 /* Actions.sks */,
 				0953AE201F33C96000598FCC /* Deep_In_Space.wav */,
 				0956B6191F58669E0047AC75 /* Facebook.swift */,
+				098A2A311F6078300083C625 /* Firebase.swift */,
 				09DBA5BF1F34E30300A97CD3 /* HudNode.swift */,
 				09DBA5C11F34E78100A97CD3 /* MenuScene.swift */,
 				094993501F30EDA20004C045 /* GameScene.swift */,
@@ -105,6 +110,7 @@
 				0956B61B1F587E550047AC75 /* README.md */,
 				094993591F30EDA30004C045 /* LaunchScreen.storyboard */,
 				0949935C1F30EDA30004C045 /* Info.plist */,
+				094B55D21F605EEA002B4EC4 /* GoogleService-Info.plist */,
 			);
 			path = pushGame;
 			sourceTree = "<group>";
@@ -200,6 +206,7 @@
 				094993581F30EDA30004C045 /* Assets.xcassets in Resources */,
 				0949935B1F30EDA30004C045 /* LaunchScreen.storyboard in Resources */,
 				0949934F1F30EDA20004C045 /* Actions.sks in Resources */,
+				094B55D31F605EEA002B4EC4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +224,9 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -224,6 +234,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -276,6 +289,7 @@
 				094993511F30EDA20004C045 /* GameScene.swift in Sources */,
 				0956B61A1F58669E0047AC75 /* Facebook.swift in Sources */,
 				09A5DCF41F55BBA7002B1745 /* pushGame.xcdatamodeld in Sources */,
+				098A2A321F6078300083C625 /* Firebase.swift in Sources */,
 				0956B6121F55DCEB0047AC75 /* EndGameViewController.swift in Sources */,
 				094993531F30EDA20004C045 /* GameViewController.swift in Sources */,
 				0949934B1F30EDA20004C045 /* AppDelegate.swift in Sources */,
