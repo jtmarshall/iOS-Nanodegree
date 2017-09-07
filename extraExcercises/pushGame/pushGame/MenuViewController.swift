@@ -9,7 +9,6 @@
 import UIKit
 import SpriteKit
 import GameplayKit
-import FBSDKLoginKit
 import CoreData
 
 // Text strings
@@ -54,31 +53,10 @@ class MenuViewController: UIViewController {
             highScoreNode.text = "High Score: 0"
         }
         
-        // Facebook Login
-        let loginButton = FBSDKLoginButton()
-        loginButton.setTitle("Login with Facebook", for: .normal)
-        view.addSubview(loginButton)
-        // Bottom center to display for login button
-        loginButton.frame = CGRect(x: (view.frame.width / 2) - 100, y: view.frame.height - 140, width: 200, height: 40)
-        
         //Set up start button
         startButton.setImage(UIImage(named: "button_start"), for: UIControlState.normal)
 
         //Set up sound button
         //soundButton.setImage(UIImage(named: "speaker_on"), for: UIControlState.normal)
-    }
-    
-    // Call Facebook Logout
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("Logged out of facebook")
-    }
-    
-    // Call Facebook Login
-    func loginButton(_ loginButtton: FBSDKLoginButton!, didCompleteWithresult: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
-            print(error)
-            return
-        }
-        print("Successfully logged in with facebook!")
     }
 }

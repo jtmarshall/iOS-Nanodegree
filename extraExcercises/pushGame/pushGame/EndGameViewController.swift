@@ -23,6 +23,8 @@ class EndGameViewController: UIViewController {
     @IBOutlet weak var gameOverText: UILabel!
     @IBOutlet weak var highScoreNode: UILabel!
     @IBOutlet weak var recentScoreNode: UILabel!
+    // Activity Indicator
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     // Firebase label
     @IBOutlet weak var conditionLabel: UILabel!
     // 2nd UIControl for Highscore Name Input
@@ -153,22 +155,32 @@ class EndGameViewController: UIViewController {
     
     // When Share button is hit share to Firebase
     @IBAction func shareAction(_ sender: Any) {
+        
+        // Start up activity indicator
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
         // Update score function from firebase swift file passing in score and DB reference
-        if FirebaseShare.sharedInstance().updateScore(score: score, dbRef: rootRef, uname: usernameText.text!) {
-            // Tell user when score updated in Firebase
+        FirebaseShare.sharedInstance().updateScore(score: score, dbRef: rootRef, uname: usernameText.text!) { (response) in
             let alertView = UIAlertView()
             alertView.addButton(withTitle: "Ok")
-            alertView.title = "Firebase Update"
-            alertView.message = "Highscore uploaded to Database."
+            alertView.title = "Firebase"
+            alertView.message = response as? String
             alertView.show()
-        } else {
-            // Alert user if cannot connect to Firebase
-            let alertView = UIAlertView()
-            alertView.addButton(withTitle: "Ok")
-            alertView.title = "Firebase Error."
-            alertView.message = "Cannot connect to Database, try again later."
-            alertView.show()
+            
+            // Stop activity indicator after network process
+            self.activityIndicator.stopAnimating()
         }
+        
+        // Tell user when score updated in Firebase
+//        let alertView = UIAlertView()
+//        alertView.addButton(withTitle: "Ok")
+//        alertView.title = "Firebase"
+//        alertView.message = FirebaseShare.sharedInstance().updateScore(score: score, dbRef: rootRef, uname: usernameText.text!)
+//        alertView.show()
         
         // Call Facebook share function
         //let alert = FacebookShare.sharedInstance().shareScore(score: score)
