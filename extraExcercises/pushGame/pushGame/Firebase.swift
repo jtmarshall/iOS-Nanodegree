@@ -14,8 +14,20 @@ class FirebaseShare {
     // Push updated String score to Firebase DB
     func updateScore(score: Int, dbRef: DatabaseReference, uname: String, completion: @escaping(Any)->Void) {
         
-        var success = " "
-        var strg = " "
+        // Check Firebase connection, return if can't connect
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+            } else {
+                completion("Can't connect to Firebase.")
+                print("Not connected")
+                return
+            }
+        })
+        
+        var success = ""
+        var strg = ""
         // Create string with input score
         if (uname.characters.count > 0) {
             // If the give name
@@ -30,8 +42,10 @@ class FirebaseShare {
             if error != nil {
                 print("Failed to set value")
                 success = "Failed to sync high score. Check network/permissions."
+                completion(success)
+                return
             } else {
-                success = "Successfully synced high score."
+                success = ""//"Successfully synced high score."
             }
             // Return the proper text on completion
             completion(success)

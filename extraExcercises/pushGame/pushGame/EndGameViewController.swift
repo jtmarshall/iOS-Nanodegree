@@ -31,6 +31,8 @@ class EndGameViewController: UIViewController {
     @IBOutlet weak var usernameText: UITextField!
     // Firebase reference
     let rootRef = Database.database().reference().child("highscore")
+    // Keyboard ref
+    var keyboardOnScreen = false
     
     private let scoreKey = "FLOOP_HIGHSCORE"
     private let lastScore = "FLOOP_LASTSCORE"
@@ -43,6 +45,12 @@ class EndGameViewController: UIViewController {
         let defaults = UserDefaults.standard
         recentScore = defaults.integer(forKey: lastScore)
         recentScoreNode.text = "Last Score: \(recentScore)"
+        
+        // Keyboard notifications
+        subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
+        subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
+        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
+        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
         
         // Core Data variables
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -165,11 +173,10 @@ class EndGameViewController: UIViewController {
         
         // Update score function from firebase swift file passing in score and DB reference
         FirebaseShare.sharedInstance().updateScore(score: score, dbRef: rootRef, uname: usernameText.text!) { (response) in
-            let alertView = UIAlertView()
-            alertView.addButton(withTitle: "Ok")
-            alertView.title = "Firebase"
-            alertView.message = response as? String
-            alertView.show()
+            // Only show alert if sync failure
+            if ((response as? String)!.characters.count > 0) {
+                self.showAlert(service: (response as? String)!)
+            }
             
             // Stop activity indicator after network process
             self.activityIndicator.stopAnimating()
@@ -218,8 +225,8 @@ class EndGameViewController: UIViewController {
     }
     
     func showAlert(service: String){
-        // Create alert and anction
-        let alert = UIAlertController(title: "Error", message: "You are not connected to \(service)", preferredStyle: .alert)
+        // Create alert and action
+        let alert = UIAlertController(title: "Firebase", message: service, preferredStyle: .alert)
         let action = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         
         // Add action then present alert
@@ -236,12 +243,42 @@ class EndGameViewController: UIViewController {
         skView.presentScene(gameScene, transition: transition)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    // Keyboard view shifting
+    func keyboardWillShow(_ notification: Notification) {
+        if !keyboardOnScreen {
+            view.frame.origin.y -= keyboardHeight(notification)
+        }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func keyboardWillHide(_ notification: Notification) {
+        if keyboardOnScreen {
+            view.frame.origin.y = 0
+        }
+    }
+    
+    func keyboardDidShow(_ notification: Notification) {
+        keyboardOnScreen = true
+    }
+    
+    func keyboardDidHide(_ notification: Notification) {
+        keyboardOnScreen = false
+    }
+    
+    func keyboardHeight(_ notification: Notification) -> CGFloat {
+        let userInfo = (notification as NSNotification).userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
+    }
+    
+    func unsubscribeFromAllNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 }
